@@ -1,0 +1,1240 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Wayne.Lib.Common</name>
+    </assembly>
+    <members>
+        <member name="T:Wayne.Lib.AppArgSupport">
+            <summary>
+            Argument support for parameters passed to the application's Main method.
+            It handles either flags, such as -a /a or just a.
+            Or it handles arguments on the form key=value.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.AppArgSupport.#ctor(System.String[])">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:Wayne.Lib.AppArgSupport.HasFlag(System.String)">
+            <summary>
+            Checks if the specified flag exists
+            </summary>
+            <param name="flag"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.AppArgSupport.TryGetArgStringValue(System.String,System.String@)">
+            <summary>
+            Tries to get the specified parameter.
+            </summary>
+            <param name="name">name of the parameter</param>
+            <param name="value">value of the parameter</param>
+            <returns>True if the parameter exists</returns>
+        </member>
+        <member name="M:Wayne.Lib.AppArgSupport.GetArgStringValue(System.String)">
+            <summary>
+            Gets the argument value as a string
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.AppArgSupport.GetArgStringValue(System.String,System.String)">
+            <summary>
+            Gets the argument value, providing a default value to use in case the parameter is not specified.
+            </summary>
+            <param name="name"></param>
+            <param name="defaultValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.AppArgSupport.TryGetArgIntValue(System.String,System.Int32@)">
+            <summary>
+            Tries to get an integer argument value.
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+            <returns>True if success.</returns>
+        </member>
+        <member name="M:Wayne.Lib.AppArgSupport.GetArgIntValue(System.String)">
+            <summary>
+            Gets an integer argument value 
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException">If value does not exist</exception>
+            <exception cref="T:System.ArgumentException">If value is not integer</exception>
+        </member>
+        <member name="M:Wayne.Lib.AppArgSupport.GetArgIntValue(System.String,System.Int32)">
+            <summary>
+            Gets an integer argument value if exists, otherwise returns the default value.
+            </summary>
+            <param name="name"></param>
+            <param name="defaultValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.AppArgSupport.TryGetArgEnumValue``1(System.String,``0@)">
+            <summary>
+            Gets an enumeration argument value.
+            </summary>
+            <typeparam name="TEnum"></typeparam>
+            <param name="name"></param>
+            <param name="value"></param>
+            <returns>True if success.</returns>
+        </member>
+        <member name="M:Wayne.Lib.AppArgSupport.GetArgEnumValue``1(System.String)">
+            <summary>
+            Gets an enumeration argument value.
+            </summary>
+            <typeparam name="TEnum"></typeparam>
+            <param name="name"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException">If value does not exist</exception>
+            <exception cref="T:System.ArgumentException">If value is not one of the enumerated values</exception>
+        </member>
+        <member name="M:Wayne.Lib.AppArgSupport.GetArgEnumValue``1(System.String,``0)">
+            <summary>
+            Gets an enumeration argument value if exists, otherwise returns the default value.
+            </summary>
+            <param name="name"></param>
+            <param name="defaultValue"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.Arrays">
+            <summary>
+            Array extension methods.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Arrays.Equal``1(``0[],``0[])">
+            <summary>
+            Compares two arrays to see if they are equal. (If both are null it also returns true.)
+            </summary>
+            <typeparam name="TDataType">The datatype of the array.</typeparam>
+            <param name="array1">One of the arrays to compare.</param>
+            <param name="array2">The other array to compare.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.Arrays.Fill``1(``0[],``0)">
+            <summary>
+            Fill an array with a certain value.
+            </summary>
+            <typeparam name="TDataType">The datatype of the array.</typeparam>
+            <param name="array">The array to fill.</param>
+            <param name="value">The value to fill with.</param>
+        </member>
+        <member name="M:Wayne.Lib.Arrays.GetHashCode``1(``0[])">
+            <summary>
+            Get the hashcode of an array for comparision.
+            </summary>
+            <typeparam name="TDataType">The datatype of the array.</typeparam>
+            <param name="array">The array to get the hashcode of.</param>
+        </member>
+        <member name="T:Wayne.Lib.Assemblies">
+            <summary>
+            Static help class for Assembly issues.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Assemblies.GetFilePath">
+            <summary>
+            Get the calling assembly's file path.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.Assemblies.GetFilePath(System.Reflection.Assembly)">
+            <summary>
+            Get the file path of the given assembly.
+            </summary>
+            <param name="assembly"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.Assemblies.GetManifestResourceStreamWithPartialName(System.String,System.Reflection.Assembly)">
+            <summary>
+            Gets a manifest resource stream from an assembly, where only the file name is known. 
+            </summary>
+            <param name="knownResourceNameEnd">The known file name, i.e. only the end of the Manifest resource name.</param>
+            <param name="assemblyWithResource">The assembly that is expected to contain the resource.</param>
+            <returns>If the resource is found, the stream is returned, otherwise null.</returns>
+        </member>
+        <member name="M:Wayne.Lib.Assemblies.GetManifestResourceStreamWithRegex(System.String,System.Reflection.Assembly)">
+            <summary>
+            Gets a manifest resource stream from an assembly, using a regular expression.
+            </summary>
+            <param name="resourceRegEx">Regular expression for the resource name.</param>
+            <param name="assemblyWithResource">The assembly that is expected to contain the resource.</param>
+            <returns>If the resource is found, the stream is returned, otherwise null.</returns>
+        </member>
+        <member name="T:Wayne.Lib.AsyncCompletedEventArgs">
+            <summary>
+            Generic event result of an asynchronous command.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.AsyncCompletedEventArgs.#ctor(System.Boolean,System.Object)">
+            <summary>
+            Construction.
+            </summary>
+            <param name="success">The status of the reservation.</param>
+            <param name="userToken">An optional user token.</param>
+        </member>
+        <member name="M:Wayne.Lib.AsyncCompletedEventArgs.ToString(System.String,System.IFormatProvider)">
+            <summary>
+            Presents the class as a string.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.AsyncCompletedEventArgs.ToString(System.IFormatProvider)">
+            <summary>
+            Presents the class as a string using the specified culture-specific format information.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.AsyncCompletedEventArgs.ToString(System.String)">
+            <summary>
+            Presents the class as a string using a format string.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.AsyncCompletedEventArgs.ToString">
+            <summary>
+            Presents the class as a string using a format string and the specified culture-specific format information.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Wayne.Lib.AsyncCompletedEventArgs.Success">
+            <summary>
+            The status of the reservation.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.AsyncCompletedEventArgs`1">
+            <summary>
+            Generic event result of an asynchronous command with an additional status property.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.AsyncCompletedEventArgs`1.#ctor(System.Boolean,`0,System.Object)">
+            <summary>
+            Construction.
+            </summary>
+            <param name="success">The basic status of the command.</param>
+            <param name="result">Refined status of the command.</param>
+            <param name="userToken">An optional user token.</param>
+        </member>
+        <member name="M:Wayne.Lib.AsyncCompletedEventArgs`1.ToString(System.String,System.IFormatProvider)">
+            <summary>
+            Presents the class as a string.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Wayne.Lib.AsyncCompletedEventArgs`1.Result">
+            <summary>
+            Refined status of the command.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.ConnectionChecker">
+            <summary>
+            Handles a collection of IConnectable items, and checks them all so they are connected.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.ConnectionChecker.IsConnectedToAll">
+            <summary>
+            Is all connectable items connected?
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.ConnectionChecker.AddConnectableToCheck(Wayne.Lib.IConnectable,System.String)">
+            <summary>
+            Adds a connectable entity to the check.
+            </summary>
+            <param name="connectable"></param>
+            <param name="connectableDisplayName"></param>
+        </member>
+        <member name="M:Wayne.Lib.ConnectionChecker.GetUnconnectedAsText">
+            <summary>
+            Gets a list of strings containingt those items that are not connected, and their current connection state.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.EnumSupport">
+            <summary>
+            Enumsupport is a class that has the goal to provide the functionality offered by System.Enum class, but that 
+            are not available in compact framework. It is very limited in some aspects, so please read carefully the comments of each method.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.EnumSupport.GetNames``1">
+            <summary>
+            Gets a list of the enumerated value names for the specified enumeration type.
+            NOTE: The enum must not have explicit values set, so there are gaps in the value range, it must start at 0 and go up to max.
+            </summary>
+            <typeparam name="TEnumType"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.EnumSupport.GetValues``1">
+            <summary>
+            Gets a list of the enumerated values for the specified enumeration type.
+            NOTE: The enum must not have explicit values set, so there are gaps in the value range, it must start at 0 and go up to max.
+            </summary>
+            <typeparam name="TEnumType"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.EnumSupport.Parse``1(System.String,System.Boolean,``0)">
+            <summary>
+            Parse a string to an enumeration value given a defaul value if failed.
+            </summary>
+            <typeparam name="TEnumType">The enumeration type.</typeparam>
+            <param name="value">A string containing the name or value to convert.</param>
+            <param name="ignoreCase">If true, ignore case; otherwise, regard case.</param>
+            <param name="defaultValue">The default value of the enumeration if the parsing fails.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.EnumSupport.ParseDefaultNull``1(System.String,System.Boolean)">
+            <summary>
+            Parse a string to a nullable enumeration value. If it's impossible to parse the string to this
+            enumeration type, null is returned.
+            </summary>
+            <typeparam name="TEnumType">The enumeration type.</typeparam>
+            <param name="value">A string containing the name or value to convert.</param>
+            <param name="ignoreCase">If true, ignore case; otherwise, regard case.</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException">If TEnumType is not an enum.</exception>
+        </member>
+        <member name="T:Wayne.Lib.Events">
+            <summary>
+            Contains extension methods for firing events.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Events.Fire``1(System.EventHandler{``0},System.Object,``0)">
+            <summary>
+            Fires the event if it is not null.
+            </summary>
+            <typeparam name="TEventArgs"></typeparam>
+            <param name="eventHandler"></param>
+            <param name="sender"></param>
+            <param name="eventArgs"></param>
+        </member>
+        <member name="M:Wayne.Lib.Events.Fire(System.EventHandler,System.Object,System.EventArgs)">
+            <summary>
+            Fires the event if it is not null.
+            </summary>
+            <param name="eventHandler"></param>
+            <param name="sender"></param>
+            <param name="eventArgs"></param>
+        </member>
+        <member name="T:Wayne.Lib.EventArgs`1">
+            <summary>
+            A generic event args holding an argument of some type.
+            </summary>
+            <typeparam name="T">The event argument.</typeparam>
+        </member>
+        <member name="M:Wayne.Lib.EventArgs`1.#ctor(`0)">
+            <summary>
+            Construction.
+            </summary>
+            <param name="argument">The event argument.</param>
+        </member>
+        <member name="P:Wayne.Lib.EventArgs`1.Argument">
+            <summary>
+            The event argument.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.EventArgs`1.ToString">
+            <summary>
+            Presents the class as a string.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.EventArgs`2">
+            <summary>
+            A generic event args holding an argument of some type.
+            </summary>
+            <typeparam name="TArgument">The event argument.</typeparam>
+            <typeparam name="TSender">The event sender.</typeparam>
+        </member>
+        <member name="M:Wayne.Lib.EventArgs`2.#ctor(`0,`1)">
+            <summary>
+            Construction.
+            </summary>
+            <param name="sender">The sender</param>
+            <param name="argument">The event argument.</param>
+        </member>
+        <member name="P:Wayne.Lib.EventArgs`2.Argument">
+            <summary>
+            The event argument.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.EventArgs`2.Sender">
+            <summary>
+            The event sender.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.EventArgs`2.ToString">
+            <summary>
+            Presents the class as a string.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.ConnectionChangedEventArgs">
+            <summary>
+            Event arguments for a connection changed event from a Wayne Device.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.ConnectionChangedEventArgs.#ctor(Wayne.Lib.DeviceConnectionState)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="connectionState">The new state of the connection</param>
+        </member>
+        <member name="P:Wayne.Lib.ConnectionChangedEventArgs.ConnectionState">
+            <summary>
+            True if the device was connected.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.ConnectionChangedEventArgs.ToString(System.String,System.IFormatProvider)">
+            <summary>
+            Presents the class as a string.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.ConnectionChangedEventArgs.ToString(System.IFormatProvider)">
+            <summary>
+            Presents the class as a string using the specified culture-specific format information.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.ConnectionChangedEventArgs.ToString(System.String)">
+            <summary>
+            Presents the class as a string using a format string.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.ConnectionChangedEventArgs.ToString">
+            <summary>
+            Presents the class as a string using a format string and the specified culture-specific format information.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.DeviceConnectionState">
+            <summary>
+            The state of the connection to a device.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.DeviceConnectionState.Unknown">
+            <summary>
+            Unknown state of the connection.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.DeviceConnectionState.Disconnected">
+            <summary>
+            Device is not connected.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.DeviceConnectionState.Connecting">
+            <summary>
+            Trying to connect to device.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.DeviceConnectionState.Connected">
+            <summary>
+            Connected to device.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.DeviceConnectionState.Disconnecting">
+            <summary>
+            Disconnecting from device
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.IConnectable">
+            <summary>
+            The IConnectable defines a standard set of methods and properties for 
+            classes that represents devices that theoretically can have a connected/disconnected state.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IConnectable.ConnectionState">
+            <summary>
+            Indicates the state of the connection.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IConnectable.Connect(System.String)">
+            <summary>
+            Connect to the device.
+            </summary>
+            <param name="connectionString">A string that contains the connection parameters. 
+            The format is provided by the implementation.</param>
+        </member>
+        <member name="M:Wayne.Lib.IConnectable.Disconnect">
+            <summary>
+            Disconnects from the device.
+            </summary>
+        </member>
+        <member name="E:Wayne.Lib.IConnectable.OnConnectionStateChange">
+            <summary>
+            An event that is fired when the ConnectionState changes for to device.        
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.IIdentifiableEntity">
+            <summary>
+            The IIdentifiableEntity represents an entity of some sort that has an integer ID and a possible parent.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IIdentifiableEntity.Id">
+            <summary>
+            The ID of the entity.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IIdentifiableEntity.EntityType">
+            <summary>
+            The main type of entity.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IIdentifiableEntity.EntitySubType">
+            <summary>
+            A more refined type of the entity, e.g. a specific implementation or brand.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IIdentifiableEntity.ParentEntity">
+            <summary>
+            Reference to a possible parent device.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.IdentifiableEntity">
+            <summary>
+            A class implementing the IIdentifiableEntity interface.
+            Also contains static properties and methods that handles IIdentifiableEntity.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IdentifiableEntity.#ctor(System.Int32,System.String,System.String,Wayne.Lib.IIdentifiableEntity)">
+            <summary>
+            Construction
+            </summary>
+            <param name="id">The ID of the entity.</param>
+            <param name="entityType">The main type of entity.</param>
+            <param name="entitySubType">A more refined type of the entity, e.g. a specific implementation or brand.</param>
+            <param name="parentEntity">Reference to a possible parent device.</param>
+        </member>
+        <member name="P:Wayne.Lib.IdentifiableEntity.Id">
+            <summary>
+            The ID of the entity.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IdentifiableEntity.EntitySubType">
+            <summary>
+            The main type of entity.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IdentifiableEntity.EntityType">
+            <summary>
+            A more refined type of the entity, e.g. a specific implementation or brand.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IdentifiableEntity.ParentEntity">
+            <summary>
+            Reference to a possible parent device.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.IdentifiableEntity.NoId">
+            <summary>
+            A value representing a non-Id.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IdentifiableEntity.Empty">
+            <summary>
+            An empty IdentifiableEntity.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IdentifiableEntity.GetAncestorArray(Wayne.Lib.IIdentifiableEntity)">
+            <summary>
+            Gets an IIdentifiableEntity-array of the ancestors of the given entity.
+            The first one in the list is the given entity itself, and the last one is the root-parent.
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IdentifiableEntity.Equals(Wayne.Lib.IIdentifiableEntity,Wayne.Lib.IIdentifiableEntity)">
+            <summary>
+            Tests equality between two identifieable entities on the regards on the 
+            Id, EntityType, EntitySubtype, and the parent ancestry.
+            </summary>
+            <param name="entity1"></param>
+            <param name="entity2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IdentifiableEntity.ToString">
+            <summary>
+            Composes a string from this IIdentifiableEntity.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IdentifiableEntity.ToString(Wayne.Lib.IIdentifiableEntity)">
+            <summary>
+            Composes a string from an IIdentifiableEntity.
+            </summary>
+            <param name="entity">The entity to convert to a string.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IdentifiableEntity.ToString(Wayne.Lib.IIdentifiableEntity,System.Boolean)">
+            <summary>
+            Composes a string from an IIdentifiableEntity, possibly with the ancestors included.
+            </summary>
+            <param name="entity">The entity to convert to a string.</param>
+            <param name="ancestors">Should the ancestors be included?</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IdentifiableEntity.ParseAncestorString(System.String)">
+            <summary>
+            Parses an Ancestor string into a list of Identifiable entities, where the first item is the bottommost parent,
+            </summary>
+            <param name="ancestryString"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IdentifiableEntity.Parse(System.String)">
+            <summary>
+            Parses an ancestry string entity into an IdentifiableEntity object whith newly created Identifiable entities for parents.
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.WrongDeviceConnectionState">
+            <summary>
+            The wrong state of the connection to a device.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.WrongDeviceConnectionState.NotDisconnected">
+            <summary>
+            Device is not Disconnected.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.WrongDeviceConnectionState.NotConnecting">
+            <summary>
+            Device is not Connecting.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.WrongDeviceConnectionState.NotConnected">
+            <summary>
+            Device is not Connected.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.WrongDeviceConnectionState.NotDisconnecting">
+            <summary>
+            Device is not Disconnecting.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.ConnectableWrongStateException">
+            <summary>
+            The ConnectableWrongStateException is thrown when trying to access an IConnectable-object that
+            is is a wrong state.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.ConnectableWrongStateException.#ctor(Wayne.Lib.WrongDeviceConnectionState)">
+            <summary>
+            Initializes a new instance of the class.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.ConnectableWrongStateException.#ctor(Wayne.Lib.WrongDeviceConnectionState,System.String)">
+            <summary>
+            Initializes a new instance of the class.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.ConnectableWrongStateException.#ctor(Wayne.Lib.WrongDeviceConnectionState,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the class.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.ConnectableWrongStateException.WrongState">
+            <summary>
+            The wrong state of the connection to a device.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.IServiceContainer">
+            <summary>
+            Interface representing a service container. Dispose will dispose all disposable services.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IServiceContainer.RegisterService``1">
+            <summary>
+            Registers service of type TService in the container. A new instance of this type will be created by the container.
+            </summary>
+            <typeparam name="TService">Type of service.</typeparam>
+        </member>
+        <member name="M:Wayne.Lib.IServiceContainer.RegisterService``2">
+            <summary>
+            Registers service of type TServiceContract in the container. An instance of TServiceImplementation will be created by the container and registerd as TServiceContract.
+            </summary>
+            <typeparam name="TServiceContract">Contract that should be registered in the container, e.g. IFoo.</typeparam>
+            <typeparam name="TServiceImplementation">Implementation of the contract, e.g. Foo implementing IFoo.</typeparam>
+        </member>
+        <member name="M:Wayne.Lib.IServiceContainer.RegisterService``1(``0)">
+            <summary>
+            Registers service of type TServiceContract in the container. The instance that must implement this service contract is passed as an argument.
+            </summary>
+            <typeparam name="TServiceContract">Contract that should be registerd in the container, e.g. IFoo.</typeparam>
+            <param name="serviceInstance">Instance of service implementing TServiceContract, e.g. an instance of Foo where Foo implements IFoo.</param>
+        </member>
+        <member name="M:Wayne.Lib.IServiceContainer.RegisterService``1(Wayne.Lib.ObjectConstructor{Wayne.Lib.IServiceLocator,``0})">
+            <summary>
+            Registers a service using a given a delegate that creates the service. This enables the user of this container
+            to control the creation of the service and at the same time use dependencies from the container.
+            Example using lambdas : serviceContainer.RegisterService(container => new Foo("myConstant", container.GetService&lt;IDependency&gt;()))
+            </summary>
+            <typeparam name="TServiceContract">Contract that should be registerd in the container, e.g. IFoo.</typeparam>
+            <param name="serviceConstructor">Delegate that constructs the service.</param>
+        </member>
+        <member name="T:Wayne.Lib.ObjectConstructor`2">
+            <summary>
+            Delegate used by the service container to enable outside control of the construction of an object in the container.
+            </summary>
+            <typeparam name="TServiceLocator"></typeparam>
+            <typeparam name="TReturnType"></typeparam>
+            <param name="serviceLocator"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.IServiceLocator">
+            <summary>
+            This interface represents the locator part of the service container. Clients are often only interested in retrieving
+            services from the container and thus only interested in this contract instead of the entire service container.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IServiceLocator.GetService``1">
+            <summary>
+            Retrieves the service of type serviceType from the container.
+            </summary>
+            <typeparam name="TServiceContract">Type of service.</typeparam>
+            <returns>Service from the service container.</returns>
+        </member>
+        <member name="M:Wayne.Lib.IServiceLocator.GetService(System.Type)">
+            <summary>
+            Retrieves the service of type serviceType from the container.
+            </summary>
+            <param name="serviceType">Type of service.</param>
+            <returns>Service from the service container.</returns>
+        </member>
+        <member name="M:Wayne.Lib.IServiceLocator.GetServiceOrDefault``1(Wayne.Lib.CreateDefaultService{``0})">
+            <summary>
+            Gets a registered service. If the service is not registered, it invokes the supplied
+            callback to get a default instance of the service. NOTE that this instance is not automatically registered.
+            </summary>
+            <typeparam name="TServiceContract"></typeparam>
+            <param name="func"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IServiceLocator.CreateInstance``1(System.Object[])">
+            <summary>
+            Creates an instance of T. Service locator uses the first constructor it finds that it can use based on what is
+            registered in the service container and the additional parameters.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="additionalParameter">List of parameters that</param>
+            <returns>An instance of the created object</returns>
+        </member>
+        <member name="M:Wayne.Lib.IServiceLocator.CreateInstance(System.Type,System.Object[])">
+            <summary>
+            Creates an instance of the specified type. Service locator uses the first constructor it finds that it can use
+            based on what is regeistered in the service container and the additional parameters.
+            </summary>
+            <param name="typeToInstantiate"></param>
+            <param name="additionalParameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IServiceLocator.TryGetService``1">
+            <summary>
+            Tries to locate the service T. If it does not succeed, it returns null.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IServiceLocator.TryGetService(System.Type)">
+            <summary>
+            Tries to locate the specified service. If it does not succeed it returns null.
+            </summary>
+            <param name="serviceType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.CreateDefaultService`1">
+            <summary>
+            Delegate for creating a default service with the IServiceLocator.GetServiceOrDefault method.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.ISystemTime">
+            <summary>
+            Interface to the Wayne time abstraction, should be used instead of DateTime.Now.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.ISystemTime.Now">
+            <summary>
+            Current date and time.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.ISystemTime.SetSystemTime(System.DateTime)">
+            <summary>
+             Sets the system time. Time specified as UTC
+            </summary>
+            <param name="newTime"></param>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Wayne.Lib.ISystemTime.SetLocalTime(System.DateTime)">
+            <summary>
+            Set local time, in local time zone.
+            </summary>
+            <param name="newTime"></param>
+        </member>
+        <member name="T:Wayne.Lib.ITimerFactory">
+            <summary>
+            Factory for creating timers
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.ITimerFactory.Create(System.Int32,Wayne.Lib.IIdentifiableEntity,System.String)">
+            <summary>
+            Create a timer 
+            </summary>
+            <param name="id"></param>
+            <param name="parentEntity"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.ITimerFactory.Create``1(System.Int32,Wayne.Lib.IIdentifiableEntity,System.String,``0)">
+            <summary>
+            Creates a timer
+            </summary>
+            <typeparam name="TState"></typeparam>
+            <param name="id"></param>
+            <param name="parentEntity"></param>
+            <param name="name"></param>
+            <param name="state"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.ITimerChanger">
+            <summary>
+            Timer changer
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.ITimerChanger.Change(System.Nullable{System.TimeSpan},System.Nullable{System.TimeSpan})">
+            <summary>
+            Changes the due time and interval of a timer.
+            </summary>
+            <param name="dueTime"></param>
+            <param name="period"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.TimoutCallback">
+            <summary>
+            Delegate fo timeouts.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="T:Wayne.Lib.TimoutCallback`1">
+            <summary>
+            Delegate for timeouts.
+            </summary>
+            <typeparam name="TState"></typeparam>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="T:Wayne.Lib.ITimer">
+            <summary>
+            Timer interface.
+            </summary>
+        </member>
+        <member name="E:Wayne.Lib.ITimer.OnTimeout">
+            <summary>
+            Fired when the timer fires.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.ITimer`1">
+            <summary>
+            Timer interface for a timer that has an argument.
+            </summary>
+            <typeparam name="TState"></typeparam>
+        </member>
+        <member name="E:Wayne.Lib.ITimer`1.OnTimeout">
+            <summary>
+            Fired when timer fires.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.ObjectNotReservedException">
+            <summary>
+            The ObjectNotReservedException is thrown when trying to access an object in a way that
+            requires reservation, or if a Reserved interface is used after it has been unreserved.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.ObjectNotReservedException.#ctor">
+            <summary>
+            Initializes a new instance of the class.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.ObjectNotReservedException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the class.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.ObjectNotReservedException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the class.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.IAdvancedList`1">
+            <summary>
+            Extends the IList interface with some more members found in List class.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:Wayne.Lib.IObservableList`1">
+            <summary>
+            Extends IAdvanced List with an event handler that makes it possible to 
+            follow when the contents has benn changed.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:Wayne.Lib.ObservableList`1">
+            <summary>
+            Observable list is a list class similar to .Net's List but with an
+            event that notifies when something has been changed in the list.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:Wayne.Lib.RefinedList`2">
+            <summary>
+            A virtual list of refined objects.
+            </summary>
+            <typeparam name="BaseType"></typeparam>
+            <typeparam name="RefinedType"></typeparam>
+        </member>
+        <member name="M:Wayne.Lib.RefinedList`2.#ctor(System.Collections.Generic.IList{`0})">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="baseList">The base list (the actual list that holds the items, or even another RefinedList).</param>
+        </member>
+        <member name="P:Wayne.Lib.RefinedList`2.Count">
+            <summary>
+            Gets the number of elements contained in the list.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.RefinedList`2.IsReadOnly">
+            <summary>
+            Gets a value indicating whether the list is readonly.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.RefinedList`2.Item(System.Int32)">
+            <summary>
+            Gets or sets the element at the specified index.
+            </summary>
+            <param name="index">The zero-based index of the element to get or set.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.RefinedList`2.IndexOf(`1)">
+            <summary>
+            Determines the index of a specific item in the list.
+            </summary>
+            <param name="item">The object to locate in the list.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.RefinedList`2.Insert(System.Int32,`1)">
+            <summary>
+            Inserts an item to the list at the specified index.
+            </summary>
+            <param name="index">The zero-based index at which item should be inserted.</param>
+            <param name="item"></param>
+        </member>
+        <member name="M:Wayne.Lib.RefinedList`2.RemoveAt(System.Int32)">
+            <summary>
+            Removes the list item at the specified index.
+            </summary>
+            <param name="index">The object to insert into the list.</param>
+        </member>
+        <member name="M:Wayne.Lib.RefinedList`2.Add(`1)">
+            <summary>
+            Adds an item to the list.
+            </summary>
+            <param name="item">The object to add to the list.</param>
+        </member>
+        <member name="M:Wayne.Lib.RefinedList`2.Clear">
+            <summary>
+            Removes all items from the list.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.RefinedList`2.Contains(`1)">
+            <summary>
+            Determines whether the list contains a specific value.
+            </summary>
+            <param name="item">The object to locate in the list.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.RefinedList`2.CopyTo(`1[],System.Int32)">
+            <summary>
+            Copies the elements of the list to an Array, starting at a particular Array index.
+            </summary>
+            <param name="array">The one-dimensional Array that is the destination of the elements copied from list. The Array must have zero-based indexing.</param>
+            <param name="arrayIndex">The zero-based index in array at which copying begins.</param>
+        </member>
+        <member name="M:Wayne.Lib.RefinedList`2.Remove(`1)">
+            <summary>
+            Removes the first occurrence of a specific object from the list.
+            </summary>
+            <param name="item">The object to remove from the list.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.RefinedList`2.AddRange(System.Collections.Generic.IEnumerable{`1})">
+            <summary>
+            Adds the elements of the specified collection to the end of the list.
+            </summary>
+            <param name="collection">The collection whose elements should be added to the end of the list. The collection itself cannot be null, but it can contain elements that are null, if type RefinedType is a reference type.</param>
+        </member>
+        <member name="M:Wayne.Lib.RefinedList`2.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.RefinedList`2.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the collection.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.ReserveCompletedEventArgs`1">
+            <summary>
+            The EventArgs is used when ...
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.ReserveCompletedEventArgs`1.#ctor(`0,System.Object)">
+            <summary>
+            Initializes a new instance of the class ReserveCompletedEventArgs where the reservation was successful.
+            </summary>
+            <param name="reservedObject">The reserved object.</param>
+            <param name="userToken">An optional user token.</param>
+        </member>
+        <member name="M:Wayne.Lib.ReserveCompletedEventArgs`1.#ctor(System.Object)">
+            <summary>
+            Initializes a new instance of the class ReserveCompletedEventArgs where the reservation failed.
+            </summary>
+            <param name="userToken">An optional user token.</param>
+        </member>
+        <member name="P:Wayne.Lib.ReserveCompletedEventArgs`1.ReservedObject">
+            <summary>
+            The reserved object.
+            </summary>
+            <exception cref="T:Wayne.Lib.ObjectNotReservedException">There was no reserved object since the reservation failed.</exception>
+        </member>
+        <member name="T:Wayne.Lib.ServiceContainerException">
+            <summary>
+            Exception thrown by the service container.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.ServiceContainerException.ServiceType">
+            <summary>
+            Type of service that this exception is about.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.ServiceContainerException.CreateNotFoundException(System.Type)">
+            <summary>
+            Creates a new ServiceContainerException saying that a service was not found.
+            </summary>
+            <param name="type">Type of the service not found.</param>
+            <returns>New ServiceContainerException.</returns>
+        </member>
+        <member name="M:Wayne.Lib.ServiceContainerException.CreateDependencyNotFound(System.Type,System.Type)">
+            <summary>
+            Creates a new ServiceContainerException saying that a service's dependency was not found in the container.
+            </summary>
+            <param name="typeToCreate">Type of service that is being created.</param>
+            <param name="dependency">Type of dependency not found.</param>
+            <returns>New ServiceContainerException.</returns>
+        </member>
+        <member name="T:Wayne.Lib.ServiceContainerFactory">
+            <summary>
+            Factory to create ServiceContainer.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.ServiceContainerFactory.Create">
+            <summary>
+            Creates new service container.
+            </summary>
+            <returns>New service container.</returns>
+        </member>
+        <member name="M:Wayne.Lib.ServiceContainerFactory.Create(Wayne.Lib.IServiceLocator)">
+            <summary>
+            Creates new service container with a parent service locator from where the newly created service container
+            can look for services if it does not find them in its own container.
+            </summary>
+            <param name="parentServiceLocator">Parent service container.</param>
+            <returns>New service container.</returns>
+        </member>
+        <member name="T:Wayne.Lib.UserTokenEventArgs">
+            <summary>
+            An EventArgs containing a UserToken.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.UserTokenEventArgs.#ctor(System.Object)">
+            <summary>
+            Construction.
+            </summary>        
+            <param name="userToken">An optional user token.</param>
+        </member>
+        <member name="P:Wayne.Lib.UserTokenEventArgs.UserToken">
+            <summary>
+            The optional user token.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.IVersionProvider">
+            <summary>
+            Keeps track of versions in an application.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IVersionProvider.ReleaseComponentVersion">
+            <summary>
+            Main component version of the current process.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IVersionProvider.GetVersion``1(``0)">
+            <summary>
+            Gets the version for a sub component.
+            </summary>
+            <typeparam name="TVersionIdentifier"></typeparam>
+            <param name="versionIdentifier"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IVersionProvider.SetVersion``1(``0,Wayne.Lib.VersionNumber)">
+            <summary>
+             Sets the version for a sub component
+            </summary>
+            <param name="versionIdentifier"></param>
+            <param name="versionNumber"></param>
+            <typeparam name="TVersionIdentifier"></typeparam>
+        </member>
+        <member name="T:Wayne.Lib.VersionNumber">
+            <summary>
+            Class representing a version number.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.VersionNumber.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="versionString">Version string that is on a proper version number format.</param>
+            <exception cref="T:System.ArgumentException">If versionString is not on correct Version number format.</exception>
+        </member>
+        <member name="M:Wayne.Lib.VersionNumber.CompareTo(Wayne.Lib.VersionNumber)">
+            <summary>
+            CompareTo method
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.VersionNumber.ToString">
+            <summary>
+            ToString method
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.VersionNumber.Equals(System.Object)">
+            <summary>
+            Equals method
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.VersionNumber.Equals(Wayne.Lib.VersionNumber)">
+            <summary>
+            Equals method
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.VersionNumber.GetHashCode">
+            <summary>
+            Hash code generation
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.VersionProvider">
+            <summary>
+            Provides a version for the application. 
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.VersionProvider.#ctor">
+            <summary>
+             Constructor
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.VersionProvider.ReleaseComponentVersion">
+            <summary>
+             Main component version for the running process. Should be set in code as early as possible in the program.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.VersionProvider.GetVersion``1(``0)">
+            <summary>
+            Gets the version for a sub component.
+            </summary>
+            <typeparam name="TVersionIdentifier"></typeparam>
+            <param name="versionIdentifier"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.VersionProvider.SetVersion``1(``0,Wayne.Lib.VersionNumber)">
+            <summary>
+             Sets the version for a sub component
+            </summary>
+            <param name="versionIdentifier"></param>
+            <param name="versionNumber"></param>
+            <typeparam name="TVersionIdentifier"></typeparam>
+        </member>
+        <member name="T:Wayne.Lib.SystemTime">
+            <summary>
+            System time structure for Win32.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.WayneSystemTime">
+            <summary>
+            System time proxy, should be used instead of DateTime.Now, and injected to the class,
+            so the current time can be mocked in unit tests.
+            
+            Added routine to set system time, this seemed as good a place as any to put it. (JHC)
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.WayneSystemTime.Now">
+            <summary>
+            The current Date and time.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.WayneSystemTime.SetSystemTime(System.DateTime)">
+            <summary>
+             Sets the system time
+            </summary>
+            <param name="newTime"></param>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Wayne.Lib.WayneSystemTime.SetLocalTime(System.DateTime)">
+            <summary>
+            Set local time
+            </summary>
+            <param name="newTime"></param>
+        </member>
+        <member name="T:Wayne.Lib.WayneTimerFactory">
+            <summary>
+            Timer factory
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.WayneTimerFactory.Create(System.Int32,Wayne.Lib.IIdentifiableEntity,System.String)">
+            <summary>
+            Creates a timer
+            </summary>
+            <param name="id"></param>
+            <param name="parentEntity"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.WayneTimerFactory.Create``1(System.Int32,Wayne.Lib.IIdentifiableEntity,System.String,``0)">
+            <summary>
+            Creates a timer
+            </summary>
+            <typeparam name="TState"></typeparam>
+            <param name="id"></param>
+            <param name="parentEntity"></param>
+            <param name="name"></param>
+            <param name="state"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.WayneTimerChanger">
+            <summary>
+            Changes the due time and interval of a timer.
+            </summary>
+        </member>
+    </members>
+</doc>

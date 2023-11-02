@@ -1,0 +1,1822 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Wayne.Lib.IO</name>
+    </assembly>
+    <members>
+        <member name="T:Wayne.Lib.IO.ExcelFile">
+            <summary>
+            Class that converts a string-table to and from the CSV format.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IO.ExcelFile.#ctor(Wayne.Lib.IServiceLocator)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="serviceLocator">The service locator.</param>
+        </member>
+        <member name="F:Wayne.Lib.IO.ExcelFile.FileExtension">
+            <summary>
+            The file extension.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.IO.ExcelFile.Rows">
+            <summary>
+            The actual rows.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IO.ExcelFile.SaveToFile(System.String)">
+            <summary>
+            Save the current rows to a CSV file.
+            </summary>
+            <param name="fileName">The name of the file. The extension "CSV" will be added if missing.</param>
+        </member>
+        <member name="M:Wayne.Lib.IO.ExcelFile.LoadFromFile(System.String)">
+            <summary>
+            Fill the rows with the content of the CSV file.
+            </summary>
+            <param name="fileName">The name of the file.</param>
+        </member>
+        <member name="T:Wayne.Lib.IO.FileSupport">
+            <summary>
+            Support class for files.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.IO.FileSupport.DefaultEncoding">
+            <summary>
+            Default encoding for reading and writing text files.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.IO.FileSupport.fileSupport">
+            <summary>
+            Static instance of FileSupport.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IO.FileSupport.FileSupportExtension">
+            <summary>
+            Platform-dependent extension of file support.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IO.FileSupport.SecureDeleteSupport">
+            <summary>
+            Secure delete support extension. Dependent on the platform.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupport.Open(System.String,System.IO.FileMode,System.IO.FileAccess,System.IO.FileShare,System.Int32,System.Int32)">
+            <summary>
+            Opens a file.
+            </summary>
+            <param name="fileName"></param>
+            <param name="fileMode"></param>
+            <param name="fileAccess"></param>
+            <param name="fileShare"></param>
+            <param name="retries"></param>
+            <param name="delayBetweenRetries"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupport.Open(System.String,System.IO.FileMode,System.IO.FileAccess,System.IO.FileShare)">
+            <summary>
+            Opens a file, using standard values for retries (100) and delayBetweenRetries(100)
+            </summary>
+            <param name="fileName"></param>
+            <param name="fileMode"></param>
+            <param name="fileAccess"></param>
+            <param name="fileShare"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupport.Move(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Moves a file.
+            </summary>
+            <param name="sourceFileName"></param>
+            <param name="destinationFileName"></param>
+            <param name="retries"></param>
+            <param name="delayBetweenRetries"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupport.Move(System.String,System.String)">
+            <summary>
+            Moves a file, using standard values for retries (100) and delayBetweenRetries(100)
+            </summary>
+            <param name="sourceFileName"></param>
+            <param name="destinationFileName"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupport.Delete(System.String,System.Int32,System.Int32)">
+            <summary>
+            Deletes a file
+            </summary>
+            <param name="fileName"></param>
+            <param name="retries"></param>
+            <param name="delayBetweenRetries"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupport.Delete(System.String)">
+            <summary>
+            Deletes a file, using standard values for retries (100) and delayBetweenRetries(100)
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupport.SecureDelete(System.String,System.Boolean@,System.Int32,System.Int32)">
+            <summary>
+            Deletes a file securely.
+            </summary>
+            <param name="fileName"></param>
+            <param name="sDeleteOK"></param>
+            <param name="retries"></param>
+            <param name="delayBetweenRetries"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupport.SecureDelete(System.String,System.Boolean@)">
+            <summary>
+            Deletes a file securely.
+            </summary>
+            <param name="fileName"></param>
+            <param name="sDeleteOK"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupport.Copy(System.String,System.String,System.Boolean)">
+            <summary>
+            Copy a file.
+            </summary>
+            <param name="sourceFileName"></param>
+            <param name="destinationFileName"></param>
+            <param name="overwrite"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupport.Copy(System.String,System.String,System.Boolean,System.Int32,System.Int32)">
+            <summary>
+            Copies a file.
+            </summary>
+            <param name="sourceFileName"></param>
+            <param name="destinationFileName"></param>
+            <param name="overwrite"></param>
+            <param name="retries"></param>
+            <param name="delayBetweenRetries"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupport.LoadToString(System.String)">
+            <summary>
+            Read the lines of a text file into a string.
+            </summary>
+            <param name="fileName">The path and file name.</param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupport.LoadToString(System.String,System.Text.Encoding)">
+            <summary>
+            Read the lines of a text file into a string.
+            </summary>
+            <param name="fileName">The path and file name.</param>
+            <param name="encoding">The encoding.</param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupport.LoadToStringArray(System.String)">
+            <summary>
+            Read the lines of a text file into an array of strings.
+            </summary>
+            <param name="fileName">The path and file name.</param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupport.LoadToStringArray(System.String,System.Text.Encoding)">
+            <summary>
+            Read the lines of a text file into an array of strings.
+            </summary>
+            <param name="fileName">The path and file name.</param>
+            <param name="encoding">The encoding.</param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupport.SaveToFile(System.String,System.String)">
+            <summary>
+            Saves a text string to a file.
+            </summary>
+            <param name="fileName">The path and file name.</param>
+            <param name="text">The text to save.</param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupport.SaveToFile(System.String,System.String[])">
+            <summary>
+            Saves a text string to a file.
+            </summary>
+            <param name="fileName">The path and file name.</param>
+            <param name="lines">The lines to save.</param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupport.SaveToFile(System.String,System.String,System.Text.Encoding)">
+            <summary>
+            Saves a text string to a file.
+            </summary>
+            <param name="fileName">The path and file name.</param>
+            <param name="text">The text to save.</param>
+            <param name="encoding">The encoding.</param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupport.SaveToFile(System.String,System.String[],System.Text.Encoding)">
+            <summary>
+            Saves a text string to a file.
+            </summary>
+            <param name="fileName">The path and file name.</param>
+            <param name="lines">The lines to save.</param>
+            <param name="encoding">The encoding.</param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupport.LoadXml(System.Xml.XmlDocument,System.String)">
+            <summary>
+            Loads the specified XML file into the XmlDocument.
+            </summary>
+            <param name="xmlDocument">The XmlDocument to load.</param>
+            <param name="fileName">The path and file name.</param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupport.LoadXml(System.Xml.XmlDocument,System.String,System.Text.Encoding)">
+            <summary>
+            Loads the specified XML file into the XmlDocument.
+            </summary>
+            <param name="xmlDocument">The XmlDocument to load.</param>
+            <param name="fileName">The path and file name.</param>
+            <param name="encoding">The encoding.</param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupport.GetCreationTime(System.String)">
+            <summary>
+            Set creation time on a file.
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupport.SetCreationTime(System.String,System.DateTime)">
+            <summary>
+            Set creation time on a file.
+            </summary>
+            <param name="fileName"></param>
+            <param name="dateTime"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupport.GetLastAccessTime(System.String)">
+            <summary>
+            Get last access time on the file.
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupport.SetLastAccessTime(System.String,System.DateTime)">
+            <summary>
+            Set last access time on a file.
+            </summary>
+            <param name="fileName"></param>
+            <param name="dateTime"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupport.GetLastWriteTime(System.String)">
+            <summary>
+            Get last write time on the file.
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupport.SetLastWriteTime(System.String,System.DateTime)">
+            <summary>
+            Set last write time on the file.
+            </summary>
+            <param name="fileName"></param>
+            <param name="dateTime"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupport.FileExists(System.String)">
+            <summary>
+            Checks if the specified file exists.
+            </summary>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupport.GetFiles(System.String,System.String)">
+            <summary>
+            Returns the names of files in the specified directory that match the specified search pattern.
+            </summary>
+            <param name="path">The directory to search.</param>
+            <param name="searchPattern">The search string to match against the names of files in path. The parameter cannot end in two periods ("..") or contain two periods ("..") followed by System.IO.Path.DirectorySeparatorChar or System.IO.Path.AltDirectorySeparatorChar, nor can it contain any of the characters in System.IO.Path.InvalidPathChars.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupport.DirectoryExists(System.String)">
+            <summary>
+            Checks if directory exists
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupport.EnsureDirectoryExists(System.String)">
+            <summary>
+            Ensures the directory exists by trying to create it if it does not exist already.
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.IO.FileSupportExtensionCE">
+            <summary>
+            Windows CE File support extension.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportExtensionCE.SetCreationTime(System.String,System.DateTime)">
+            <summary>
+            Sets the creation time on a file
+            </summary>
+            <param name="fileName"></param>
+            <param name="dateTime"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportExtensionCE.SetLastAccessTime(System.String,System.DateTime)">
+            <summary>
+            Sets last access time on a file
+            </summary>
+            <param name="fileName"></param>
+            <param name="dateTime"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportExtensionCE.SetLastWriteTime(System.String,System.DateTime)">
+            <summary>
+            Sets last write time on a file.
+            </summary>
+            <param name="fileName"></param>
+            <param name="dateTime"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportExtensionCE.GetCreationTime(System.String)">
+            <summary>
+            Gets the creation date and time of a file
+            </summary>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportExtensionCE.GetLastAccessTime(System.String)">
+            <summary>
+            Gets the last time file was accessed
+            </summary>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportExtensionCE.GetLastWriteTime(System.String)">
+            <summary>
+            Gets the last time a file was written
+            </summary>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.IO.FileSupportNonStatic">
+            <summary>
+            Support class for files.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.IO.FileSupportNonStatic.DefaultEncoding">
+            <summary>
+            Default encoding for reading and writing text files.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IO.FileSupportNonStatic.Paths">
+            <summary>
+            The Paths implementation to be used.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.#ctor">
+            <summary>
+            Constructor. uses default paths implementation.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.#ctor(Wayne.Lib.IO.IPaths)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="paths"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.Open(System.String,System.IO.FileMode,System.IO.FileAccess,System.IO.FileShare,System.Int32,System.Int32)">
+            <summary>
+            Opens a file.
+            </summary>
+            <param name="fileName"></param>
+            <param name="fileMode"></param>
+            <param name="fileAccess"></param>
+            <param name="fileShare"></param>
+            <param name="retries"></param>
+            <param name="delayBetweenRetries"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.Open(System.String,System.IO.FileMode,System.IO.FileAccess,System.IO.FileShare)">
+            <summary>
+            Opens a file, using standard values for retries (100) and delayBetweenRetries(100)
+            </summary>
+            <param name="fileName"></param>
+            <param name="fileMode"></param>
+            <param name="fileAccess"></param>
+            <param name="fileShare"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.Move(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Moves a file.
+            </summary>
+            <param name="sourceFileName"></param>
+            <param name="destinationFileName"></param>
+            <param name="retries"></param>
+            <param name="delayBetweenRetries"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.Move(System.String,System.String)">
+            <summary>
+            Moves a file, using standard values for retries (100) and delayBetweenRetries(100)
+            </summary>
+            <param name="sourceFileName"></param>
+            <param name="destinationFileName"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.MoveDirectory(System.String,System.String)">
+            <summary>
+            Moves an entire directory from one location to another
+            </summary>
+            <param name="sourceDirName"></param>
+            <param name="destDirName"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.MoveDirectory(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Moves an entire directory from one location to another
+            </summary>
+            <param name="sourceDirName"></param>
+            <param name="destDirName"></param>
+            <param name="retries"></param>
+            <param name="delayBetweenRetries"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.Delete(System.String,System.Int32,System.Int32)">
+            <summary>
+            Deletes a file
+            </summary>
+            <param name="fileName"></param>
+            <param name="retries"></param>
+            <param name="delayBetweenRetries"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.Delete(System.String)">
+            <summary>
+            Deletes a file, using standard values for retries (100) and delayBetweenRetries(100)
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="P:Wayne.Lib.IO.FileSupportNonStatic.SecureDeleteSupport">
+            <summary>
+            Get- and set property for the SecureDelete support object. Needed to create backend to the secure delete function.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.SecureDelete(System.String,System.Boolean@,System.Int32,System.Int32)">
+            <summary>
+            Deletes a file securely.
+            </summary>
+            <param name="fileName"></param>
+            <param name="sDeleteOK"></param>
+            <param name="retries"></param>
+            <param name="delayBetweenRetries"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.SecureDelete(System.String,System.Boolean@)">
+            <summary>
+            Deletes a file securely.
+            </summary>
+            <param name="fileName"></param>
+            <param name="sDeleteOK"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.Copy(System.String,System.String,System.Boolean)">
+            <summary>
+            Copy a file.
+            </summary>
+            <param name="sourceFileName"></param>
+            <param name="destinationFileName"></param>
+            <param name="overwrite"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.Copy(System.String,System.String,System.Boolean,System.Int32,System.Int32)">
+            <summary>
+            Copies a file.
+            </summary>
+            <param name="sourceFileName"></param>
+            <param name="destinationFileName"></param>
+            <param name="overwrite"></param>
+            <param name="retries"></param>
+            <param name="delayBetweenRetries"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.LoadToString(System.String)">
+            <summary>
+            Read the lines of a text file into a string.
+            </summary>
+            <param name="fileName">The path and file name.</param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.LoadToString(System.String,System.Text.Encoding)">
+            <summary>
+            Read the lines of a text file into a string.
+            </summary>
+            <param name="fileName">The path and file name.</param>
+            <param name="encoding">The encoding.</param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.LoadToStringArray(System.String)">
+            <summary>
+            Read the lines of a text file into an array of strings.
+            </summary>
+            <param name="fileName">The path and file name.</param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.LoadToStringArray(System.String,System.Text.Encoding)">
+            <summary>
+            Read the lines of a text file into an array of strings.
+            </summary>
+            <param name="fileName">The path and file name.</param>
+            <param name="encoding">The encoding.</param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.SaveToFile(System.String,System.String)">
+            <summary>
+            Saves a text string to a file.
+            </summary>
+            <param name="fileName">The path and file name.</param>
+            <param name="text">The text to save.</param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.SaveToFile(System.String,System.String[])">
+            <summary>
+            Saves a text string to a file.
+            </summary>
+            <param name="fileName">The path and file name.</param>
+            <param name="lines">The lines to save.</param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.SaveToFile(System.String,System.String,System.Text.Encoding)">
+            <summary>
+            Saves a text string to a file.
+            </summary>
+            <param name="fileName">The path and file name.</param>
+            <param name="text">The text to save.</param>
+            <param name="encoding">The encoding.</param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.SaveToFile(System.String,System.String[],System.Text.Encoding)">
+            <summary>
+            Saves a text string to a file.
+            </summary>
+            <param name="fileName">The path and file name.</param>
+            <param name="lines">The lines to save.</param>
+            <param name="encoding">The encoding.</param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.LoadXml(System.Xml.XmlDocument,System.String)">
+            <summary>
+            Loads the specified XML file into the XmlDocument.
+            </summary>
+            <param name="xmlDocument">The XmlDocument to load.</param>
+            <param name="fileName">The path and file name.</param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.LoadXml(System.Xml.XmlDocument,System.String,System.Text.Encoding)">
+            <summary>
+            Loads the specified XML file into the XmlDocument.
+            </summary>
+            <param name="xmlDocument">The XmlDocument to load.</param>
+            <param name="fileName">The path and file name.</param>
+            <param name="encoding">The encoding.</param>
+        </member>
+        <member name="P:Wayne.Lib.IO.FileSupportNonStatic.FileSupportExtension">
+            <summary>
+            Gets or sets tha File support extension that can be different depending on the execution platform (WinCE or Win32)
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.GetCreationTime(System.String)">
+            <summary>
+            Set creation time on a file.
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.SetCreationTime(System.String,System.DateTime)">
+            <summary>
+            Set creation time on a file.
+            </summary>
+            <param name="fileName"></param>
+            <param name="dateTime"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.GetLastAccessTime(System.String)">
+            <summary>
+            Set last access time on a file.
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.SetLastAccessTime(System.String,System.DateTime)">
+            <summary>
+            Set last access time on a file.
+            </summary>
+            <param name="fileName"></param>
+            <param name="dateTime"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.GetLastWriteTime(System.String)">
+            <summary>
+            Get last write time on the file.
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.SetLastWriteTime(System.String,System.DateTime)">
+            <summary>
+            Set last write time on the file.
+            </summary>
+            <param name="fileName"></param>
+            <param name="dateTime"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.FileExists(System.String)">
+            <summary>
+            Checks if the file exists
+            </summary>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.FileDelete(System.String)">
+            <summary>
+            Deletes the file.
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.FileOpen(System.String,System.IO.FileMode,System.IO.FileAccess,System.IO.FileShare)">
+            <summary>
+            Opens a file.
+            </summary>
+            <param name="fileName"></param>
+            <param name="fileMode"></param>
+            <param name="fileAccess"></param>
+            <param name="fileShare"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.FileCopy(System.String,System.String,System.Boolean)">
+            <summary>
+            Copies a file
+            </summary>
+            <param name="sourceFileName"></param>
+            <param name="destinationFileName"></param>
+            <param name="overwrite"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.FileMove(System.String,System.String)">
+            <summary>
+            Moves a file
+            </summary>
+            <param name="sourceFileName"></param>
+            <param name="destinationFileName"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.DirectoryMove(System.String,System.String)">
+            <summary>
+            Moves a directory
+            </summary>
+            <param name="sourceDirName"></param>
+            <param name="destinationDirName"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.ThreadSleep(System.Int32)">
+            <summary>
+            Puts the thread in sleep mode.
+            </summary>
+            <param name="millisecondsTimeout"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.CopyDirectory(System.String,System.String,System.Boolean)">
+            <summary>
+            Copies the content of one directory into another.
+            </summary>
+            <param name="sourcePath"></param>
+            <param name="destinationPath"></param>
+            <param name="recurse"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.GetFiles(System.String,System.String)">
+            <summary>
+            Returns the names of files in the specified directory that match the specified search pattern.
+            </summary>
+            <param name="path">The directory to search.</param>
+            <param name="searchPattern">The search string to match against the names of files in path. The parameter cannot end in two periods ("..") or contain two periods ("..") followed by System.IO.Path.DirectorySeparatorChar or System.IO.Path.AltDirectorySeparatorChar, nor can it contain any of the characters in System.IO.Path.InvalidPathChars.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.GetFiles(System.String,System.String,System.Boolean)">
+            <summary>
+            Returns the names of files in the specified directory that match the specified search pattern.
+            </summary>
+            <param name="path">The directory to search.</param>
+            <param name="searchPattern">The search string to match against the names of files in path. The parameter cannot end in two periods ("..") or contain two periods ("..") followed by System.IO.Path.DirectorySeparatorChar or System.IO.Path.AltDirectorySeparatorChar, nor can it contain any of the characters in System.IO.Path.InvalidPathChars.</param>
+            <param name="recursive">Should the subdirectories be included in the search.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.GetDirectories(System.String)">
+            <summary>
+            Returns the names of subdirectories in the specified directory that match the specified search pattern.
+            </summary>
+            <param name="path">The directory to search.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.GetDirectories(System.String,System.Boolean)">
+            <summary>
+            Returns the subdirectories of the path
+            </summary>
+            <param name="path"></param>
+            <param name="recursive">True if the method should get all subdirectories recursively.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.DirectoryExists(System.String)">
+            <summary>
+            Checks if directory exists
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.UnresolvedDirectoryPathExists(System.String)">
+            <summary>
+            Checks if the unresolved directory exits.
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.EnsureDirectoryExists(System.String)">
+            <summary>
+            Ensures the directory exists by trying to create it if it does not exist already.
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.EnsureDirectoriesExists(System.String)">
+            <summary>
+            OBSOLETE - Use EnsureDirectoryExists() instead.
+            </summary>
+            <param name="directoryName"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FileSupportNonStatic.RemoveDirectory(System.String,System.Boolean)">
+            <summary>
+            Removes a directory.
+            </summary>
+            <param name="path"></param>
+            <param name="onlyIfEmpty"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.IO.IFileSupport">
+            <summary>
+            File system abstraction. Should be used instead of System.IO namespace, so we can 
+            mock the file system away in unit tests.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.Open(System.String,System.IO.FileMode,System.IO.FileAccess,System.IO.FileShare,System.Int32,System.Int32)">
+            <summary>
+            Opens a file.
+            </summary>
+            <param name="fileName"></param>
+            <param name="fileMode"></param>
+            <param name="fileAccess"></param>
+            <param name="fileShare"></param>
+            <param name="retries"></param>
+            <param name="delayBetweenRetries"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.Open(System.String,System.IO.FileMode,System.IO.FileAccess,System.IO.FileShare)">
+            <summary>
+            Opens a file, using standard values for retries (100) and delayBetweenRetries(100)
+            </summary>
+            <param name="fileName"></param>
+            <param name="fileMode"></param>
+            <param name="fileAccess"></param>
+            <param name="fileShare"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.Move(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Moves a file.
+            </summary>
+            <param name="sourceFileName"></param>
+            <param name="destinationFileName"></param>
+            <param name="retries"></param>
+            <param name="delayBetweenRetries"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.Move(System.String,System.String)">
+            <summary>
+            Moves a file, using standard values for retries (100) and delayBetweenRetries(100)
+            </summary>
+            <param name="sourceFileName"></param>
+            <param name="destinationFileName"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.MoveDirectory(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Moves a directory.
+            </summary>
+            <param name="sourceDirName"></param>
+            <param name="destDirName"></param>
+            <param name="retries"></param>
+            <param name="delayBetweenRetries"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.MoveDirectory(System.String,System.String)">
+            <summary>
+            Moves a directory, using standard values for retries (100) and delayBetweenRetries(100)
+            </summary>
+            <param name="sourceDirName"></param>
+            <param name="destDirName"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.Delete(System.String,System.Int32,System.Int32)">
+            <summary>
+            Deletes a file
+            </summary>
+            <param name="fileName"></param>
+            <param name="retries"></param>
+            <param name="delayBetweenRetries"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.Delete(System.String)">
+            <summary>
+            Deletes a file, using standard values for retries (100) and delayBetweenRetries(100)
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="P:Wayne.Lib.IO.IFileSupport.SecureDeleteSupport">
+            <summary>
+            Get- and set property for the SecureDelete support object. Needed to create backend to the secure delete function.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IO.IFileSupport.FileSupportExtension">
+            <summary>
+            Gets or sets tha File support extension that can be different depending on the execution platform (WinCE or Win32)
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IO.IFileSupport.Paths">
+            <summary>
+            Paths implementation ref.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.SecureDelete(System.String,System.Boolean@,System.Int32,System.Int32)">
+            <summary>
+            Deletes a file securely.
+            </summary>
+            <param name="fileName"></param>
+            <param name="sDeleteOK"></param>
+            <param name="retries"></param>
+            <param name="delayBetweenRetries"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.SecureDelete(System.String,System.Boolean@)">
+            <summary>
+            Deletes a file securely.
+            </summary>
+            <param name="fileName"></param>
+            <param name="sDeleteOK"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.Copy(System.String,System.String,System.Boolean)">
+            <summary>
+            Copy a file.
+            </summary>
+            <param name="sourceFileName"></param>
+            <param name="destinationFileName"></param>
+            <param name="overwrite"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.Copy(System.String,System.String,System.Boolean,System.Int32,System.Int32)">
+            <summary>
+            Copies a file.
+            </summary>
+            <param name="sourceFileName"></param>
+            <param name="destinationFileName"></param>
+            <param name="overwrite"></param>
+            <param name="retries"></param>
+            <param name="delayBetweenRetries"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.LoadToString(System.String)">
+            <summary>
+            Read the lines of a text file into a string.
+            </summary>
+            <param name="fileName">The path and file name.</param>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.LoadToString(System.String,System.Text.Encoding)">
+            <summary>
+            Read the lines of a text file into a string.
+            </summary>
+            <param name="fileName">The path and file name.</param>
+            <param name="encoding">The encoding.</param>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.LoadToStringArray(System.String)">
+            <summary>
+            Read the lines of a text file into an array of strings.
+            </summary>
+            <param name="fileName">The path and file name.</param>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.LoadToStringArray(System.String,System.Text.Encoding)">
+            <summary>
+            Read the lines of a text file into an array of strings.
+            </summary>
+            <param name="fileName">The path and file name.</param>
+            <param name="encoding">The encoding.</param>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.SaveToFile(System.String,System.String)">
+            <summary>
+            Saves a text string to a file.
+            </summary>
+            <param name="fileName">The path and file name.</param>
+            <param name="text">The text to save.</param>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.SaveToFile(System.String,System.String[])">
+            <summary>
+            Saves a text string to a file.
+            </summary>
+            <param name="fileName">The path and file name.</param>
+            <param name="lines">The lines to save.</param>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.SaveToFile(System.String,System.String,System.Text.Encoding)">
+            <summary>
+            Saves a text string to a file.
+            </summary>
+            <param name="fileName">The path and file name.</param>
+            <param name="text">The text to save.</param>
+            <param name="encoding">The encoding.</param>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.SaveToFile(System.String,System.String[],System.Text.Encoding)">
+            <summary>
+            Saves a text string to a file.
+            </summary>
+            <param name="fileName">The path and file name.</param>
+            <param name="lines">The lines to save.</param>
+            <param name="encoding">The encoding.</param>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.LoadXml(System.Xml.XmlDocument,System.String)">
+            <summary>
+            Loads the specified XML file into the XmlDocument.
+            </summary>
+            <param name="xmlDocument">The XmlDocument to load.</param>
+            <param name="fileName">The path and file name.</param>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.LoadXml(System.Xml.XmlDocument,System.String,System.Text.Encoding)">
+            <summary>
+            Loads the specified XML file into the XmlDocument.
+            </summary>
+            <param name="xmlDocument">The XmlDocument to load.</param>
+            <param name="fileName">The path and file name.</param>
+            <param name="encoding">The encoding.</param>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.GetCreationTime(System.String)">
+            <summary>
+            Get creation time on a file.
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.SetCreationTime(System.String,System.DateTime)">
+            <summary>
+            Set creation time on a file.
+            </summary>
+            <param name="fileName"></param>
+            <param name="dateTime"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.GetLastAccessTime(System.String)">
+            <summary>
+            Get last access time on a file.
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.SetLastAccessTime(System.String,System.DateTime)">
+            <summary>
+            Set last access time on a file.
+            </summary>
+            <param name="fileName"></param>
+            <param name="dateTime"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.GetLastWriteTime(System.String)">
+            <summary>
+            Get last write time on the file.
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.SetLastWriteTime(System.String,System.DateTime)">
+            <summary>
+            Set last write time on the file.
+            </summary>
+            <param name="fileName"></param>
+            <param name="dateTime"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.FileExists(System.String)">
+            <summary>
+            Checks if the specified file exists.
+            </summary>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.DirectoryExists(System.String)">
+            <summary>
+            Checks if directory exists
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.EnsureDirectoryExists(System.String)">
+            <summary>
+            Ensures the directory exists by trying to create it if it does not exist already.
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.EnsureDirectoriesExists(System.String)">
+            <summary>
+            Creates the specified directories if they do not exist.
+            </summary>
+            <param name="directoryName"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.RemoveDirectory(System.String,System.Boolean)">
+            <summary>
+            Removes a directory.
+            </summary>
+            <param name="path"></param>
+            <param name="onlyIfEmpty"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.CopyDirectory(System.String,System.String,System.Boolean)">
+            <summary>
+            Copies a directory structure.
+            </summary>
+            <param name="sourceDir"></param>
+            <param name="destinationDir"></param>
+            <param name="recursive"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.GetFiles(System.String,System.String)">
+            <summary>
+            Returns the names of files in the specified directory that match the specified search pattern.
+            </summary>
+            <param name="path">The directory to search.</param>
+            <param name="searchPattern">The search string to match against the names of files in path. The parameter cannot end in two periods ("..") or contain two periods ("..") followed by System.IO.Path.DirectorySeparatorChar or System.IO.Path.AltDirectorySeparatorChar, nor can it contain any of the characters in System.IO.Path.InvalidPathChars.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.GetFiles(System.String,System.String,System.Boolean)">
+            <summary>
+            Returns the names of files in the specified directory that match the specified search pattern.
+            </summary>
+            <param name="path">The directory to search.</param>
+            <param name="searchPattern">The search string to match against the names of files in path. The parameter cannot end in two periods ("..") or contain two periods ("..") followed by System.IO.Path.DirectorySeparatorChar or System.IO.Path.AltDirectorySeparatorChar, nor can it contain any of the characters in System.IO.Path.InvalidPathChars.</param>
+            <param name="recursive">Should the subdirectories be included in the search.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.GetDirectories(System.String)">
+            <summary>
+            Returns the names of subdirectories in the specified directory.
+            </summary>
+            <param name="path">The directory to search.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupport.GetDirectories(System.String,System.Boolean)">
+            <summary>
+            Returns the subdirectories of the path
+            </summary>
+            <param name="path"></param>
+            <param name="recursive">True if the method should get all subdirectories recursively.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.IO.IFileSupportExtension">
+            <summary>
+            File support extension. Used to plug in different behaviour to FileSupport dependent on what platform the program is executing on.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupportExtension.SetCreationTime(System.String,System.DateTime)">
+            <summary>
+            Sets the creation time for a file
+            </summary>
+            <param name="fileName"></param>
+            <param name="dateTime"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupportExtension.SetLastAccessTime(System.String,System.DateTime)">
+            <summary>
+            Sets the last access time for a file
+            </summary>
+            <param name="fileName"></param>
+            <param name="dateTime"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupportExtension.SetLastWriteTime(System.String,System.DateTime)">
+            <summary>
+            Sets last write time for a file.
+            </summary>
+            <param name="fileName"></param>
+            <param name="dateTime"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupportExtension.GetCreationTime(System.String)">
+            <summary>
+            Get creation time on the file.
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupportExtension.GetLastAccessTime(System.String)">
+            <summary>
+            Get last access time on the file.
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.IFileSupportExtension.GetLastWriteTime(System.String)">
+            <summary>
+            Get last write time on the file.
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="T:Wayne.Lib.IO.ISecureDeleteSupport">
+            <summary>
+            Secure delete support - interface that defines the method for secure deletion. Different implementations on different patforms (Win32/CE)
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IO.ISecureDeleteSupport.SecureDelete(System.String,System.Boolean@,System.Int32,System.Int32)">
+            <summary>
+            Performs a secure deletion on a file.
+            </summary>
+            <param name="fileName"></param>
+            <param name="sDeleteOK"></param>
+            <param name="retries"></param>
+            <param name="delayBetweenRetries"></param>
+        </member>
+        <member name="T:Wayne.Lib.IO.SecureDeleteSupportCE">
+            <summary>
+            Secure delete support for Windows CE - no secure delete for real, but enabling the same interface as Win32 version.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IO.SecureDeleteSupportCE.SecureDelete(System.String,System.Boolean@,System.Int32,System.Int32)">
+            <summary>
+            Performs a secure deletion on a file.
+            </summary>
+            <param name="fileName"></param>
+            <param name="sDeleteOK"></param>
+            <param name="retries"></param>
+            <param name="delayBetweenRetries"></param>
+        </member>
+        <member name="T:Wayne.Lib.IO.FlatFileFormatException">
+            <summary>
+            Exception thrown when the flat file formatting fails.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IO.FlatFileFormatException.#ctor">
+            <summary>
+            Exception thrown when the flat file formatting fails.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IO.FlatFileFormatException.#ctor(System.String)">
+            <summary>
+            Exception thrown when the flat file formatting fails.
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.FlatFileFormatException.#ctor(System.String,System.Exception)">
+            <summary>
+            Exception thrown when the flat file formatting fails.
+            </summary>
+            <param name="message"></param>
+            <param name="inner"></param>
+        </member>
+        <member name="T:Wayne.Lib.IO.FlatFileFormatter">
+            <summary>
+            A class that can be used to convert XML documents that conforms to the FlatFile.xsd into flat text files.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IO.FlatFileFormatter.#ctor">
+            <summary>
+            Initializes a new intance of the Flat file formatter.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IO.FlatFileFormatter.Format(System.IO.Stream,System.String)">
+            <summary>
+            Creates a text file from the specified flat file XML document stream.
+            </summary>
+            <param name="flatFileXmlStream">A stream that contains a Flat file XML document.</param>
+            <param name="fileName">File that should be created by the formatting routine.</param>
+        </member>
+        <member name="T:Wayne.Lib.IO.FlatFileXml">
+            <summary>
+            FlatFileXml support.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.IO.FlatFileXml.Ns">
+            <summary>
+            The XML namespace of the FlatFile.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.IO.IniFile">
+            <summary>
+            Class that manages an Ini-file.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IO.IniFile.#ctor(Wayne.Lib.IServiceLocator)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="serviceLocator">The service locator.</param>
+        </member>
+        <member name="P:Wayne.Lib.IO.IniFile.Sections">
+            <summary>
+            The sections of the ini-file.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IO.IniFile.GetSection(System.String)">
+            <summary>
+            Returns existing or creates a new section.
+            </summary>
+            <param name="sectionName">The name of the section.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.IniFile.SaveToFile(System.String)">
+            <summary>
+            Save ini file.
+            </summary>
+            <param name="fileName">The name of the file.</param>
+        </member>
+        <member name="M:Wayne.Lib.IO.IniFile.LoadFromFile(System.String)">
+            <summary>
+            Read an ini-file.
+            </summary>
+            <param name="fileName">The name of the file.</param>
+        </member>
+        <member name="T:Wayne.Lib.IO.IniFileSection">
+            <summary>
+            A section of an Ini file.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IO.IniFileSection.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IO.IniFileSection.Values">
+            <summary>
+            The values of the section.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.IO.IPaths">
+            <summary>
+            Interface.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IO.IPaths.Root">
+            <summary>
+            The root path used by Wayne applications.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IO.IPaths.Config">
+            <summary>
+            The base path to all config files.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IO.IPaths.Transactions">
+            <summary>
+            The base path to all transaction files.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IO.IPaths.Log">
+            <summary>
+            The base path to all log files.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IO.IPaths.ExecutablePath">
+            <summary>
+            The complete path (including the file name) to the executable.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IO.IPaths.ExecutableDirectory">
+            <summary>
+            The directory path to the executable.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IO.IPaths.Data">
+            <summary>
+            The base path to data files.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IO.IPaths.Combine(System.String)">
+            <summary>
+            Combines the Root path and the given subPath.
+            </summary>
+            <param name="subPath">The sub path (under the main path).</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.IPaths.Combine(System.String,System.String)">
+            <summary>
+            Combines the Root path and the given subPath and file name.
+            </summary>
+            <param name="subPath">The sub path (under the main path).</param>
+            <param name="subPath2">An additional sub path (or the name of a file).</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.IPaths.GetConfigPath(System.String)">
+            <summary>
+            Returns the config path to the given config name.
+            </summary>
+            <param name="configName">The name of the config.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.IPaths.GetConfigPath(System.String,System.String)">
+            <summary>
+            Returns the config path to the given config name.
+            </summary>
+            <param name="configName">The name of the config.</param>
+            <param name="fileName">The name of a config file.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.IPaths.GetTransactionsPath(System.String)">
+            <summary>
+            Returns the transaction file path to the given terminal type.
+            </summary>
+            <param name="terminalType">The name of the terminal type.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.IPaths.GetTransactionsPath(System.String,System.String)">
+            <summary>
+            Returns the transaction file path to the given terminal type.
+            </summary>
+            <param name="terminalType">The name of the terminal type.</param>
+            <param name="subState">The name of the sub state.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.IPaths.ReplaceExtension(System.String,System.String)">
+            <summary>
+            Replaces the extension of a file (e.g. from C:\MyFile.aaa to C:\MyFile.bbb)
+            </summary>
+            <param name="fileName"></param>
+            <param name="newExtension"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.IPaths.Parse(System.String)">
+            <summary>
+            Parses the path to replace any %...% variables with the current actual path.
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.IPaths.FileExists(System.String)">
+            <summary>
+            Checks if file exists
+            </summary>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.IPaths.DirectoryExists(System.String)">
+            <summary>
+            Checks if directory exists
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.IPaths.EnsureDirectoryExists(System.String)">
+            <summary>
+            Ensures the directory exists by trying to create it if it does not exist already.
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.IO.Paths">
+            <summary>
+            Static access to filesupports paths object.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.IO.Paths.pathsImplementation">
+            <summary>
+            The current implementation to be used.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IO.Paths.Root">
+            <summary>
+            The root path used by Wayne applications.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IO.Paths.Config">
+            <summary>
+            The base path to all config files.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IO.Paths.Transactions">
+            <summary>
+            The base path to all transaction files.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IO.Paths.Log">
+            <summary>
+            The base path to all log files.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IO.Paths.ExecutablePath">
+            <summary>
+            The complete path (including the file name) to the executable.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IO.Paths.ExecutableDirectory">
+            <summary>
+            The directory path to the executable.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IO.Paths.Data">
+            <summary>
+            The base path to data files.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IO.Paths.Combine(System.String)">
+            <summary>
+            Combines the Root path and the given subPath.
+            </summary>
+            <param name="subPath">The sub path (under the main path).</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.Paths.Combine(System.String,System.String)">
+            <summary>
+            Combines the Root path and the given subPath and file name.
+            </summary>
+            <param name="subPath">The sub path (under the main path).</param>
+            <param name="subPath2">An additional sub path (or the name of a file).</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.Paths.GetConfigPath(System.String)">
+            <summary>
+            Returns the config path to the given config name.
+            </summary>
+            <param name="configName">The name of the config.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.Paths.GetConfigPath(System.String,System.String)">
+            <summary>
+            Returns the config path to the given config name.
+            </summary>
+            <param name="configName">The name of the config.</param>
+            <param name="fileName">The name of a config file.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.Paths.GetTransactionsPath(System.String)">
+            <summary>
+            Returns the transaction file path to the given terminal type.
+            </summary>
+            <param name="terminalType">The name of the terminal type.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.Paths.GetTransactionsPath(System.String,System.String)">
+            <summary>
+            Returns the transaction file path to the given terminal type.
+            </summary>
+            <param name="terminalType">The name of the terminal type.</param>
+            <param name="subState">The name of the sub state.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.Paths.ReplaceExtension(System.String,System.String)">
+            <summary>
+            Replaces the extension of a file (e.g. from C:\MyFile.aaa to C:\MyFile.bbb)
+            </summary>
+            <param name="fileName"></param>
+            <param name="newExtension"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.Paths.Parse(System.String)">
+            <summary>
+            Parses the path to replace any %...% variables with the current actual path.
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.Paths.FileExists(System.String)">
+            <summary>
+            Checks if file exists
+            </summary>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.Paths.DirectoryExists(System.String)">
+            <summary>
+            Checks if directory exists
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.Paths.EnsureDirectoryExists(System.String)">
+            <summary>
+            Ensures the directory exists by trying to create it if it does not exist already.
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.IO.PathsImplementation">
+            <summary>
+            Support class managing file paths of the Wayne system.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IO.PathsImplementation.#ctor(System.Boolean)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="fullWindows"></param>
+        </member>
+        <member name="P:Wayne.Lib.IO.PathsImplementation.Root">
+            <summary>
+            The root path used by Wayne applications.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IO.PathsImplementation.Config">
+            <summary>
+            The base path to all config files.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IO.PathsImplementation.Transactions">
+            <summary>
+            The base path to all transaction files.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IO.PathsImplementation.Log">
+            <summary>
+            The base path to all log files.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IO.PathsImplementation.ExecutablePath">
+            <summary>
+            The complete path (including the file name) to the executable.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IO.PathsImplementation.ExecutableDirectory">
+            <summary>
+            The directory path to the executable.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IO.PathsImplementation.Data">
+            <summary>
+            The base path to data files.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IO.PathsImplementation.Combine(System.String)">
+            <summary>
+            Combines the Root path and the given subPath.
+            </summary>
+            <param name="subPath">The sub path (under the main path).</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.PathsImplementation.Combine(System.String,System.String)">
+            <summary>
+            Combines the Root path and the given subPath and file name.
+            </summary>
+            <param name="subPath">The sub path (under the main path).</param>
+            <param name="subPath2">An additional sub path (or the name of a file).</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.PathsImplementation.GetConfigPath(System.String)">
+            <summary>
+            Returns the config path to the given config name.
+            </summary>
+            <param name="configName">The name of the config.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.PathsImplementation.GetConfigPath(System.String,System.String)">
+            <summary>
+            Returns the config path to the given config name.
+            </summary>
+            <param name="configName">The name of the config.</param>
+            <param name="fileName">The name of a config file.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.PathsImplementation.GetTransactionsPath(System.String)">
+            <summary>
+            Returns the transaction file path to the given terminal type.
+            </summary>
+            <param name="terminalType">The name of the terminal type.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.PathsImplementation.GetTransactionsPath(System.String,System.String)">
+            <summary>
+            Returns the transaction file path to the given terminal type.
+            </summary>
+            <param name="terminalType">The name of the terminal type.</param>
+            <param name="subState">The name of the sub state.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.PathsImplementation.ReplaceExtension(System.String,System.String)">
+            <summary>
+            Replaces the extension of a file (e.g. from C:\MyFile.aaa to C:\MyFile.bbb)
+            </summary>
+            <param name="fileName"></param>
+            <param name="newExtension"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.PathsImplementation.Parse(System.String)">
+            <summary>
+            Parses the path to replace any %...% variables with the current actual path.
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.PathsImplementation.FileExists(System.String)">
+            <summary>
+            Checks if file exists
+            </summary>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.PathsImplementation.DirectoryExists(System.String)">
+            <summary>
+            Checks if directory exists
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.IO.PathsImplementation.EnsureDirectoryExists(System.String)">
+            <summary>
+            Ensures the directory exists by trying to create it if it does not exist already.
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.IO.SafeFileWritingStream">
+            <summary>
+            A file writing stream that ensures that the files remain consistent even when a writing operation is interrupted.
+            The writing will be performed to a temporary file that will be exchanged with the target file when the writing has 
+            completed. There is a static method, Cleanup that should be called when a program starts up that will clean up and 
+            restore the files in the best possible state.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IO.SafeFileWritingStream.#ctor(System.String)">
+            <summary>
+            Creates a new instance of te SafeFileWriting Stream for the specified file.
+            </summary>
+            <param name="fileName"></param>
+            <exception cref="T:Wayne.Lib.IO.SafeFileWritingIOException">If some of the files that should be not is accessible.</exception>
+        </member>
+        <member name="M:Wayne.Lib.IO.SafeFileWritingStream.#ctor(Wayne.Lib.IO.IFileSupport,System.String)">
+            <summary>
+            Creates a new instance of te SafeFileWriting Stream for the specified file.
+            </summary>
+            <param name="fileSupport">The filesupport implementation to use.</param>
+            <param name="fileName"></param>
+            <exception cref="T:Wayne.Lib.IO.SafeFileWritingIOException">If some of the files that should be not is accessible.</exception>
+        </member>
+        <member name="M:Wayne.Lib.IO.SafeFileWritingStream.#ctor(Wayne.Lib.IO.IFileSupport,System.String,Wayne.Lib.IO.UnitTest.SafeFileWritingInterruptPoint)">
+            <summary>
+            Private constuctor used for unit testing.
+            </summary>
+            <param name="fileSupport">The filesupport implementation to use.</param>
+            <param name="fileName"></param>
+            <param name="interruptAtStage"></param>
+        </member>
+        <member name="P:Wayne.Lib.IO.SafeFileWritingStream.CanRead">
+            <summary>
+            Always false, SafeFileStream is write-only
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IO.SafeFileWritingStream.CanSeek">
+            <summary>
+            Always false, SafeFileStream is write-only
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IO.SafeFileWritingStream.CanWrite">
+            <summary>
+            Always true, SafeFileStream is write-only
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IO.SafeFileWritingStream.Flush">
+            <summary>
+            Clears all buffers for this stream and causes any buffered data to be written to the underlying device. 
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">The stream is closed.</exception>
+            <exception cref="T:System.IO.IOException">An I/O error occurs.</exception>
+        </member>
+        <member name="P:Wayne.Lib.IO.SafeFileWritingStream.Length">
+            <summary>
+            Gets the length in bytes of the stream. 
+            </summary>
+            <exception cref="T:System.NotSupportedException">CanSeek for this stream is false.</exception>
+            <exception cref="T:System.IO.IOException">An I/O error occurs, such as the file being closed.</exception>
+        </member>
+        <member name="P:Wayne.Lib.IO.SafeFileWritingStream.Position">
+            <summary>
+            Gets or sets the current position of this stream. 
+            </summary>
+            <exception cref="T:System.NotSupportedException">The stream does not support seeking.</exception>
+        </member>
+        <member name="M:Wayne.Lib.IO.SafeFileWritingStream.Read(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Not supported
+            </summary>
+            <param name="buffer"></param>
+            <param name="offset"></param>
+            <param name="count"></param>
+            <returns></returns>
+            <exception cref="T:System.NotSupportedException">Always</exception>
+        </member>
+        <member name="M:Wayne.Lib.IO.SafeFileWritingStream.Seek(System.Int64,System.IO.SeekOrigin)">
+            <summary>
+            Not supported. Stream is Write-only.
+            </summary>
+            <param name="offset"></param>
+            <param name="origin"></param>
+            <returns></returns>
+            <exception cref="T:System.NotSupportedException">Always.</exception>
+        </member>
+        <member name="M:Wayne.Lib.IO.SafeFileWritingStream.SetLength(System.Int64)">
+            <summary>
+            Not supported. Fast-forward writing only.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.SafeFileWritingStream.Write(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Writes a block of bytes to this stream using data from a buffer. 
+            </summary>
+            <param name="buffer">The buffer containing data to write to the stream.</param>
+            <param name="offset">The zero-based byte offset in array at which to begin copying bytes to the current stream.</param>
+            <param name="count">The maximum number of bytes to be written to the current stream.</param>
+            <exception cref="T:System.ArgumentNullException">array is null.</exception>
+            <exception cref="T:System.ObjectDisposedException">The stream is closed.</exception>
+            <exception cref="T:System.IO.IOException">An I/O error occurs.</exception>
+            <exception cref="T:System.ArgumentException">offset and count describe an invalid range in array.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">offset or count is negative.</exception>
+        </member>
+        <member name="M:Wayne.Lib.IO.SafeFileWritingStream.Close">
+            <summary>
+            Closes the stream and overwrites the target file.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IO.SafeFileWritingStream.SetWritingStage(Wayne.Lib.IO.UnitTest.SafeFileWritingInterruptPoint)">
+            <summary>
+            Private method that is used to enable interrupts in different phases of the writing 
+            for the unit testing.
+            </summary>
+            <param name="writingStage"></param>
+        </member>
+        <member name="M:Wayne.Lib.IO.SafeFileWritingStream.Cleanup(System.String,System.String,System.EventHandler{Wayne.Lib.IO.SafeFileWritingCleanupEventArgs},System.Object)">
+            <summary>
+            All file types that is written with the SafeFileWritingStream should be cleaned at certain points
+            to maintain the integrity. The typical place to place a call to this method is at the startup of
+            a module. If the module wrote something and was interrupted by a program shutdown, it can rescue some data with this
+            method.
+            </summary>
+            <param name="folderPath"></param>
+            <param name="pattern"></param>
+            <param name="temporaryFileFoundCallback">Delegate that is called when a temp file is found and asks for action to take. This delegate may be invoked several times.</param>
+            <param name="userToken">Token that is returned in the invokation of the temporaryFileFoundCallback.</param>
+            <exception cref="T:System.ArgumentException">Folder does not exist</exception>
+        </member>
+        <member name="M:Wayne.Lib.IO.SafeFileWritingStream.Cleanup(Wayne.Lib.IO.IFileSupport,System.String,System.String,System.EventHandler{Wayne.Lib.IO.SafeFileWritingCleanupEventArgs},System.Object)">
+            <summary>
+            All file types that is written with the SafeFileWritingStream should be cleaned at certain points
+            to maintain the integrity. The typical place to place a call to this method is at the startup of
+            a module. If the module wrote something and was interrupted by a program shutdown, it can rescue some data with this
+            method.
+            </summary>
+            <param name="fileSupport">The filesupport implementation to use.</param>
+            <param name="folderPath"></param>
+            <param name="pattern"></param>
+            <param name="temporaryFileFoundCallback">Delegate that is called when a temp file is found and asks for action to take. This delegate may be invoked several times.</param>
+            <param name="userToken">Token that is returned in the invokation of the temporaryFileFoundCallback.</param>
+            <exception cref="T:System.ArgumentException">Folder does not exist</exception>
+        </member>
+        <member name="T:Wayne.Lib.IO.SafeFileWritingCleanupAction">
+            <summary>
+            Possible actions to take when cleaning up files that has been written by SafeFileWritingStream, and interrupted.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.IO.SafeFileWritingCleanupAction.Delete">
+            <summary>
+            Just delete the file
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.IO.SafeFileWritingCleanupAction.StoreInRestoredTempFileDir">
+            <summary>
+            Delete the file, and store a copy in the Wayne restore temporary file folder.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.IO.SafeFileWritingCleanupEventArgs">
+            <summary>
+            Event argument that is used to notify and ask what action to take if a partially written file is found.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IO.SafeFileWritingCleanupEventArgs.#ctor(System.String,System.Object)">
+            <summary>
+            Creates a new instance of the SafeFileWritingCleanupEventArgs class.
+            </summary>
+            <param name="fileName"></param>
+            <param name="userToken"></param>
+        </member>
+        <member name="P:Wayne.Lib.IO.SafeFileWritingCleanupEventArgs.Action">
+            <summary>
+            Sets or gets the action to take for the found temporary file.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.IO.SafeFileWritingCleanupEventArgs.FileName">
+            <summary>
+            Name of the found temporary file.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.IO.SafeFileWritingInterruptedException">
+            <summary>
+            Unit testing exception. Thrown when the processing was interrupted because of a deliberate 
+            interruption of the file writing for unit testing purposes.
+            </summary>    
+        </member>
+        <member name="M:Wayne.Lib.IO.SafeFileWritingInterruptedException.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IO.SafeFileWritingInterruptedException.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IO.SafeFileWritingInterruptedException.#ctor(System.String,System.Exception)">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.IO.SafeFileWritingIOException">
+            <summary>
+            Exception that is thrown when an unexpected file lock were found on any of the files that are involved in the safe file writing.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IO.SafeFileWritingIOException.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IO.SafeFileWritingIOException.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.IO.SafeFileWritingIOException.#ctor(System.String,System.Exception)">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.IO.UnitTest.SafeFileWritingInterruptPoint">
+            <summary>
+            Enumeration used for unit testing of the Safe File Writing stream
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.IO.UnitTest.SafeFileWritingInterruptPoint.DontInterrupt">
+            <summary>
+            Dont interrupt the processing
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.IO.UnitTest.SafeFileWritingInterruptPoint.WritingNotBegun">
+            <summary>
+            Interrupt before the writing has started
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.IO.UnitTest.SafeFileWritingInterruptPoint.WritingOngoing">
+            <summary>
+            Interrupt when the writing has started
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.IO.UnitTest.SafeFileWritingInterruptPoint.WritingCompleteOriginalFileRenamedToOld">
+            <summary>
+            Interrupt when the writing has finished, but the temp file has not yet been renamed to target file name.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.IO.UnitTest.SafeFileWritingInterruptPoint.WritingCompleteTempFileRenamedToTargetFile">
+            <summary>
+            Interrupt when the temp file has bee renamed to the target file, but the old file is not yet deleted.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.IO.UnitTest.SafeFileWritingInterruptPoint.WritingComplete">
+            <summary>
+            Interrupt after everything is done.
+            </summary>
+        </member>
+    </members>
+</doc>

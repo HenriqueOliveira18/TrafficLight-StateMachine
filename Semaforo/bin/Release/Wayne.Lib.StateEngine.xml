@@ -1,0 +1,2576 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Wayne.Lib.StateEngine</name>
+    </assembly>
+    <members>
+        <member name="T:Wayne.Lib.StateEngine.AnyState">
+            <summary>
+            This is used to define the sourcestate as any state, a wildcard,
+            if we want to create a general transition from a unspecified state in a machine.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.AnyState.FactoryName">
+            <summary>
+            The factory name of the AnyState.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.AnyState.GetInstanceName(System.String)">
+            <summary>
+            Gets the name of this instance in a given configuration, using the supplied parent state instance name.
+            </summary>
+            <param name="parentStateInstanceName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.BasicTransitionType">
+            <summary>
+            Basic Transition Types is for automatic transitions.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.StateEngine.BasicTransitionType.Init">
+            <summary>
+            Init transition is used when entering the initial state in the state machine.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.StateEngine.BasicTransitionType.Done">
+            <summary>
+            When a composite state has reached a final state, the state machine automatically fires
+            a Done transition in the state machine that owns the composite state.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.StateEngine.BasicTransitionType.Error">
+            <summary>
+            This is a transition that is sent by the state machine either if an internal error is detected
+            or if an exception has slipped out of the user code in the State.Enter, Exit, HandleEvent methods.
+            Add a state transition configuration to handle this transition in each state machine.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.StateEngine.BasicTransitionType.Timeout">
+            <summary>
+            Generic Timeout transition.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.CompositeStateMachine.IncomingEvent(Wayne.Lib.StateEngine.StateEngineEvent)">
+            <summary>
+            Sends an event to the child state machine. 
+            </summary>
+            <param name="stateEngineEvent"></param>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.CompositeStateMachine.Started">
+            <summary>
+            A composite state machine will alway return true for started.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.CompositeStateMachine.CreateState(System.String)">
+            <summary>
+            Override of the Create state method. This adds the functionality to equip the 
+            newly created state with a reference to the the parent composite state.
+            </summary>
+            <param name="factoryName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.CompositeState">
+            <summary>
+            Composite state is an abstract class that should be overriden to 
+            create a state that within itself have a state machine with sub states.
+            When creating the composite state, a message handling thread should be sent
+            in to the composite state constructor. It can either be a new thread if the 
+            composite state machine should run in a separate thread , or the thread of the 
+            parent state machine if the machine should run in the same thread.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.CompositeState.#ctor">
+            <summary>
+            Initializes a new instance of a composite state.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.CompositeState.Finalize">
+            <summary>
+            Destructor
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.CompositeState.HandleEvent(Wayne.Lib.StateEngine.StateEngineEvent,Wayne.Lib.StateEngine.Transition@)">
+            <summary>
+            Handles an incoming event.
+            </summary>
+            <param name="stateEngineEvent">Event that is received.</param>
+            <param name="transition">Perform a transaction by assigning a transition object to this ref parameter.</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.CompositeState.BeforeHandleEvent(Wayne.Lib.StateEngine.StateEngineEvent,Wayne.Lib.StateEngine.Transition@)">
+            <summary>
+            Method that can be overriden in descendant classes, so events can be handed before they are sent to the 
+            state machine.
+            </summary>
+            <param name="stateEngineEvent"></param>        
+            <param name="transition">Perform a transaction by assigning a transition object to this ref parameter.</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.CompositeState.UnhandledEvent(Wayne.Lib.StateEngine.StateEngineEvent,Wayne.Lib.StateEngine.Transition@)">
+            <summary>
+            Method that can be overriden if wanting to handle events that not has been handled in the composite state machine.
+            </summary>
+            <param name="stateEngineEvent"></param>
+            <param name="transition">Perform a transaction by assigning a transition object to this ref parameter.</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.CompositeState.Initialize">
+            <summary>
+            Initializes and creates the states of the composite state engine.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.CompositeState.LookupState(System.String)">
+            <summary>
+            This function is used to locate a specific state in the state machine.
+            
+            The composite state checks first if its own FactoryName matches the name, 
+            if not it calls each created state subsequently.
+            </summary>
+            <param name="factoryName">The name of the state that should be looked up.</param>
+            <returns>True if the state is or contains a state with this name.</returns>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.CompositeState.Dispose(System.Boolean)">
+            <summary>
+            Internal dispose method.
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.CompositeState.StateMachine">
+            <summary>
+            Returns the state machine that is used with the Composite state.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.CompositeState.SetParentStateMachine(Wayne.Lib.StateEngine.StateMachine)">
+            <summary>
+            Set the parent state machine for the state.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.CompositeState.SetDebugLogger(Wayne.Lib.Log.DebugLogger,System.Object)">
+            <summary>
+            Set the debug logger for the composite state, and assign it on to the state machine.
+            </summary>
+            <param name="debugLogger"></param>
+            <param name="logCategory"></param>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.Description.AsyncDoneDescription">
+            <summary>
+            Describe the AsyncDone / transition relationship for a state class of the generic AsyncWorkState.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Description.AsyncDoneDescription.#ctor(System.String,System.Object)">
+            <summary>
+            Describe the AsyncDone-event / transition relationship for a state class.
+            </summary>
+            <param name="conditionText">A descriptive text for the condition.</param>
+            <param name="transitionType">Transition that is performed.</param>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.EnterDescriptionAttribute">
+            <summary>
+            Describe the enter-transition for a state class.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.EnterDescriptionAttribute.#ctor(System.Object)">
+            <summary>
+            Drescribe a transition that is done unconditionally when entering a state.
+            </summary>
+            <param name="transitionType">Transition that is performed.</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.EnterDescriptionAttribute.#ctor(System.String,System.Object)">
+            <summary>
+            Drescribe a transitin that can be done when entering a state, and what condition that triggers the transition.
+            </summary>
+            <param name="conditionText">A descriptive text for the condition.</param>
+            <param name="transitionType">Transition that is performed.</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.EnterDescriptionAttribute.#ctor(System.String,System.Object,System.Boolean)">
+            <summary>
+            Drescribe a transitin that can be done when entering a state.
+            </summary>
+            <param name="conditionText">A descriptive text for the condition.</param>
+            <param name="transitionType">Transition that is performed.</param>
+            <param name="unconditionalOverriding">Tells whether this transition unconditionally overrides all inherited ones.</param>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.EnterDescriptionAttribute.ConditionText">
+            <summary>
+            A descriptive text for the condition.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.EnterDescriptionAttribute.TransitionType">
+            <summary>
+            Transition type that is performed.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.EnterDescriptionAttribute.UnconditionalOverriding">
+            <summary>
+            Tells whether this transition unconditionally overrides all inherited ones.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.EnterDescriptionAttribute.CompareTo(System.Object)">
+            <summary>
+            Compares this attribute with another one.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.EnterDescriptionAttribute.Equals(System.Object)">
+            <summary>
+            Equals.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.EnterDescriptionAttribute.GetHashCode">
+            <summary>
+            GetHashCode.
+            <note>The compiler complained that this method also should be overriden when the Equals was.</note>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.ImageDescriptionAttribute">
+            <summary>
+            Adds a document image describing this state.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.ImageDescriptionAttribute.#ctor">
+            <summary>
+            Description of an image with its default file name and no description.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.ImageDescriptionAttribute.#ctor(System.String)">
+            <summary>
+            Description of an image with its default file name.
+            </summary>
+            <param name="imageFileName">The file name of the image.
+            Keep null or empty to use default state image filename.</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.ImageDescriptionAttribute.#ctor(System.String,System.String)">
+            <summary>
+            Description of an image given a file name.
+            </summary>
+            <param name="imageFileName">The file name of the image.
+            Keep null or empty to use default state image filename.</param>
+            <param name="description">A descriptive text for the image.</param>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.ImageDescriptionAttribute.ImageFileName">
+            <summary>
+            The file name of the image.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.ImageDescriptionAttribute.Description">
+            <summary>
+            A descriptive text for the image.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.ImageDescriptionAttribute.GetDefaultImageFileName(System.String)">
+            <summary>
+            Gets the default filename (including relative path and extension) given a state.
+            </summary>
+            <param name="factoryName"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.ImageDescriptionAttribute.DefaultImageFileExtension">
+            <summary>
+            The default image filename extension.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.ImageDescriptionAttribute.StateMachineDefaultMainImage">
+            <summary>
+            The default filename of the main image of the StateMachine.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.KeywordDescriptionAttribute">
+            <summary>
+            Add a keyword to the state. Group the keywords in categories.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.KeywordDescriptionAttribute.#ctor(System.Object,System.Object,System.String)">
+            <summary>
+            Add a keyword to the state. Group the keywords in categories.
+            </summary>        
+            <param name="category">Category that the keyword belongs to.</param>
+            <param name="keyword">Keyword that should be associated with the state.</param>
+            <param name="description">Descriptive text.</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.KeywordDescriptionAttribute.#ctor(System.Object,System.Object)">
+            <summary>
+            Add a keyword to the state. Group the keywords in categories.
+            </summary>        
+            <param name="category">Category that the keyword belongs to.</param>
+            <param name="keyword">Keyword that should be associated with the state.</param>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.KeywordDescriptionAttribute.Category">
+            <summary>
+            Category that the keyword belongs to.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.KeywordDescriptionAttribute.Keyword">
+            <summary>
+            Keyword that should be associated with the state.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.KeywordDescriptionAttribute.KeywordText">
+            <summary>
+            Keyword as a string.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.KeywordDescriptionAttribute.Description">
+            <summary>
+            Descriptive text.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.KeywordDescriptionAttribute.CompareTo(System.Object)">
+            <summary>
+            Compares this attribute with another one.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.StateDescriptionAttribute">
+            <summary>
+            An attribute that can be applied to state classes, that is used to 
+            document the state.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateDescriptionAttribute.#ctor(System.String)">
+            <summary>
+            Creates a Summary state engine description for the class.
+            </summary>
+            <param name="description">Description.</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateDescriptionAttribute.#ctor(Wayne.Lib.StateEngine.StateDescriptionType,System.String)">
+            <summary>
+            Creates a state engine description for the class.
+            </summary>
+            <param name="descriptionType">Category for the description.</param>
+            <param name="description">Description.</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateDescriptionAttribute.#ctor(Wayne.Lib.StateEngine.StateDescriptionType,System.Type)">
+            <summary>
+            Creates a state engine description for the class.
+            </summary>
+            <param name="descriptionType">Category for the description.</param>
+            <param name="type">Type that stands for the description.</param>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.StateDescriptionAttribute.DescriptionType">
+            <summary>
+            The category of the description.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.StateDescriptionAttribute.Description">
+            <summary>
+            Description.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateDescriptionAttribute.CompareTo(System.Object)">
+            <summary>
+            Compares this attribute with another one.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.StateDescriptionType">
+            <summary>
+            Used in the DescriptionAttribute to categorize the 
+            different descriptions.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.StateEngine.StateDescriptionType.Summary">
+            <summary>
+            A summary of the state behaviour.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.StateEngine.StateDescriptionType.Enter">
+            <summary>
+            A desciptive text about the state entry.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.StateEngine.StateDescriptionType.Exit">
+            <summary>
+            A desciptive text about the state exit.s
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.StateEngine.StateDescriptionType.Timeout">
+            <summary>
+            If the state has a timeout behaviour, it is described in this category.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.EventDescriptionAttribute">
+            <summary>
+            Describe the event / transition relationship for a state class.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.EventDescriptionAttribute.#ctor(System.Object,System.Object)">
+            <summary>
+            Describe an unconditional event / transition relationship for a state class.
+            </summary>
+            <param name="eventType">Event type object</param>
+            <param name="transitionType">Transition that is performed.</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.EventDescriptionAttribute.#ctor(System.Object,System.String,System.Object)">
+            <summary>
+            Describe the event / transition relationship for a state class.
+            </summary>
+            <param name="eventType">Event type object</param>
+            <param name="conditionText">A descriptive text for the condition.</param>
+            <param name="transitionType">Transition that is performed.</param>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.EventDescriptionAttribute.EventType">
+            <summary>
+            Event type object.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.EventDescriptionAttribute.CompareTo(System.Object)">
+            <summary>
+            Compares this attribute with another one.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.TimeoutDescription">
+            <summary>
+            Describe the timeout / transition relationship for a state class of the generic TimeoutState.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.TimeoutDescription.#ctor(System.String,System.Object)">
+            <summary>
+            Describe the timeout-event / transition relationship for a state class.
+            </summary>
+            <param name="conditionText">A descriptive text for the condition.</param>
+            <param name="transitionType">Transition that is performed.</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.TimeoutDescription.#ctor(System.Object)">
+            <summary>
+            Describe a conditionless timeout-event / transition relationship for a state class.
+            </summary>
+            <param name="transitionType">Transition that is performed.</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.EventBufferingRootStateMachine.CreateOnStateChangeEventHandler(Wayne.Lib.StateEngine.StateMachine)">
+            <summary>
+            Recursively hook on the OnStateChanged for the state machine and all sub composite states.
+            </summary>
+            <param name="stateMachine"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.EventBufferingRootStateMachine.HandleQueuedEvents(Wayne.Lib.StateEngine.ReentrancyMutex)">
+            <summary>
+            Processes all queued events.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.EventBufferingRootStateMachine.HandleEventInCurrentState(Wayne.Lib.StateEngine.StateEngineEvent)">
+            <summary>
+            Handle the event in the current state, and if the event is returned unhandled, it 
+            is put on the resend queue, to be sent to the next state we enter.
+            </summary>
+            <param name="stateEngineEvent"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.EventBufferingRootStateMachine.SortEventList">
+            <summary>
+            Sorts the event list.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.EventBufferingRootStateMachine.CompareEvents(Wayne.Lib.StateEngine.StateEngineEvent,Wayne.Lib.StateEngine.StateEngineEvent)">
+            <summary>
+            Compares two state engine event objects.
+            </summary>
+            <param name="ev1"></param>
+            <param name="ev2"></param>
+            <returns></returns>        
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.EventBufferingRootStateMachine.GetNextEventSequenceNumber">
+            <summary>
+            Generates a new sequence number for incoming events.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.EventBufferingRootStateMachine.StateChangedNotification(System.Object,Wayne.Lib.StateEngine.StateChangedEventArgs)">
+            <summary>
+            Event hanler for state changes.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.EventBufferingRootStateMachine.IncomingEvent(Wayne.Lib.StateEngine.StateEngineEvent)">
+            <summary>
+            Entry point for incoming events. Stores the event in the event list and sorts the list. Nothing more happens, it is up to descendant classes
+            to add functionality on how to handle this.
+            </summary>
+            <param name="stateEngineEvent"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.EventBufferingRootStateMachine.RemovePendingEvents``1(Wayne.Lib.StateEngine.StateEngineEventPredicate{``0},``0)">
+            <summary>
+            Removes all pending event that matches the supplied predicate.
+            </summary>
+            <typeparam name="TComparisonObject">Type of the comparison object</typeparam>
+            <param name="predicate">The predicate that is used to match the event.</param>
+            <param name="comparisonObject">The comparison object that is used in the StateEngineEventPredicate.</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.EventBufferingRootStateMachine.RemovePendingEventsOfType(System.Object)">
+            <summary>
+            Removes all pending events that matches the specified event type. .Equals method is 
+            used to compare.
+            </summary>
+            <param name="eventType"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.EventBufferingRootStateMachine.MatchEventOnType(Wayne.Lib.StateEngine.StateEngineEvent,System.Object)">
+            <summary>
+            Predicate method that is used to make the event type comparison in the RemovePendingEventsOfType method.
+            </summary>
+            <param name="stateEngineEvent"></param>
+            <param name="eventType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.EventBufferingRootStateMachine.ClearPendingEvents">
+            <summary>
+            Clear all pending events.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.StateEngineEventPredicate`1">
+            <summary>
+            Delegate that is used to match StateEngine events.    
+            </summary>
+            <typeparam name="TCompareObject">Type of the input parameter</typeparam>
+            <param name="stateEngineEvent">The event that should be evaluated</param>
+            <param name="compareObject">The object that should be used in the comparison.</param>
+            <returns>True if the stateengineevent matches the predicate, otherwise false.</returns>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.ExceptionTransition">
+            <summary>
+            Exception transition is used when State engine issues a transition automatically because Enter() or HandleEvent() 
+            throws an exception.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.ExceptionTransition.Exception">
+            <summary>
+            Exception that cause the transition
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.ExceptionTransition.#ctor(Wayne.Lib.StateEngine.State,System.Object,System.Exception)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="sender"></param>
+            <param name="type"></param>
+            <param name="exception"></param>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.Generic.AsyncWorkState`2">
+            <summary>
+            Generic state that enables descendant classes to execute code on a worker thread 
+            when the state is active. When the processing is completed, i.e. the PerformWork returns,
+            the state will post a transition of the type specified in the constructor.
+            
+            When exitting the state, we for the worker thread to complete before continuing.
+            
+            Descendant classes can also use the AbortWork() method to signal to the worker thread that it should exit as fast as possible.
+            
+            The PerformWork method should periodically check the Aborted property and if that is true, exit as fast as possible.
+            </summary>
+            <typeparam name="TMain"></typeparam>
+            <typeparam name="TData">Specifies the type of state data the state uses.</typeparam>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Generic.AsyncWorkState`2.#ctor(System.Object)">
+            <summary>
+            Protected constructor.
+            </summary>
+            <param name="doneTransitionType"></param>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.Generic.AsyncWorkState`2.Data">
+            <summary>
+            Gets the state data for this state.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.Generic.CompositeState`2">
+            <summary>
+            Generic composite state class that has a main object of a generic type.
+            </summary>
+            <typeparam name="TMain">Specifies the type of the main object.</typeparam>
+            <typeparam name="TData">Specifies the type of state data the state uses.</typeparam>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.Generic.CompositeState`2.Data">
+            <summary>
+            Gets the state data for this state.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Generic.CompositeState`2.CreateStateData(Wayne.Lib.StateEngine.Generic.StateData)">
+            <summary>
+            CreateStateData method should be overridden by those composite states that does not have the same state data 
+            as their parent state.
+            </summary>
+            <param name="parentStateData"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.Generic.FinalState`2">
+            <summary>
+            Generic final state class that has a main object that is the user's choice.
+            </summary>
+            <typeparam name="TMain">Specifies the type of the main object.</typeparam>
+            <typeparam name="TData">Specifies the type of state data the state uses.</typeparam>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.Generic.FinalState`2.Data">
+            <summary>
+            Gets the state data for this state.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.Generic.InitialState`2">
+            <summary>
+            Generic initial state class that has a main object of a generic type.
+            </summary>
+            <typeparam name="TMain">Specifies the type of the main object.</typeparam>
+            <typeparam name="TData"></typeparam>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.Generic.InitialState`2.Data">
+            <summary>
+            Gets the state data for this state.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.Generic.PseudoState`2">
+            <summary>
+            Generic pseudo state class that has a main object of a generic type.
+            </summary>
+            <typeparam name="TMain">Specifies the type of the main object.</typeparam>
+            <typeparam name="TData">Specifies the type of state data the state uses.</typeparam>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.Generic.PseudoState`2.Data">
+            <summary>
+            Gets the state data for this state.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.Generic.State`2">
+            <summary>
+            Generic state class that has a main object of a generic type.
+            </summary>
+            <typeparam name="TMain">Specifies the type of the main object.</typeparam>
+            <typeparam name="TData">Specifies the type of state data the state uses.</typeparam>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.Generic.State`2.Data">
+            <summary>
+            Gets the state data for this state.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.Generic.StateData">
+            <summary>
+            Class that is used as base class for State Data objects. The idea is that the descendant classes 
+            should define strongly typed properties for the data that should be accessed from the states. The 
+            storage of the data however is in a weakly typed dictionary that is managed by the class through the 
+            Define/Get/Set data methods.
+            Typically an enumeration should be used to define the data.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Generic.StateData.#ctor(Wayne.Lib.StateEngine.Generic.StateData)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="parentStateData">Reference to the parent composite state's state data object.</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Generic.StateData.Finalize">
+            <summary>
+            Finalizer
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Generic.StateData.DefineData``2(``0,``1)">
+            <summary>
+            Defines a parameter and specifies the type and initial value for it.
+            </summary>
+            <param name="dataDefinition"></param>
+            <param name="initialValue"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Generic.StateData.DataIsDefined(System.Object)">
+            <summary>
+            Checks if the data is defined already in a parent state data.
+            </summary>
+            <param name="dataDefinition"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Generic.StateData.SetData``2(``0,``1)">
+            <summary>
+            Sets a new value to a field that is defined by dataDefinition.
+            </summary>
+            <param name="dataDefinition"></param>
+            <param name="dataField"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Generic.StateData.GetData``2(``0)">
+            <summary>
+            Gets data from the definition.
+            </summary>
+            <param name="dataDefinition"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Generic.StateData.GetParentCompositeStateWithStateData``1(Wayne.Lib.StateEngine.State)">
+            <summary>
+            Used from the different generic data states to handle fetch the Composite state that contains the state data that this state should use.
+            </summary>
+            <typeparam name="TData"></typeparam>
+            <param name="state"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Generic.StateData.Dispose(System.Boolean)">
+            <summary>
+            Dispose 
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Generic.StateData.Dispose">
+            <summary>
+            Dispose
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.Generic.TimeoutState`2">
+            <summary>
+            Generic timeout state class that has a main object of a generic type.
+            </summary>
+            <typeparam name="TMain">Specifies the type of the main object.</typeparam>
+            <typeparam name="TData">Specifies the type of state data the state uses.</typeparam>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.Generic.TimeoutState`2.Data">
+            <summary>
+            Gets the state data for this state.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.Generic.AsyncWorkState`1">
+            <summary>
+            Generic state that enables descendant classes to execute code on a worker thread 
+            when the state is active. When the processing is completed, i.e. the PerformWork returns,
+            the state will post a transition of the type specified in the constructor.
+            
+            When exitting the state, we for the worker thread to complete before continuing.
+            
+            Descendant classes can also use the AbortWork() method to signal to the worker thread that it should exit as fast as possible.
+            
+            The PerformWork method should periodically check the Aborted property and if that is true, exit as fast as possible.
+            </summary>
+            <typeparam name="TMain"></typeparam>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Generic.AsyncWorkState`1.#ctor(System.Object)">
+            <summary>
+            Initializes a new instance of the AsyncWorkState class.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Generic.AsyncWorkState`1.Enter(Wayne.Lib.StateEngine.StateEntry,Wayne.Lib.StateEngine.Transition@)">
+            <summary>
+            Called when entering the state.
+            </summary>
+            <param name="stateEntry"></param>
+            <param name="transition"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Generic.AsyncWorkState`1.Exit">
+            <summary>
+            Called when exitting the state.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Generic.AsyncWorkState`1.HandleEvent(Wayne.Lib.StateEngine.StateEngineEvent,Wayne.Lib.StateEngine.Transition@)">
+            <summary>
+            Handles events.
+            </summary>
+            <param name="stateEngineEvent"></param>
+            <param name="transition"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Generic.AsyncWorkState`1.WorkDone(Wayne.Lib.StateEngine.Transition@)">
+            <summary>
+            Method that is called when the work is done. Override to specify another transition type than the one 
+            specified in the constructor.
+            </summary>
+            <param name="transition"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Generic.AsyncWorkState`1.AbortWork">
+            <summary>
+            Signals to the thread that it should exit as quick as possible. Can be overridden by descendant
+            classes to create user code to abort.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.Generic.AsyncWorkState`1.Aborted">
+            <summary>
+            Signals that the PerformWork method should return as fast as possible.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Generic.AsyncWorkState`1.PerformWork">
+            <summary>
+            Method that is called in a worker thread.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.Generic.CompositeState`1">
+            <summary>
+            Generic composite state class that has a main object of a generic type.
+            </summary>
+            <typeparam name="TMain">Specifies the type of the main object.</typeparam>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.Generic.CompositeState`1.Main">
+            <summary>
+            The main object.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Generic.CompositeState`1.ConfigureCompositeStateMachine">
+            <summary>
+            Configure the composite state machine
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.Generic.GenericEventType">
+            <summary>
+            Built-in event type definition that is used by the timeoutstate timer handling.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.StateEngine.Generic.GenericEventType.Timeout">
+            <summary>
+            Timeout event.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.StateEngine.Generic.GenericEventType.AsyncDone">
+            <summary>
+            Asynchronous processing completed.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.Generic.FinalState`1">
+            <summary>
+            Generic final state class that has a main object that is the user's choice.
+            </summary>
+            <typeparam name="TMain">Specifies the type of the main object.</typeparam>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.Generic.FinalState`1.Main">
+            <summary>
+            The main object.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.Generic.IGenericState`1">
+            <summary>
+            Common interface for all the generic state classes. It is used in the state factory 
+            code.
+            </summary>
+            <typeparam name="TMain"></typeparam>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.Generic.IGenericState`1.WritableMain">
+            <summary>
+            Writable main object. Only used in the state factory code.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.Generic.InitialState`1">
+            <summary>
+            Generic initial state class that has a main object of a generic type.
+            </summary>
+            <typeparam name="TMain">Specifies the type of the main object.</typeparam>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.Generic.InitialState`1.Main">
+            <summary>
+            The main object.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.Generic.PseudoState`1">
+            <summary>
+            Generic pseudo state class that has a main object of a generic type.
+            </summary>
+            <typeparam name="TMain">Specifies the type of the main object.</typeparam>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.Generic.PseudoState`1.Main">
+            <summary>
+            The main object.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.Generic.State`1">
+            <summary>
+            Generic state class that has a main object of a generic type.
+            </summary>
+            <typeparam name="TMain">Specifies the type of the main object.</typeparam>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.Generic.State`1.Main">
+            <summary>
+            The main object.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.Generic.TimeoutState`1">
+            <summary>
+            Generic timeout state class that has a main object of a generic type.
+            </summary>
+            <typeparam name="TMain">Specifies the type of the main object.</typeparam>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Generic.TimeoutState`1.Enter(Wayne.Lib.StateEngine.StateEntry,Wayne.Lib.StateEngine.Transition@)">
+            <summary>
+            See State.Enter
+            </summary>
+            <param name="stateEntry"></param>
+            <param name="transition"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Generic.TimeoutState`1.HandleEvent(Wayne.Lib.StateEngine.StateEngineEvent,Wayne.Lib.StateEngine.Transition@)">
+            <summary>
+            HandleEvent is sealed, use HandleNonTimeoutEvent method to override instead.
+            </summary>
+            <param name="stateEngineEvent"></param>
+            <param name="transition"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Generic.TimeoutState`1.Exit">
+            <summary>
+            See State.Exit
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Generic.TimeoutState`1.HandleNonTimeoutEvent(Wayne.Lib.StateEngine.StateEngineEvent,Wayne.Lib.StateEngine.Transition@)">
+            <summary>
+            Method that is implemented by descendant classes to receive events that were not the timeout event.
+            </summary>
+            <param name="stateEngineEvent"></param>
+            <param name="transition"></param>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.Generic.TimeoutState`1.TimeoutInterval">
+            <summary>
+            Method that is used by descendant classes to set the timeout of the state.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Generic.TimeoutState`1.Timeout(Wayne.Lib.StateEngine.Transition@)">
+            <summary>
+            Method that is used by descendant classes to be signaled when the timeout has fired.
+            </summary>
+            <param name="transition"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Generic.TimeoutState`1.CancelTimer">
+            <summary>
+            Cancels the currently running timer.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Generic.TimeoutState`1.ResetTimer">
+            <summary>
+            Restarts the timer. If a timer is active, it is restarted, and if the timer is not active anymore, it is started again.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.GenericEvent">
+            <summary>
+            Static class that can be used only as a substitute for the GenericEvent&lt;&gt; constructor.
+            It allows C# developers to avoid typing the type argument by inferred parameter type resolution.
+            </summary> 
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.GenericEvent.Create``1(System.Object,System.Object,``0)">
+            <summary>
+            Static method that can be used instead of the constructor. The advantage is 
+            that by using a method C# can figure out the type parameter by the input 
+            argument, and thus decreasing the amount of code to write.
+            </summary>
+            <typeparam name="TEventArgs"></typeparam>
+            <param name="eventType"></param>
+            <param name="sender"></param>
+            <param name="eventArgs"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.GenericEvent`1">
+            <summary>
+            GenericEvent is an event that can be used with .Net Events and delegates. Instead of defining each 
+            event as both an EventArgs structure and an StateEngineEvent structure with about the same content,
+            this class is a StateEngineEvent that can contain information from a .Net event.
+            </summary>
+            <typeparam name="TEventArgs">The type of the EventArgs. Must be an EventArgs class.</typeparam>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.GenericEvent`1.#ctor(System.Object,System.Object,`0)">
+            <summary>
+            Initializes a new instance of the GenericEvent class. 
+            </summary>
+            <param name="eventType">Type of the event.</param>
+            <param name="sender">Sender from the .Net event.</param>
+            <param name="eventArgs">EventArgs from the .Net event.</param>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.GenericEvent`1.EventArgs">
+            <summary>
+            EventArgs from the .Net event
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.GenericEvent`1.Sender">
+            <summary>
+            Sender from the .Net event.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.GenericEvent`1.ToString(System.String,System.IFormatProvider)">
+            <summary>
+            Presents the class as a string.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.IEventConsumer">
+            <summary>
+            Interface from the State machine to event producers that they can use to 
+            send events to the machine.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.IEventConsumer.IncomingEvent(Wayne.Lib.StateEngine.StateEngineEvent)">
+            <summary>
+            Inject events into the state engine.
+            </summary>
+            <param name="stateEngineEvent">The event object that should be sent to the state machine</param>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.IStateFactory">
+            <summary>
+            Interface for State Factories. The factories are added to the state machine, and are used to
+            create the actual state objects. The Wayne.Lib.StateEngine library does not provide any implementation
+            for this interface, it must be implemented in each application.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.IStateFactory.CreateState(System.String)">
+            <summary>
+            Create a state object from the specified State name. 
+            </summary>
+            <param name="stateFactoryName">Name of the state to be created.</param>
+            <returns>If successful, it returns the object for the state name. If it not was found, it returns null.</returns>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.IStateFactory.Name">
+            <summary>
+            Name of the state facory.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.IStateFactory2">
+            <summary>
+             Interface to a State factory, that can use the State Type Container
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.IStateFactory2.CreateState(System.String,Wayne.Lib.StateEngine.StateTypeContainer)">
+            <summary>
+            Create a state object from the specified State name. 
+            </summary>
+            <param name="stateFactoryName">Name of the state to be created.</param>
+            <param name="stateTypeContainer"></param>
+            <returns>If successful, it returns the object for the state name. If it not was found, it returns null.</returns>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.LogType">
+            <summary>
+            Categorizes the log entries in the OnLog event from the State machine.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.StateEngine.LogType.Enter">
+            <summary>
+            Logging when a state entry is performed.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.StateEngine.LogType.Exit">
+            <summary>
+            Logging when a state exit is performed.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.StateEngine.LogType.HandleEvent">
+            <summary>
+            Logging when an event is sent into a state for handling.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.StateEngine.LogType.Error">
+            <summary>
+            Logging when an exception has been unhandled in the user code.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.StateEngine.LogType.Debug">
+            <summary>
+            Misc. debug logging.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.StateEngine.LogType.UnhandledTransition">
+            <summary>
+            Warnings about unhandled transitions.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.LogEventArgs">
+            <summary>
+            The Log Event args is used to carry log strings when logging internally in the 
+            state machine. Applications can hook on the StateMachine.OnLog event in order to 
+            catch loggins from the inner workings of the statemachine.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.LogEventArgs.#ctor(Wayne.Lib.StateEngine.LogType,System.String)">
+            <summary>
+            Initializes a new instance of the LogEventArgs class.
+            </summary>
+            <param name="logType">Category of this log entry.</param>
+            <param name="logText">Text to be logged.</param>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.LogEventArgs.LogText">
+            <summary>
+            The log text from the Statemachine.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.LogEventArgs.LogType">
+            <summary>
+            Category of the log entry.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.ReentrancyMutex">
+            <summary>
+            A mutex class that protects not only from entering a code section from separate threads, but also 
+            from reentrancy by the same thread but further up on the call stack.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.RootStateMachine.Started">
+            <summary>
+            Indicates that the state machine is started.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.StateChangedEventArgs">
+            <summary>
+            Argument in the StateChanged events. It contains the new and the old state in a state transition.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateChangedEventArgs.#ctor(Wayne.Lib.StateEngine.State,Wayne.Lib.StateEngine.State,Wayne.Lib.StateEngine.Transition)">
+            <summary>
+            Constructor for the StateChanged Event Arguments
+            </summary>
+            <param name="oldState">The State object representing the state that was exited.</param>
+            <param name="newState">The State object representing the state that was entered.</param>
+            <param name="transition">The Transition.</param>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.StateChangedEventArgs.OldState">
+            <summary>
+            The state that is exited
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.StateChangedEventArgs.NewState">
+            <summary>
+            The new state that is entered.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.StateChangedEventArgs.Transition">
+            <summary>
+            The Transition.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.StateEngineEvent">
+            <summary>
+            Event class that implements the Event interface. It is the base 
+            class to be used to send events to states in the state machine.   
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateEngineEvent.#ctor(System.Object)">
+            <summary>
+            Initializes a new instance of the StateEngine event with the default priority 0.
+            </summary>
+            <param name="eventType">Object identifying the event.</param>        
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateEngineEvent.#ctor(System.Object,System.Int32)">
+            <summary>
+            Initializes a new instance of the StateEngine event with the specified priority
+            </summary>
+            <param name="eventType">Object identifying the event.</param>
+            <param name="priority">Priority specifier, Lower number specifies that it will be handled sooner than higher numbers. Default priority is 0.</param>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.StateEngineEvent.Handled">
+            <summary>
+            Indicates if the event has been handled. If the state is handled, it is the application's responsiblity
+            to set this flag. the State engine never changes it.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.StateEngineEvent.Type">
+            <summary>
+            Defines the type of the event. Can be any reference or value
+            type (through boxing). Recommended is use of a user-defined enumeration.
+            The EventType is a arbitary type, preferrably enums, but any type can be used.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.StateEngineEvent.Priority">
+            <summary>
+            Specifies the priority of this event. High priority is defined by lower integers. Highest priority is thereby Int.Min.
+            Default priority is 0.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.StateEngineEvent.ArrivalTime">
+            <summary>
+            Specifies the time the event was sent into the state machine. This is used to determine 
+            the handling order when resending events to states.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.StateEngineEvent.SequenceNumber">
+            <summary>
+            Specifies an arrival sequence number that is assigned when the event is sent to a state machine.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateEngineEvent.ToString(System.String,System.IFormatProvider)">
+            <summary>
+            Presents the class as a string.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateEngineEvent.ToString(System.IFormatProvider)">
+            <summary>
+            Presents the class as a string using the specified culture-specific format information.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateEngineEvent.ToString(System.String)">
+            <summary>
+            Presents the class as a string using a format string.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateEngineEvent.ToString">
+            <summary>
+            Presents the class as a string using a format string and the specified culture-specific format information.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.ExplicitTransition">
+            <summary>
+            The Explicit transition is a way to go around the State Transition Lookup, and directly
+            decide which state to go to. 
+            It can be used in a small state machine application when an soft-coded state-transition 
+            configuration not is neccecary.
+            Another usage is when doing transitions to general states like an error state. When we 
+            want to return from that state, we want to return to the state where it came from. 
+            
+            </summary>
+            <example> 
+            <code>
+                Example of how to use the Explicit state as a "back" transition.
+            
+                class ErrorState : Wayne.Lib.StateEngine.State
+                {
+                    string cameFromState; 
+                
+                    public override void Enter(Wayne.Lib.StateEngine.StateEntry Entry)
+                    {
+                        cameFromState = Entry.SourceTransition.Sender.Name;
+                        
+                        //Do some error handling code
+                    }
+                
+                    public override void HandleEvent(Wayne.Lib.StateEngine.Event EventToHandle)
+                    {
+                        if (EventToHandle is ErrorConfirmedEvent) //The appropriate event has arrived, so we can leave the state.
+                        {
+                            PostTransition(new Wayne.Lib.StateEngine.ExplicitTransition(this, Wayne.Lib.StateEngine.BasicTransitionTypes.Done, cameFromState));
+                        }
+                    }
+                }
+            </code>
+            </example>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.ExplicitTransition.#ctor(Wayne.Lib.StateEngine.State,System.Object,System.String)">
+            <summary>
+            Constructor for the explicit transaction
+            </summary>
+            <param name="sender">State object that issued the transition</param>
+            <param name="transitionType">Object representing the type of the transition</param>
+            <param name="targetStateFactoryName">FactoryName of the state that should be searched for and entered.</param>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.ExplicitTransition.TargetStateFactoryName">
+            <summary>
+            Name of the target state of the transition.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.FinalState">
+            <summary>
+            Final state represent an endpoint in a state machine. There can not be any transitions from this state to any other state in the 
+            same state machine. There can be several final states in
+            one state machine. When the Final state has been reached, and after the Entry, the state engine 
+            will automatically post a BasicTransitionTypes.Done transition to the state machine above the state machine
+            containing the final state. 
+            </summary>    
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.FinalState.Enter(Wayne.Lib.StateEngine.StateEntry,Wayne.Lib.StateEngine.Transition@)">
+            <summary>
+            Override to add Enter code to the Final State.
+            </summary>
+            <param name="stateEntry">Information about the state entry.</param>
+            <param name="transition">Set to a transition object to perform a transition.</param>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.PseudoState">
+            <summary>
+            A pseudo state is a state that can be entered, but it must transition directly. 
+            The state machine can not stay in this state,but must continue directly. Therefore
+            the Enter, and exit methods are sealed and can not be overriden. Insted, the abstract method CreatePseudoStateTransition method
+            must be overriden. It receives the entry information and must return a transition direclty.
+            The pseudo state can be used to implement choce states, and is the base class for initial states.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.PseudoState.Enter(Wayne.Lib.StateEngine.StateEntry,Wayne.Lib.StateEngine.Transition@)">
+            <summary>
+            The Exit method may not be used in a Pseudo state. 
+            It must transition directly after enter.
+            </summary>        
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.PseudoState.Exit">
+            <summary>
+            The Exit method may not be used in a Pseudo state. 
+            It must transition directly after enter.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.PseudoState.CreatePseudoStateTransition(Wayne.Lib.StateEngine.StateEntry)">
+            <summary>
+            The CreatePseudoStateTransition method must be overriden. It receives the state
+            entry, and must make a new transition directly.
+            </summary>
+            <param name="stateEntry"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.InitialState">
+            <summary>
+            Initial state is the first state to be entered in a state machine. There should only be one initial state, and 
+            the state engine automatically enters that state at startup. It is a pseudo state so it must direclty transition to 
+            another state. 
+            
+            The class does not introduce any new behaviour from pseudostate, but marks that it is an intial state.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.HistoryType">
+            <summary>
+            History type defines the way that a composite state is entered.     
+            </summary> 
+        </member>
+        <member name="F:Wayne.Lib.StateEngine.HistoryType.None">
+            <summary>
+            Only the initial state is entered. No history is recalled
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.StateEngine.HistoryType.Shallow">
+            <summary>
+            If the composite has been active before, the state that was
+            active last is entered. Shallow means that entering the 
+            recalled last state but when entering that state, it is done with 
+            no history.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.StateEngine.HistoryType.Deep">
+            <summary>
+            If a composite state has been active before, the state that was active
+            last is entered, Deep means that if the recalled state is a composite 
+            it will also be entered with deep history.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.StateEngine.HistoryType.Explicit">
+            <summary>
+            Explicit history type is *only* used when issuing explicit transitions. If
+            a state machine is configured with this history type, an error will be thrown.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.StateType">
+            <summary>
+            The state types as an enumeration. This can be used in a future design tool.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.StateEngine.StateType.InitialState">
+            <summary>
+            Intial state
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.StateEngine.StateType.PseudoState">
+            <summary>
+            Pseudo state
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.StateEngine.StateType.State">
+            <summary>
+            Ordinary state
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.StateEngine.StateType.CompositeState">
+            <summary>
+            Composite state
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.StateEngine.StateType.FinalState">
+            <summary>
+            Final state
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.State">
+            <summary>
+            State is the base state of all states in the state machine. 
+            </summary>    
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.State.Enter(Wayne.Lib.StateEngine.StateEntry,Wayne.Lib.StateEngine.Transition@)">
+            <summary>
+            Enter is called when the state machine enters the state. Override this method to be able to 
+            run code at the state entry. If a transition should be performed, create a transition object
+            and return it in the transition out property.
+            </summary>
+            <param name="stateEntry">Information about the entry of the state.</param>
+            <param name="transition">Out parameter, that should be set to either the reference to a transition object or null.</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.State.Exit">
+            <summary>
+            Override this method to implement code that should be run at state exit. 
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.State.HandleEvent(Wayne.Lib.StateEngine.StateEngineEvent,Wayne.Lib.StateEngine.Transition@)">
+            <summary>
+            Override to receive incoming events. If the event is handled, the 
+            application must set the event.Handled = true.         
+            </summary>
+            <param name="stateEngineEvent">The event object that should be handled.</param>
+            <param name="transition">Out parameter that should be set to either the reference to a transition object or null.</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.State.ActivateTimer(Wayne.Lib.StateEngine.Timer)">
+            <summary>
+            Activates the supplied timer.
+            </summary>
+            <param name="timer">The timer to activate.</param>
+            <see cref="T:Wayne.Lib.StateEngine.Timer"/>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.State.Dispose(System.Boolean)">
+            <summary>
+            Disposes the resources owned by the state object.
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.State.ClearPendingEvents">
+            <summary>
+            Clears all events waiting in the event queues.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.State.RemovePendingEventsOfType(System.Object)">
+            <summary>
+            Clears all the events in the resend queue that matches the eventType. 
+            </summary>
+            <param name="eventType"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.State.RemovePendingEvents``1(Wayne.Lib.StateEngine.StateEngineEventPredicate{``0},``0)">
+            <summary>
+            Removes all pending event that matches the supplied predicate.
+            </summary>
+            <typeparam name="TComparisonObject">Type of the comparison object</typeparam>
+            <param name="predicate">The predicate that is used to match the event.</param>
+            <param name="comparisonObject">The comparison object that is used in the StateEngineEventPredicate.</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.State.Dispose">
+            <summary>
+            Disposes all the owned resources in the state.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.State.IncomingEvent(Wayne.Lib.StateEngine.StateEngineEvent,Wayne.Lib.StateEngine.Transition@)">
+            <summary>
+            Incoming event is called from the state machine when an event should be handled. 
+            </summary>
+            <param name="stateEngineEvent"></param>
+            <param name="transition">Perform a transition by assigning a transition object to this reference parameter.</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.State.PerformEnter(Wayne.Lib.StateEngine.StateEntry,Wayne.Lib.StateEngine.Transition@)">
+            <summary>
+            Called from the state machine when the state is entered. It is up to the state to 
+            call the appropriate virtual Enter methods. If a transition should be performed it 
+            is returned in the Transition ref parameter.
+            </summary>
+            <param name="stateEntry">State entry object containing information about the state entry.</param>
+            <param name="transition">Perform a transition by assigning a transition object to this ref parameter.</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.State.PerformExit">
+            <summary>
+            This method is called by the state machine when the state should be exited. It contains the error handling 
+            logic and logging of the exit.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.State.LookupState(System.String)">
+            <summary>
+            This function is used to locate a specific state in the state machine.
+            In the state class it is simply compared to the state Factory Name. More complex comparisons
+            is done in composite states.
+            </summary>
+            <param name="stateFactoryName">The factory name of the state that should be looked up.</param>
+            <returns>True if the state is or contains a state with this name.</returns>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.State.FactoryName">
+            <summary>
+            The factory name of the state (the full class name).
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.State.WritableFactoryName">
+            <summary>
+            Factory name of the class assigned after factory created the state.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.State.InstanceName">
+            <summary>
+            The name of this particular instance of this state (the hierarchical name of the state, 
+            starting with the name of the statemachine, through all parent composite states up to this state).
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.State.LogName">
+            <summary>
+            The name of the state used for logging.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.State.CreatedByFactory">
+            <summary>
+            Name of the state factory that created the state object.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.State.Active">
+            <summary>
+            Indicates that this is the current active state of the machine.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.State.ParentState">
+            <summary>
+            Provides a reference to the composite state this state is contained in. If it is in the root of the 
+            state machine, it will be null.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.State.StateType">
+            <summary>
+            The StateType.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.State.ParentStateMachine">
+            <summary>
+            The parent state machine for the state.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.State.ApplicationText">
+            <summary>
+            An additional text that shows up in the visualizer, that for instance can 
+            be used to point out application specific states.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.State.SetParentStateMachine(Wayne.Lib.StateEngine.StateMachine)">
+            <summary>
+            Set the parent state machine for the state.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.State.SetDebugLogger(Wayne.Lib.Log.DebugLogger,System.Object)">
+            <summary>
+            Sets the debug logger.
+            </summary>
+            <param name="debugLogger"></param>
+            <param name="logCategory"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.State.DebugLog(System.String,System.Object[])">
+            <summary>
+            Uses the debug logger passed in to the StateMachine upon creation to 
+            log the supplied logging if the logger is active. 
+            </summary>
+            <param name="format"></param>
+            <param name="params"></param>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.StateEngineException">
+            <summary>
+            Wayne.Lib.StateEngine exception is a general exception that can be thrown from the 
+            state engine library.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateEngineException.#ctor">
+            <summary>
+            Initializes a new instance of the StateEngineException class.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateEngineException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the StateEngineException class.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateEngineException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the StateEngineException class.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.StateFactories">
+            <summary>
+            A collection of State factories. A state machine can have states created by multiple state factories.
+            When a state object should be created, the factories are queried one by one for the state name. 
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateFactories.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateFactories.Clear">
+            <summary>
+            Clears the list.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateFactories.AddFactory(Wayne.Lib.StateEngine.IStateFactory)">
+            <summary>
+            Add a factory to the StateFactory Collection.
+            </summary>
+            <param name="stateFactory">
+            The factory that should be added.
+            </param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateFactories.CreateState(System.String,Wayne.Lib.StateEngine.StateTypeContainer)">
+             <summary>
+             Calls each registered State Factory to create the requested State.
+            		If more than one factory returns a state with the specified name,
+            		the method will throw an exception.
+            		
+            		If no factory returns a state, null will be returned.
+            		
+            		If exactly one state was created, it will be returned.
+             </summary>
+             <param name="stateFactoryName">Name of the State that is going to be created.</param>
+            <param name="stateTypeContainer"></param>
+            <returns>The created state</returns>
+             <exception cref="T:Wayne.Lib.StateEngine.StateEngineException">If more than one factory creates the state, an exception will be thrown.</exception>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.StateNameKind">
+            <summary>
+            The two kinds of names for a state.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.StateEngine.StateNameKind.FactoryName">
+            <summary>
+            The factory name of a state (the full class name).
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.StateEngine.StateNameKind.InstanceName">
+            <summary>
+            The name of this particular instance of a state (the hierarchical name of the state, 
+            starting with the name of the statemachine, through all parent composite states up to the state itself).
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.StateMachineType">
+            <summary>
+            Enumeration of the types of statemachines that can be created. Used in the factory method StateMachine.Create.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.StateEngine.StateMachineType.Threaded">
+            <summary>
+            A statemachine that runs in a separate thread.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.StateEngine.StateMachineType.Synchronous">
+            <summary>
+            A state machine that uses the thread that calls IncomingEvent method to process the state changes and the 
+            state code execution. 
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.StateTypeContainer">
+            <summary>
+            Container for all registered state types so far, to be used by StateFactory.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateTypeContainer.Register``1">
+            <summary>
+             Registers a state class type that can be used by StateFactory
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateTypeContainer.TryGetStateType(System.String,System.Type@)">
+            <summary>
+            Tries to fetch the given state 
+            </summary>
+            <param name="stateFactoryName"></param>
+            <param name="stateType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateTypeContainer.Register(Wayne.Lib.StateEngine.StateTypeContainer)">
+            <summary>
+            Merges another State Type Container with this one.
+            </summary>
+            <param name="stateTypeContainer"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.SynchronousRootStateMachine.#ctor(System.String,Wayne.Lib.Log.DebugLogger,System.Object)">
+            <summary>
+            Initializes a new instance of the ThreadedRootStateMachine class.
+            </summary>
+            <param name="name">The name of the statemachine.</param>
+            <param name="debugLogger">The DebugLogger to use.</param>
+            <param name="logCategory">The log category.</param>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.TestExtensions.TimerTestExtension">
+            <summary>
+            Extension that can be used in unit tests to fire timers.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.TestExtensions.TimerTestExtension.FireTimers(Wayne.Lib.StateEngine.StateMachine)">
+            <summary>
+            Fires all actuve timers in the supplied state machine.
+            </summary>
+            <param name="stateMachine"></param>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.ThreadedRootStateMachine">
+            <summary>
+            Threaded root state machine is the class that is driving a normal asynchronous state machine. It
+            contains the logic for running a statemachine in a separate thread.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.ThreadedRootStateMachine.#ctor(System.String,Wayne.Lib.Log.DebugLogger,System.Object)">
+            <summary>
+            Initializes a new instance of the ThreadedRootStateMachine class.
+            </summary>
+            <param name="name">The name of the statemachine.</param>
+            <param name="debugLogger">The DebugLogger to use.</param>
+            <param name="logCategory">The log category.</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.ThreadedRootStateMachine.Execute">
+            <summary>
+            Thread method.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.ThreadedRootStateMachine.IncomingEvent(Wayne.Lib.StateEngine.StateEngineEvent)">
+            <summary>
+            Entry point for incoming events. The base functionality is removed, and moved into the thread.
+            This method only puts the message into the event list, and signals to the thread that a new event has been added.
+            </summary>
+            <param name="stateEngineEvent"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.ThreadedRootStateMachine.Start">
+            <summary>
+            Starts the state machine. The base functionality is removed and moved to the thread.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.ThreadedRootStateMachine.Dispose(System.Boolean)">
+            <summary>
+            Disposes the resources owned by the instance.
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.TimerEvent">
+            <summary>
+            Event class for the Timer events. 
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.TimerEvent.#ctor(System.Object,System.Object)">
+             <summary>
+             Initializes a new instance of the TimerEvent. This event should only be created inside the 
+             state machine, and does therefore not have any public constructor.
+             </summary>
+            <param name="userToken"></param>
+            <param name="eventType"></param>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.TimerEvent.UserToken">
+            <summary>
+            The UserToken of the Timer.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.StateEntry">
+            <summary>
+            StateEntry contains information about the entry of a state.
+            It is produced by the state transition lookup. The application
+            receives it as an in parameter to the State.Enter() method.
+            What is of intrest to the application might be the sourceTransition, and the
+            attached source Event object.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateEntry.#ctor(Wayne.Lib.StateEngine.Transition,System.String,Wayne.Lib.StateEngine.HistoryType)">
+            <summary>
+            Constructor for StateEntry
+            </summary>
+            <param name="sourceTransition">The transition that resulted in the state change.</param>
+            <param name="targetStateFactoryName">The new state that is entered.</param>
+            <param name="historyType">History type that should be used when entering a composite state.</param>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.StateEntry.SourceTransition">
+            <summary>
+            The transition that resulted in the state change.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.StateEntry.TargetStateFactoryName">
+            <summary>
+            The new state that is entered.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.StateEntry.HistoryType">
+            <summary>
+            History type that should be used when entering a composite state.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateEntry.GetStateInformation">
+            <summary>
+            Returns state information from the State entry.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.StateFactory`1">
+            <summary>
+            State factory with the Main object T
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateFactory`1.#ctor(`0,Wayne.Lib.IServiceLocator)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="main"></param>
+            <param name="serviceContainer"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateFactory`1.CreateState(System.String)">
+            <summary>
+            Tries to create the requested state
+            </summary>
+            <param name="stateFactoryName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateFactory`1.PrepareState(System.Object)">
+            <summary>
+            Prepare a state with a Main object if it has got one.
+            </summary>
+            <param name="stateObject"></param>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.StateFactory`1.Name">
+            <summary>
+            Name of the State Factory
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateFactory`1.CreateState(System.String,Wayne.Lib.StateEngine.StateTypeContainer)">
+            <summary>
+            Creates the given state using the supplied StateTypeContainer
+            </summary>
+            <param name="stateFactoryName"></param>
+            <param name="stateTypeContainer"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.StateMachine">
+            <summary>
+            State machine is the core engine in the Wayne.Lib.StateEngine model. It contains the states, contains the 
+            information about the state- transition lookup table, and handles the external and internal events.
+            Normally it should not be neccesary to override this class. 
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.StateEngine.StateMachine.disposed">
+            <summary>
+            Tells whether the object is disposed or not.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.StateEngine.StateMachine.debugLogger">
+            <summary>
+            The DebugLogger.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.StateEngine.StateMachine.logCategory">
+            <summary>
+            The LogCategory.
+            </summary>
+        </member>
+        <member name="E:Wayne.Lib.StateEngine.StateMachine.OnStateChange">
+            <summary>
+            Event that signals just before a state change will occur.
+            </summary>
+        </member>
+        <member name="E:Wayne.Lib.StateEngine.StateMachine.OnStateChanged">
+            <summary>
+            Event that signals just after a state change has occured.
+            </summary>
+        </member>
+        <member name="E:Wayne.Lib.StateEngine.StateMachine.OnFinalStateEntered">
+            <summary>
+            Even that is fired when the final state of a state machine is reached. 
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateMachine.#ctor(System.String,Wayne.Lib.Log.DebugLogger,System.Object)">
+            <summary>
+            Constructor for the StateMachine class.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateMachine.Finalize">
+            <summary>
+            Destructor (finalizer). Stops the state machine if it has not already been done.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateMachine.Start">
+            <summary>
+            Starts the state machine. This method should be called after the machine has been configured and 
+            equipped with at least one state factory.
+            </summary>
+            <exception cref="T:Wayne.Lib.StateEngine.StateEngineException">Thrown if the engine is already started.</exception>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateMachine.IncomingEvent(Wayne.Lib.StateEngine.StateEngineEvent)">
+            <summary>
+            Sends an event into the state machine.
+            </summary>
+            <param name="stateEngineEvent">Incoming event</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateMachine.RemovePendingEventsOfType(System.Object)">
+            <summary>
+            Removes all pending events that matches the specified event type. Comparison is made
+            with the .Equals method.
+            </summary>
+            <param name="eventType"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateMachine.RemovePendingEvents``1(Wayne.Lib.StateEngine.StateEngineEventPredicate{``0},``0)">
+            <summary>
+            Removes all pending event that matches the supplied predicate.
+            </summary>
+            <typeparam name="TComparisonObject">Type of the comparison object</typeparam>
+            <param name="predicate">The predicate that is used to match the event.</param>
+            <param name="comparisonObject">The comparison object that is used in the StateEngineEventPredicate.</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateMachine.ToString">
+            <summary>
+            Presents the class as a string.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateMachine.ClearStateFactories">
+            <summary>
+            Clears the list of state factories.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateMachine.AddStateFactory(Wayne.Lib.StateEngine.IStateFactory)">
+            <summary>
+            Adds a custom state factory to the factory collection, so it can be used
+            to create State objects.
+            </summary>
+            <param name="factory">The factory to add</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateMachine.PerformStateChange(Wayne.Lib.StateEngine.State,Wayne.Lib.StateEngine.StateEntry,Wayne.Lib.StateEngine.Transition@)">
+            <summary>
+            Performs the actual state transition. 
+            </summary>
+            <param name="newState">
+            The state that the machine shall enter.
+            </param>
+            <param name="entry">
+            Parameters that defines the entry, like HistoryType and the source transition.
+            </param>
+            <param name="transition">Perform a transaction by assigning a transition object to this ref parameter.</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateMachine.GetState(System.String)">
+            <summary>
+            Returns a state object that corresponds to the string passed in.
+            It first checks if the state object already is created and if it
+            not finds the state, it asks the connected state factories to 
+            create it.
+            </summary>
+            <param name="stateFactoryName">
+            Name of the state. This should correspond to a state that can 
+            be created by any of the state factories connected to the 
+            state machine.
+            </param>
+            <returns>
+            A state object that corresponds to the state name.
+            If the state can not be found, it will return null.
+            </returns>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateMachine.CreateState(System.String)">
+            <summary>
+            Creates a state from the supplied state name.
+            </summary>
+            <param name="stateFactoryName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateMachine.CreateStateObjects">
+            <summary>
+            Forces the state machine to create all its states. It
+            uses the state transition table to determine which objects are included in
+            the machine.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.StateMachine.StateTransitionLookup">
+            <summary>
+            The state transition lookup object. Use to set up the state machine in code.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.StateMachine.Depth">
+            <summary>
+            Indicates how many levels the state machine is from the bottom state machine. The first state machine has
+            depth 0. States in a composite state to that machine has depth 1 and so on.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.StateMachine.CurrentState">
+            <summary>
+            Current state object.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.StateMachine.CurrentStateRecursive">
+            <summary>
+            Gets the current state by recursively entering composite states and returning the innermost state.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.StateMachine.CreatedStates">
+            <summary>
+            List of the created states in the machine.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.StateMachine.Name">
+            <summary>
+            Name of the state machine given when the state machine was created.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.StateMachine.Started">
+            <summary>
+            Indicates that the state machine has been started.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateMachine.Initialize">
+            <summary>
+            Initializes the state machine, creates all state objects.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.StateMachine.LogNameKind">
+            <summary>
+            The kind of name to use for logging the state name.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.StateMachine.ParentStateMachine">
+            <summary>
+            If the state machine is contained in a composite state, the state machine
+            contains a reference to the state machine that owns the composite state.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.StateMachine.Initialized">
+            <summary>
+            Indicates that all state objects have been created.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateMachine.SetAndMergeTypeContainer(Wayne.Lib.StateEngine.StateTypeContainer)">
+            <summary>
+            Sets and merges the new state type container with the one that were there to begin with.
+            </summary>
+            <param name="newStateTypeContainer"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateMachine.EnterInitialState(Wayne.Lib.StateEngine.Transition,Wayne.Lib.StateEngine.Transition@)">
+            <summary>
+            Performs the entry of the initial state of the state machine.
+            </summary>
+            <param name="sourceTransition"></param>
+            <param name="transition">If a transition should be performed, the transition reference is assigned to.</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateMachine.EnterState(Wayne.Lib.StateEngine.StateEntry,Wayne.Lib.StateEngine.Transition@)">
+            <summary>
+            When the State machine is contained in a composite state, and the composite state is 
+            entered, this method is called , so the entry can be done.
+            </summary>
+            <param name="stateEntry">The entry containing information about with which history type to enter the state.</param>
+            <param name="transition">If a transition should be performed, the transition reference is assigned to.</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateMachine.ExitState">
+            <summary>
+            When the State machine is contained in a composite state, and the composite state is 
+            exited, this method is called, so the current state of the machine can be exited.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateMachine.HandleEvent(Wayne.Lib.StateEngine.StateEngineEvent,Wayne.Lib.StateEngine.Transition@)">
+            <summary>
+            Handles events
+            </summary>
+            <param name="stateEngineEvent"></param>
+            <param name="transition"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateMachine.HandleTransition(Wayne.Lib.StateEngine.Transition@)">
+            <summary>
+            Receives a transition from a state object. Looks up the transition and enters the correct next state.
+            If this state machine is embedded in a composite state and the transition not resulted in a state change
+            in this machine, the transition is passed on to the parent machine by changing the reference parameter to a new transition object.
+            
+            It is forbidden to transition from a final state in a state machine, so transitions made while we are 
+            in a final state is sent right to the state machine that contains the composite state that owns this
+            machine.
+            </summary>
+            <param name="transition"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateMachine.ClearPendingEvents">
+            <summary>
+            Clears all pending events from the state machine.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateMachine.FireFinalStateEntered">
+            <summary>
+            Fires the OnFinalStateEntered event.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateMachine.Dispose(System.Boolean)">
+            <summary>
+            The private dispose method taking into account if it is disposed by the 
+            finalizer or through a explicit Dispose() call.
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateMachine.Dispose">
+            <summary>
+            Disposes resources.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateMachine.ActivateTimer(Wayne.Lib.StateEngine.Timer)">
+            <summary>
+            Activate the supplied timer. This should be called from state object when they want a timer functionality.
+            </summary>
+            <param name="timer">The timer to activate</param>
+            <see cref="T:Wayne.Lib.StateEngine.Timer"/>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateMachine.timer_OnDisable(System.Object,System.EventArgs)">
+            <summary>
+            A timer should be disabled. Get the timerwrapper for this stateengine timer and 
+            disable it if it exists.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateMachine.timer_OnEnable(System.Object,System.EventArgs)">
+            <summary>
+            A timer should be enabled, Get a TimerWrapper and attach the state engine timer.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateMachine.GetTimerWrapper(Wayne.Lib.StateEngine.Timer)">
+            <summary>
+            Get a TimerWrapper that is 1)Already assigned to this state engine timer, 2) Available to use, 3)If none available, create a new wrapper.
+            It does also assign the StateEngineTimer to the wrapper, so it is directly marked that it is taken.
+            </summary>
+            <param name="stateEngineTimer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateMachine.TimerFired(System.Object)">
+            <summary>
+            One of the timers in the timer list has fired. Create a timer event and enqueue it.
+            </summary>
+            <param name="state"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateMachine.CheckAndRemoveTimersForCurrentState">
+            <summary>
+            Removes the timers that is owned by the current state, and that is specified to be cleared at exit.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateMachine.Create(System.String,Wayne.Lib.Log.DebugLogger,System.Object)">
+            <summary>
+            Creates and returns StateMachine object. This method creates Threaded Statemachine. To create other implementations,
+            use the <c>Create(StateMachineType stateMachineType, string name)</c> method instead.
+            </summary>
+            <param name="name">Name of the state machine.</param>
+            <param name="debugLogger">The DebugLogger to use.</param>
+            <param name="logCategory">The log category.</param>
+            <returns>A statemachine object</returns>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateMachine.Create(System.String,Wayne.Lib.StateEngine.StateMachineType,Wayne.Lib.Log.DebugLogger,System.Object)">
+            <summary>
+            Creates and returns StateMachine object. The state machine type determines wich implementation should be used.
+            </summary>
+            <param name="name">Name of the state machine.</param>
+            <param name="stateMachineType">Type of state machine implementation that should be created.</param>
+            <param name="debugLogger">The DebugLogger to use.</param>
+            <param name="logCategory">The log category.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.StateTransitionLookup">
+            <summary>
+            StateTransitionLookup is used by the State machine to find the state to 
+            change to when a transition occurs. It uses a dataset that contains the actual data.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateTransitionLookup.#ctor(Wayne.Lib.StateEngine.StateMachine,Wayne.Lib.StateEngine.StateTypeContainer)">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateTransitionLookup.Finalize">
+            <summary>
+            Finalizer
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateTransitionLookup.GetNextState(System.String,Wayne.Lib.StateEngine.Transition)">
+            <summary>
+            	Performs a Lookup for the next state when in the source state, and
+            	are going to perform the specified transition
+            </summary>
+            <param name="sourceStateFactoryName">
+            The state the state machine is in when performing transition
+            </param>
+            <param name="transition">
+            The requested transition.
+            </param>
+            <returns>
+            Returns the next state that should be entered based on the transition.
+            </returns>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateTransitionLookup.InternalAddTransition(System.String,System.Object,System.String,Wayne.Lib.StateEngine.HistoryType,System.Boolean)">
+            <summary>
+            Internal add transition.
+            </summary>
+            <param name="sourceStateFactoryName"></param>
+            <param name="transitionType"></param>
+            <param name="nextStateType"></param>
+            <param name="historyType"></param>
+            <param name="replace"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateTransitionLookup.AddTransition``2(System.Object)">
+            <summary>
+            Adds a transition from state of class TFromState to the class TToState, when the transitiontype 
+            is inserted.
+            </summary>
+            <typeparam name="TFromState">Class type of the source state.</typeparam>
+            <typeparam name="TToState">Class type of target state.</typeparam>
+            <param name="transitionType">Transition type.</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateTransitionLookup.AddTransition(System.String,System.String,System.Object)">
+            <summary>
+            Adds a transition from state of class fromStateFactoryName to the class toStateFactoryName, when the transitiontype 
+            is inserted.
+            </summary>
+            <param name="fromStateFactoryName">String containig the factory name for the fromState.</param>
+            <param name="toStateFactoryName">String containig the factory name for the toState.</param>
+            <param name="transitionType">Transition type.</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateTransitionLookup.AddTransition``2(System.Object,Wayne.Lib.StateEngine.HistoryType)">
+            <summary>
+            Adds a transition from state of class TFromState to the class TToState, when the transitiontype 
+            is inserted.
+            </summary>
+            <typeparam name="TFromState">Class type of the source state.</typeparam>
+            <typeparam name="TToState">Class type of target state.</typeparam>
+            <param name="transitionType">Transition type.</param>
+            <param name="historyType"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateTransitionLookup.ReplaceTransition``2(System.Object)">
+            <summary>
+            Replaces the existing transition from a state and the given TransitionType, to another state.
+            </summary>
+            <typeparam name="TFromOldState">Class type of the source state.</typeparam>
+            <typeparam name="TToNewState">Class type of new target state.</typeparam>
+            <param name="transitionType">Transition type.</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateTransitionLookup.ReplaceTransition(System.String,System.String,System.Object)">
+            <summary>
+            Replaces the existing transition from a state and the given TransitionType, to another state.
+            </summary>
+            <param name="fromOldStateFactoryName">String containig the factory name for the fromState.</param>
+            <param name="toNewStateFactoryName">String containig the factory name for the new toState.</param>
+            <param name="transitionType">Transition type.</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateTransitionLookup.ReplaceTransition``2(System.Object,Wayne.Lib.StateEngine.HistoryType)">
+            <summary>
+            Replaces the existing transition from a state and the given TransitionType, to another state.
+            </summary>
+            <typeparam name="TFromOldState">Class type of the source state.</typeparam>
+            <typeparam name="TToNewState">Class type of new target state.</typeparam>
+            <param name="transitionType">Transition type.</param>
+            <param name="historyType"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateTransitionLookup.ReplaceTransitions``2">
+            <summary>
+            Replaces all the existing transitions to the given OldToState to the NewToState.
+            </summary>
+            <typeparam name="TOldToState">Class type of old target state.</typeparam>
+            <typeparam name="TNewToState">Class type of new target state.</typeparam>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateTransitionLookup.ReplaceTransitions(System.String,System.String)">
+            <summary>
+            Replaces all the existing transitions to the given OldToState to the NewToState.
+            </summary>
+            <param name="oldToStateFactoryName">String containig the factory name for the old ToState.</param>
+            <param name="newToStateFactoryName">String containig the factory name for the new ToState.</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateTransitionLookup.IntersectTransition``3(System.Object)">
+            <summary>
+            Puts a state in-between two states that has a transition between them.
+            </summary>
+            <typeparam name="TFromState"></typeparam>
+            <typeparam name="TIntersectingState"></typeparam>
+            <typeparam name="TOldToState"></typeparam>
+            <param name="transitionType"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateTransitionLookup.IntersectTransition``3(System.Object,System.Object)">
+            <summary>
+            Puts a state in-between two states that has a transition between them.
+            </summary>
+            <typeparam name="TFromState"></typeparam>
+            <typeparam name="TIntersectingState"></typeparam>
+            <typeparam name="TOldToState"></typeparam>
+            <param name="fromTransitionType"></param>
+            <param name="toTransitionType"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateTransitionLookup.ReplaceState``2">
+            <summary>
+            Replaces all the existing transitions to the given OldToState to the NewToState.
+            Also adds the transitions from the OldToState to also from the NewToState.
+            </summary>
+            <typeparam name="TOldToState">Class type of old target state.</typeparam>
+            <typeparam name="TNewToState">Class type of new target state.</typeparam>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateTransitionLookup.ReplaceState``2(System.Boolean)">
+            <summary>
+            Replaces all the existing transitions to the given OldToState to the NewToState.
+            Also adds the transitions from the OldToState to also from the NewToState.
+            </summary>
+            <param name="removeAllTransitionsFromState">Default=false. Should all existing transitions *From* this state be removed?</param>
+            <typeparam name="TOldToState">Class type of old target state.</typeparam>
+            <typeparam name="TNewToState">Class type of new target state.</typeparam>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateTransitionLookup.ReplaceState(System.String,System.String)">
+            <summary>
+            Replaces all the existing transitions to the given OldToState to the NewToState.
+            Also adds the transitions from the OldToState to also from the NewToState.
+            </summary>
+            <param name="oldToStateFactoryName">String containig the factory name for the old ToState.</param>
+            <param name="newToStateFactoryName">String containig the factory name for the new ToState.</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateTransitionLookup.ReplaceState(System.String,System.String,System.Boolean)">
+            <summary>
+            Replaces all the existing transitions to the given OldToState to the NewToState.
+            Also adds the transitions from the OldToState to also from the NewToState.
+            Note: 'OverrideState' also exists, to be used e.g. when replacing state that transists to itself
+            </summary>
+            <param name="oldToStateFactoryName">The factory name for the old ToState.</param>
+            <param name="newToStateFactoryName">The factory name for the new ToState.</param>
+            <param name="removeAllTransitionsFromState">Default=false. Should all existing transitions *From* this state be removed?</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateTransitionLookup.OverrideState``2">
+            <summary>
+            Makes an override of a state.
+            This could be used when you have made an inheritance of a state and want to replace the old one.
+            </summary>
+            <typeparam name="TOldState">The state to override.</typeparam>
+            <typeparam name="TNewState">The overrider.</typeparam>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateTransitionLookup.OverrideState(System.String,System.String)">
+            <summary>
+            Makes an override of a state.
+            This could be used when you have made an inheritance of a state and want to replace the old one.
+            </summary>
+            <param name="oldStateFactoryName">The state to override.</param>
+            <param name="newStateFactoryName">The overrider.</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateTransitionLookup.GetStateNameList(System.Boolean)">
+            <summary>
+            Returns a list of state factory names that is in the lookup table.
+            </summary>
+            <param name="includeAnyStates">Should the AnyStates be included?</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateTransitionLookup.GetSourceStateNameList(System.Boolean)">
+            <summary>
+            Returns a list of the source State names that is in the lookup table.
+            </summary>
+            <param name="includeAnyStates">Should the AnyStates be included?</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateTransitionLookup.GetStateTransitionNameList(System.String)">
+            <summary>
+            Returns a list of the transition names from a state (no duplicates).
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateTransitionLookup.GetAnyStateTransitionNameList">
+            <summary>
+            Returns a list of the AnyState-transition names (no duplicates).
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateTransitionLookup.GetStateTransitionsDict(System.String,System.Boolean)">
+            <summary>
+            Returns a dictionary of the transitions from a state (dictionary key) to a state (dictionary value).
+            </summary>
+            <param name="sourceStateFactoryName"></param>
+            <param name="includeAnyStates"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateTransitionLookup.GetTransitionInfoArray(System.Boolean)">
+            <summary>
+            Gets a list of all transitions.
+            </summary>
+            <param name="includeAnyStates">Should the AnyState-transitions be included?</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateTransitionLookup.GetNextStateName(System.String,System.Object,Wayne.Lib.StateEngine.HistoryType@,System.Boolean@)">
+            <summary>
+            
+            </summary>
+            <param name="sourceStateFactoryName"></param>
+            <param name="transitionType"></param>
+            <param name="historyType"></param>
+            <param name="fromAnyState"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateTransitionLookup.Dispose(System.Boolean)">
+            <summary>
+            Internal dispose method
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.StateTransitionLookup.Dispose">
+            <summary>
+            Disposes the resources owned by the StateTransition Lookup.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.TimerElapsedDelegate">
+            <summary>
+            Delegate that is used to signal to the state machine that the timer event has timed out.
+            </summary>
+            <param name="elapsedTimer"></param>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.Timer">
+            <summary>
+            Timer is a timer that should be used within the state machine. 
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Timer.#ctor(Wayne.Lib.StateEngine.State,System.Object,System.Int32,System.Object)">
+            <summary>
+            Constructor for Timer
+            </summary>
+            <param name="ownerState">State that created the timer</param>
+            <param name="eventType">Type that should be set in the timer event that is sent when the timer fires</param>
+            <param name="interval">Interval of the timer</param>
+            <param name="userToken">Token object that is supplied by the user and that is returned in the TimerEvent.</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Timer.Finalize">
+            <summary>
+            Finalizer
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.Timer.IsPeriodic">
+            <summary>
+            Specifies if the timer should fire several times.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.Timer.ClearAtStateExit">
+            <summary>
+            Specifies if the timer should be disabled automatically when the owning state is exit.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.Timer.OwnerState">
+            <summary>
+            State object that created the timer.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.Timer.EventType">
+            <summary>
+            Event type that should be set in the TimerEvent when it fires.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.Timer.Enabled">
+            <summary>
+            If the timer is active.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.Timer.UserToken">
+            <summary>
+            User-supplied token that is sent in to the constructor at creation time.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.Timer.Interval">
+            <summary>
+            The interval of the timer.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Timer.Enable">
+            <summary>
+            Enables the timer
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Timer.Disable">
+            <summary>
+            Disables the timer.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Timer.Dispose">
+            <summary>
+            Dispose disables the timer.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Timer.ToString">
+            <summary>
+            ToString method.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.TimerWrapper">
+            <summary>
+            Wraps a System.Threading.Timer together with an optional state engine timer. It is used
+            to make it possible to reuse the Timer object, since it is quite expensive to create and
+            destroy timers all the time. Now we only change the intervals on the timers, and disable them
+            when they should not be active anymore.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.TimerWrapper.#ctor(System.Threading.TimerCallback)">
+            <summary>
+            Initializes a new instance of the TimerWrapper class.
+            </summary>
+            <param name="timerCallback">Delegate that should be invoked when timer fires.</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.TimerWrapper.Finalize">
+            <summary>
+            Finalizer
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.TimerWrapper.StateEngineTimer">
+            <summary>
+            Gets or sets the State Engine timer.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.TimerWrapper.Disable">
+            <summary>
+            Disables the underlying timer.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.TimerWrapper.Enable">
+            <summary>
+            Enables the underlying timer.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.TimerWrapper.Fire">
+            <summary>
+            Fires the timer wrapper immediately.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.TimerWrapper.Dispose(System.Boolean)">
+            <summary>
+            Disposes the unmanaged resources
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.TimerWrapper.Dispose">
+            <summary>
+            Disposes the unmanaged resources
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.Transition">
+            <summary>
+            The transition class is used by state objects to signal that a change has occured.
+            The transition is interpreted by the statemachine's State-transition lookup table. it 
+            determines which the next state should be. 
+            
+            The transition type identifies the transition and is supplied by the application. It is recommended
+            that enums are used as transition types, but any type can be used.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.Transition.Type">
+            <summary>
+            Type of the transistion.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.Transition.Name">
+            <summary>
+            Represents the type name. It returns the Type.ToString(). This is
+            used by the statemachine to find the transition in the lookup table.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.Transition.Sender">
+            <summary>
+            The state that issued the transition.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.Transition.SourceEvent">
+            <summary>
+            If the transition is generated when a state has received an event, it can be
+            supplied in this property.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.Transition.WritableSourceEvent">
+            <summary>
+            Internal writable source event. Assigned statemachine connects the event to the transition.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Transition.#ctor(Wayne.Lib.StateEngine.State,System.Object)">
+            <summary>
+            Transition constructor. assumes that the Source Event is null.
+            </summary>
+            <param name="sender">State that issued the transition</param>
+            <param name="type">Type of the transition</param>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.Transition.GetTransitionName(System.Object)">
+            <summary>
+            Returns the name of the transition to use when persisting configuration etc.
+            </summary>
+            <param name="transitionType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.StateEngine.TransitionInfo">
+            <summary>
+            A class wrapping information about a transition.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.TransitionInfo.#ctor(System.String,System.String,System.String,Wayne.Lib.StateEngine.HistoryType)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="fromStateFactoryName"></param>
+            <param name="transitionName"></param>
+            <param name="toStateFactoryName"></param>
+            <param name="historyType"></param>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.TransitionInfo.FromStateFactoryName">
+            <summary>
+            The factory name of the "From" state.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.TransitionInfo.TransitionName">
+            <summary>
+            The name of the transition.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.TransitionInfo.ToStateFactoryName">
+            <summary>
+            The factory name of the "To" state.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.StateEngine.TransitionInfo.HistoryType">
+            <summary>
+            The History Type.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.StateEngine.TransitionInfo.ToString">
+            <summary>
+            To string.
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

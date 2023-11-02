@@ -1,0 +1,76 @@
+C:\test\Semaforo\bin\Release\Semaforo.exe.config
+C:\test\Semaforo\bin\Release\Semaforo.exe
+C:\test\Semaforo\bin\Release\Semaforo.pdb
+C:\test\Semaforo\bin\Release\Wayne.Lib.Common.dll
+C:\test\Semaforo\bin\Release\Wayne.Lib.IO.dll
+C:\test\Semaforo\bin\Release\Wayne.Lib.Log.dll
+C:\test\Semaforo\bin\Release\Wayne.Lib.StateEngine.dll
+C:\test\Semaforo\bin\Release\Wayne.Lib.Strings.dll
+C:\test\Semaforo\bin\Release\Wayne.Lib.Common.pdb
+C:\test\Semaforo\bin\Release\Wayne.Lib.Common.xml
+C:\test\Semaforo\bin\Release\Wayne.Lib.IO.pdb
+C:\test\Semaforo\bin\Release\Wayne.Lib.IO.xml
+C:\test\Semaforo\bin\Release\Wayne.Lib.Log.pdb
+C:\test\Semaforo\bin\Release\Wayne.Lib.Log.xml
+C:\test\Semaforo\bin\Release\Wayne.Lib.StateEngine.pdb
+C:\test\Semaforo\bin\Release\Wayne.Lib.StateEngine.xml
+C:\test\Semaforo\bin\Release\Wayne.Lib.Strings.pdb
+C:\test\Semaforo\obj\Release\Semaforo.csproj.AssemblyReference.cache
+C:\test\Semaforo\obj\Release\Semaforo.csproj.SuggestedBindingRedirects.cache
+C:\test\Semaforo\obj\Release\Semaforo.Form1.resources
+C:\test\Semaforo\obj\Release\Semaforo.Properties.Resources.resources
+C:\test\Semaforo\obj\Release\Semaforo.csproj.GenerateResource.cache
+C:\test\Semaforo\obj\Release\Semaforo.csproj.CoreCompileInputs.cache
+C:\test\Semaforo\obj\Release\Semaforo.csproj.CopyComplete
+C:\test\Semaforo\obj\Release\Semaforo.exe
+C:\test\Semaforo\obj\Release\Semaforo.pdb
+C:\Users\henrique.oliveira\OneDrive - GASODATA LDA\Ambiente de Trabalho\Henrique\Learning\VSProjects\Semaforo\bin\Release\Semaforo.exe.config
+C:\Users\henrique.oliveira\OneDrive - GASODATA LDA\Ambiente de Trabalho\Henrique\Learning\VSProjects\Semaforo\bin\Release\Semaforo.exe
+C:\Users\henrique.oliveira\OneDrive - GASODATA LDA\Ambiente de Trabalho\Henrique\Learning\VSProjects\Semaforo\bin\Release\Semaforo.pdb
+C:\Users\henrique.oliveira\OneDrive - GASODATA LDA\Ambiente de Trabalho\Henrique\Learning\VSProjects\Semaforo\bin\Release\Wayne.Lib.Common.dll
+C:\Users\henrique.oliveira\OneDrive - GASODATA LDA\Ambiente de Trabalho\Henrique\Learning\VSProjects\Semaforo\bin\Release\Wayne.Lib.IO.dll
+C:\Users\henrique.oliveira\OneDrive - GASODATA LDA\Ambiente de Trabalho\Henrique\Learning\VSProjects\Semaforo\bin\Release\Wayne.Lib.Log.dll
+C:\Users\henrique.oliveira\OneDrive - GASODATA LDA\Ambiente de Trabalho\Henrique\Learning\VSProjects\Semaforo\bin\Release\Wayne.Lib.StateEngine.dll
+C:\Users\henrique.oliveira\OneDrive - GASODATA LDA\Ambiente de Trabalho\Henrique\Learning\VSProjects\Semaforo\bin\Release\Wayne.Lib.Strings.dll
+C:\Users\henrique.oliveira\OneDrive - GASODATA LDA\Ambiente de Trabalho\Henrique\Learning\VSProjects\Semaforo\bin\Release\Wayne.Lib.Common.pdb
+C:\Users\henrique.oliveira\OneDrive - GASODATA LDA\Ambiente de Trabalho\Henrique\Learning\VSProjects\Semaforo\bin\Release\Wayne.Lib.Common.xml
+C:\Users\henrique.oliveira\OneDrive - GASODATA LDA\Ambiente de Trabalho\Henrique\Learning\VSProjects\Semaforo\bin\Release\Wayne.Lib.IO.pdb
+C:\Users\henrique.oliveira\OneDrive - GASODATA LDA\Ambiente de Trabalho\Henrique\Learning\VSProjects\Semaforo\bin\Release\Wayne.Lib.IO.xml
+C:\Users\henrique.oliveira\OneDrive - GASODATA LDA\Ambiente de Trabalho\Henrique\Learning\VSProjects\Semaforo\bin\Release\Wayne.Lib.Log.pdb
+C:\Users\henrique.oliveira\OneDrive - GASODATA LDA\Ambiente de Trabalho\Henrique\Learning\VSProjects\Semaforo\bin\Release\Wayne.Lib.Log.xml
+C:\Users\henrique.oliveira\OneDrive - GASODATA LDA\Ambiente de Trabalho\Henrique\Learning\VSProjects\Semaforo\bin\Release\Wayne.Lib.StateEngine.pdb
+C:\Users\henrique.oliveira\OneDrive - GASODATA LDA\Ambiente de Trabalho\Henrique\Learning\VSProjects\Semaforo\bin\Release\Wayne.Lib.StateEngine.xml
+C:\Users\henrique.oliveira\OneDrive - GASODATA LDA\Ambiente de Trabalho\Henrique\Learning\VSProjects\Semaforo\bin\Release\Wayne.Lib.Strings.pdb
+C:\Users\henrique.oliveira\OneDrive - GASODATA LDA\Ambiente de Trabalho\Henrique\Learning\VSProjects\Semaforo\obj\Release\Semaforo.csproj.AssemblyReference.cache
+C:\Users\henrique.oliveira\OneDrive - GASODATA LDA\Ambiente de Trabalho\Henrique\Learning\VSProjects\Semaforo\obj\Release\Semaforo.Form1.resources
+C:\Users\henrique.oliveira\OneDrive - GASODATA LDA\Ambiente de Trabalho\Henrique\Learning\VSProjects\Semaforo\obj\Release\Semaforo.Properties.Resources.resources
+C:\Users\henrique.oliveira\OneDrive - GASODATA LDA\Ambiente de Trabalho\Henrique\Learning\VSProjects\Semaforo\obj\Release\Semaforo.csproj.GenerateResource.cache
+C:\Users\henrique.oliveira\OneDrive - GASODATA LDA\Ambiente de Trabalho\Henrique\Learning\VSProjects\Semaforo\obj\Release\Semaforo.csproj.CoreCompileInputs.cache
+C:\Users\henrique.oliveira\OneDrive - GASODATA LDA\Ambiente de Trabalho\Henrique\Learning\VSProjects\Semaforo\obj\Release\Semaforo.csproj.CopyComplete
+C:\Users\henrique.oliveira\OneDrive - GASODATA LDA\Ambiente de Trabalho\Henrique\Learning\VSProjects\Semaforo\obj\Release\Semaforo.exe
+C:\Users\henrique.oliveira\OneDrive - GASODATA LDA\Ambiente de Trabalho\Henrique\Learning\VSProjects\Semaforo\obj\Release\Semaforo.pdb
+C:\Users\henrique.oliveira\OneDrive - ISEC\Gasodata\Learning\StateMachine\Semaforo\bin\Release\Semaforo.exe.config
+C:\Users\henrique.oliveira\OneDrive - ISEC\Gasodata\Learning\StateMachine\Semaforo\bin\Release\Semaforo.exe
+C:\Users\henrique.oliveira\OneDrive - ISEC\Gasodata\Learning\StateMachine\Semaforo\bin\Release\Semaforo.pdb
+C:\Users\henrique.oliveira\OneDrive - ISEC\Gasodata\Learning\StateMachine\Semaforo\bin\Release\Wayne.Lib.Common.dll
+C:\Users\henrique.oliveira\OneDrive - ISEC\Gasodata\Learning\StateMachine\Semaforo\bin\Release\Wayne.Lib.IO.dll
+C:\Users\henrique.oliveira\OneDrive - ISEC\Gasodata\Learning\StateMachine\Semaforo\bin\Release\Wayne.Lib.Log.dll
+C:\Users\henrique.oliveira\OneDrive - ISEC\Gasodata\Learning\StateMachine\Semaforo\bin\Release\Wayne.Lib.StateEngine.dll
+C:\Users\henrique.oliveira\OneDrive - ISEC\Gasodata\Learning\StateMachine\Semaforo\bin\Release\Wayne.Lib.Strings.dll
+C:\Users\henrique.oliveira\OneDrive - ISEC\Gasodata\Learning\StateMachine\Semaforo\bin\Release\Wayne.Lib.Common.pdb
+C:\Users\henrique.oliveira\OneDrive - ISEC\Gasodata\Learning\StateMachine\Semaforo\bin\Release\Wayne.Lib.Common.xml
+C:\Users\henrique.oliveira\OneDrive - ISEC\Gasodata\Learning\StateMachine\Semaforo\bin\Release\Wayne.Lib.IO.pdb
+C:\Users\henrique.oliveira\OneDrive - ISEC\Gasodata\Learning\StateMachine\Semaforo\bin\Release\Wayne.Lib.IO.xml
+C:\Users\henrique.oliveira\OneDrive - ISEC\Gasodata\Learning\StateMachine\Semaforo\bin\Release\Wayne.Lib.Log.pdb
+C:\Users\henrique.oliveira\OneDrive - ISEC\Gasodata\Learning\StateMachine\Semaforo\bin\Release\Wayne.Lib.Log.xml
+C:\Users\henrique.oliveira\OneDrive - ISEC\Gasodata\Learning\StateMachine\Semaforo\bin\Release\Wayne.Lib.StateEngine.pdb
+C:\Users\henrique.oliveira\OneDrive - ISEC\Gasodata\Learning\StateMachine\Semaforo\bin\Release\Wayne.Lib.StateEngine.xml
+C:\Users\henrique.oliveira\OneDrive - ISEC\Gasodata\Learning\StateMachine\Semaforo\bin\Release\Wayne.Lib.Strings.pdb
+C:\Users\henrique.oliveira\OneDrive - ISEC\Gasodata\Learning\StateMachine\Semaforo\obj\Release\Semaforo.csproj.AssemblyReference.cache
+C:\Users\henrique.oliveira\OneDrive - ISEC\Gasodata\Learning\StateMachine\Semaforo\obj\Release\Semaforo.Form1.resources
+C:\Users\henrique.oliveira\OneDrive - ISEC\Gasodata\Learning\StateMachine\Semaforo\obj\Release\Semaforo.Properties.Resources.resources
+C:\Users\henrique.oliveira\OneDrive - ISEC\Gasodata\Learning\StateMachine\Semaforo\obj\Release\Semaforo.csproj.GenerateResource.cache
+C:\Users\henrique.oliveira\OneDrive - ISEC\Gasodata\Learning\StateMachine\Semaforo\obj\Release\Semaforo.csproj.CoreCompileInputs.cache
+C:\Users\henrique.oliveira\OneDrive - ISEC\Gasodata\Learning\StateMachine\Semaforo\obj\Release\Semaforo.csproj.CopyComplete
+C:\Users\henrique.oliveira\OneDrive - ISEC\Gasodata\Learning\StateMachine\Semaforo\obj\Release\Semaforo.exe
+C:\Users\henrique.oliveira\OneDrive - ISEC\Gasodata\Learning\StateMachine\Semaforo\obj\Release\Semaforo.pdb

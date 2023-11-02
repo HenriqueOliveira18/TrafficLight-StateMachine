@@ -1,0 +1,2322 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Wayne.Lib.Log</name>
+    </assembly>
+    <members>
+        <member name="T:Wayne.Lib.Log.DebugLogEntry">
+            <summary>
+            A Debug LogEntry.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.DebugLogEntry.#ctor(Wayne.Lib.IIdentifiableEntity,System.Object)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="entity">The entity that performed the logging.</param>
+            <param name="logObject">The object to log.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.DebugLogEntry.#ctor(Wayne.Lib.IIdentifiableEntity,System.Object,Wayne.Lib.Log.DebugLogLevel)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="entity">The entity that performed the logging.</param>
+            <param name="logObject">The object to log.</param>
+            <param name="logLevel">The log level.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.DebugLogEntry.#ctor(Wayne.Lib.IIdentifiableEntity,System.Object,System.Object)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="entity">The entity that performed the logging.</param>
+            <param name="logObject">The object to log.</param>
+            <param name="category">The category of the log object.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.DebugLogEntry.#ctor(Wayne.Lib.IIdentifiableEntity,System.Object,System.Object,Wayne.Lib.Log.DebugLogLevel)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="entity">The entity that performed the logging.</param>
+            <param name="logObject">The object to log.</param>
+            <param name="category">The category of the log object.</param>
+            <param name="logLevel">The log level.</param>
+        </member>
+        <member name="P:Wayne.Lib.Log.DebugLogEntry.LogLevel">
+            <summary>
+            The log level.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.Log.DebugLogLevel">
+            <summary>
+            Describes the level of the debug information.
+            Can be used to reduce the size of the logs.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.DebugLogLevel.Excluded">
+            <summary>
+            Not logged.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.DebugLogLevel.Normal">
+            <summary>
+            Normal debug information.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.DebugLogLevel.Detailed">
+            <summary>
+            Detailed debug information.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.DebugLogLevel.Maximized">
+            <summary>
+            Maximized debug information.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.Log.DebugLoggerMask">
+            <summary>
+            Static support class for managing masking of debug logs.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.DebugLoggerMask.MaskXmlNode(System.Xml.XmlWriter,System.String,Wayne.Lib.Log.DebugLogMaskKind)">
+            <summary>
+            Writes processing instructions to an XML document to mask a node.
+            The masking will be active from this point forward in the XML document (until the end or the instruction is redefined).
+            </summary>
+            <param name="xmlWriter">The XML writer.</param>
+            <param name="nodeName">The name of the XML node.</param>
+            <param name="maskKind">The type of masking to use.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.DebugLoggerMask.MaskNextXmlNode(System.Xml.XmlWriter,Wayne.Lib.Log.DebugLogMaskKind)">
+            <summary>
+            Writes processing instructions to an XML document to mask the next node.
+            </summary>
+            <param name="xmlWriter">The XML writer.</param>
+            <param name="maskKind">The type of masking to use.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.DebugLoggerMask.MaskXmlAttribute(System.Xml.XmlWriter,System.String,System.String,Wayne.Lib.Log.DebugLogMaskKind)">
+            <summary>
+            Writes processing instructions to an XML document to mask an attribute.
+            The masking will be active from this point forward in the XML document (until the end or the instruction is redefined).
+            </summary>
+            <param name="xmlWriter">The XML writer.</param>
+            <param name="nodeName">The name of the XML node.</param>
+            <param name="attributeName">The name of the node attribute.</param>
+            <param name="maskKind">The type of masking to use.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.DebugLoggerMask.CreateXmlNodeToMaskNode(System.Xml.XmlDocument,System.String,Wayne.Lib.Log.DebugLogMaskKind)">
+            <summary>
+            Returns the XmlNode needed to be added to an XML document to mask a node.
+            The masking will be active from the point forward where the node is inserted (until the end or the instruction is redefined).
+            </summary>
+            <param name="xmlDocument">The XML document.</param>
+            <param name="nodeName">The name of the XML node.</param>
+            <param name="maskKind">The type of masking to use.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.DebugLoggerMask.CreateXmlNodeToMaskNextNode(System.Xml.XmlDocument,Wayne.Lib.Log.DebugLogMaskKind)">
+            <summary>
+            Returns the XmlNode needed to be added to an XML document to mask the next node.
+            </summary>
+            <param name="xmlDocument">The XML document.</param>
+            <param name="maskKind">The type of masking to use.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.DebugLoggerMask.CreateXmlNodeToMaskAttribute(System.Xml.XmlDocument,System.String,System.String,Wayne.Lib.Log.DebugLogMaskKind)">
+            <summary>
+            Returns the XmlNode needed to be added to an XML document to mask an attribute.
+            The masking will be active from this point forward in the XML document (until the end or the instruction is redefined).
+            </summary>
+            <param name="xmlDocument">The XML document.</param>
+            <param name="nodeName">The name of the XML node.</param>
+            <param name="attributeName">The name of the node attribute.</param>
+            <param name="maskKind">The type of masking to use.</param>
+        </member>
+        <member name="P:Wayne.Lib.Log.DebugLoggerMask.ForceMask">
+            <summary>
+            Turn on/off masking in debug mode.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.DebugLoggerMask.MaskSensitiveData">
+            <summary>
+            Should sensitive data be masked?
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.DebugLoggerMask.MaskData(System.String,Wayne.Lib.Log.DebugLogMaskKind)">
+            <summary>
+            Masks the data the requested way.
+            </summary>
+            <param name="data">The data to mask.</param>
+            <param name="maskKind">The kind of masking to perform.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.Log.DebugLoggerMask.MaskData(System.Byte[],System.Boolean)">
+            <summary>
+            Masks the data the requested way.
+            </summary>
+            <param name="bytes">The binary data to mask.</param>
+            <param name="showLength">Should the original length of the bytes be shown in the log?</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.Log.DebugLoggerMask.MaskData(System.Byte[],System.Boolean,System.Boolean)">
+            <summary>
+            Masks the data the requested way.
+            </summary>
+            <param name="bytes">The binary data to mask.</param>
+            <param name="showLength">Should the original length of the bytes be shown in the log?</param>
+            <param name="showHashValue">Should a hash value be calculated and shown in the log?</param>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.Log.DebugMarkerLogEntry">
+            <summary>
+            Internal LogEntry for DebugMarking.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.Log.DefaultErrorCategory">
+            <summary>
+            This is the default set up of error categories to be used when logging ErrorLogEntries.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.DefaultErrorCategory.Bug">
+            <summary>
+            Whoops. Our mistake. A bug.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.DefaultErrorCategory.Configurational">
+            <summary>
+            This error is due to a badly configured system.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.DefaultErrorCategory.Communication">
+            <summary>
+            This error occurred as a result of some communication problems.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.DefaultErrorCategory.Peripheral">
+            <summary>
+            Some kind of Peripheral equipment failed in some way.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.DefaultErrorCategory.UnexpectedResult">
+            <summary>
+            The program got an unexpected result from some kind of operation.
+            This could for instance be a computed value that is out of the allowed range.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.DefaultErrorCategory.XmlValidation">
+            <summary>
+            Invalid XML data.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.Log.DeserializedLogEntry">
+            <summary>
+            An EventLog entry that has been deserialized from a serialized form. The
+            additional data that is supplied with the data is now only accessible as  
+            an Xml element in the LogDataElement property. 
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.DeserializedLogEntry.#ctor(System.Xml.XmlElement)">
+            <summary>
+            Internal constructor. This class is only created with the EventLogEntry.Deserialize method.
+            </summary>
+            <param name="logEntryNode"></param>
+        </member>
+        <member name="P:Wayne.Lib.Log.DeserializedLogEntry.LogDataElement">
+            <summary>
+            Xml element that contains the additional data that was supplied with the event originally.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.DeserializedLogEntry.WriteLogObjectData(System.Xml.XmlWriter)">
+            <summary>
+            Re-serializies the LogData element.
+            </summary>
+            <param name="xmlWriter"></param>
+        </member>
+        <member name="T:Wayne.Lib.Log.DotNetLog">
+            <summary>
+            Internal class that implements a System.Diagnostics.TraceListener and forwards all
+            write-requests to an embedded DebugLogger.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.DotNetLog.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.DotNetLog.Finalize">
+            <summary>
+            Destructor.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.DotNetLog.Dispose(System.Boolean)">
+            <summary>
+            Overrides the System.Diagnostics.TraceListener Dispose()-method.
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.DotNetLog.CheckActive">
+            <summary>
+            Checks whether the dotnet debug listener should be activated.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.DotNetLog.Deactivate">
+            <summary>
+            Deactivates the dotnet debug listener.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.Log.EntityCategory">
+            <summary>
+            This class wraps an IIdentifiableEntity and a Category to be used as a
+            key in e.g. Dictionaries and Lists.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.EntityCategory.#ctor(Wayne.Lib.IIdentifiableEntity,System.Object)">
+            <summary>
+            Construction.
+            </summary>
+            <param name="entity">The entity.</param>
+            <param name="category">The category.</param>
+        </member>
+        <member name="P:Wayne.Lib.Log.EntityCategory.Entity">
+            <summary>
+            The entity.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.EntityCategory.Category">
+            <summary>
+            The category.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.EntityCategory.CategoryString">
+            <summary>
+            The category as a string.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.EntityCategory.LastTouched">
+            <summary>
+            A date time that specifies when the object was last touched. 
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.EntityCategory.ToString">
+            <summary>
+            ToString.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.Log.EntityCategory.Equals(System.Object)">
+            <summary>
+            Equals
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.Log.EntityCategory.Equals(Wayne.Lib.IIdentifiableEntity,System.Object)">
+            <summary>
+            Equals
+            </summary>
+            <param name="entity"></param>
+            <param name="category"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.Log.EntityCategory.GetHashCode">
+            <summary>
+            GetHashCode
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.Log.EntityCategory.Touch">
+            <summary>
+            Touch the entity category.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.EntityCategory.GetName(Wayne.Lib.Log.EntityLogKind,System.Boolean)">
+            <summary>
+            Get the log-name.
+            </summary>
+            <param name="entityLogKind">In which detail the id-entity should be presented.</param>
+            <param name="suppressCategory">Should the category be suppressed or not.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.Log.EntityLogKind">
+            <summary>
+            In detail of the name of an identifiable entity.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.EntityLogKind.None">
+            <summary>
+            No name.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.EntityLogKind.Entity">
+            <summary>
+            Only the identifiable entity itself (no parents).
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.EntityLogKind.Ancestors">
+            <summary>
+            The names of identifiable entitis all the way from the root entity to the current entity.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.Log.ErrorLogEntry">
+            <summary>
+            Base LogEntry for Errors.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.ErrorLogEntry.#ctor(Wayne.Lib.IIdentifiableEntity,Wayne.Lib.Log.ErrorLogSeverity,System.Object)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="entity"></param>
+            <param name="severity"></param>
+            <param name="logObject">The object to log.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.ErrorLogEntry.#ctor(Wayne.Lib.IIdentifiableEntity,Wayne.Lib.Log.ErrorLogSeverity,System.Object,System.Object)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="entity"></param>
+            <param name="severity"></param>
+            <param name="logObject">The object to log.</param>
+            <param name="category"></param>
+        </member>
+        <member name="F:Wayne.Lib.Log.ErrorLogEntry.LogPrefix">
+            <summary>
+            The keyword "***ERROR" put in the log file.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.ErrorLogEntry.Severity">
+            <summary>
+            The severity of the error.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.ErrorLogEntry.AppendToStringBuilder(Wayne.Lib.Log.LogWriter,System.Text.StringBuilder,System.Int32,System.Boolean@,System.String@)">
+            <summary>
+            Appends the object to log to a StringBuilder-output.
+            </summary>
+            <param name="logWriter">The logwriter to be used for logging.</param>
+            <param name="output">The StringBuilder.</param>
+            <param name="indentLength">The indent to be used if many lines.</param>
+            <param name="isFirstLine">Is this the first line to log?</param>
+            <param name="indent">A string holding a generated indent-text (=a number of spaces). Use AppendIndent() to append the indent.</param>
+        </member>
+        <member name="T:Wayne.Lib.Log.ErrorLogSeverity">
+            <summary>
+            Describes the severity of an error.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.ErrorLogSeverity.Cosmetic">
+            <summary>
+            The kindest type of error.
+            The application can proceed its execution without any problem.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.ErrorLogSeverity.Recoverable">
+            <summary>
+            Quite a bad error has occurred.
+            The application can however continue without any loss of data or similar.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.ErrorLogSeverity.RecoverableDataLoss">
+            <summary>
+            This is a really bad error.
+            Somehow some kind of data is lost -- but the application can continue its execution.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.ErrorLogSeverity.Irrecoverable">
+            <summary>
+            The worst imaginable errors.
+            When this error has occurred the application cannot continue.
+            This could for instance be a bad configuration, e.g. two servers listening to
+            the same port.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.Log.EventLogEntry">
+            <summary>
+            LogEntry for Events.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.EventLogEntry.#ctor(Wayne.Lib.IIdentifiableEntity,System.Object)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="entity"></param>
+            <param name="logObject">The object to log.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.EventLogEntry.#ctor(Wayne.Lib.IIdentifiableEntity,System.Object,System.Object)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="entity"></param>
+            <param name="logObject">The object to log.</param>
+            <param name="category"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.EventLogEntry.#ctor(System.Xml.XmlElement)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="logEntryNode">XML node.</param>
+        </member>
+        <member name="P:Wayne.Lib.Log.EventLogEntry.LogLevel">
+            <summary>
+            Log level of this log entry.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.EventLogEntry.Deserialize(System.Xml.XmlElement)">
+            <summary>
+            Deserializing from an XML-element.
+            </summary>
+            <param name="xmlElement"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.Log.FileSystemStorage">
+            <summary>
+            The FileSystemStorage event storage class stores the events in the file system which
+            enables them to survive a system restart.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.Log.ISubscriptionStorage">
+            <summary>
+            The ISubscriptionStorage describes an event entry storage used by event log subscribers.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.ISubscriptionStorage.Add(System.String,Wayne.Lib.Log.EventLogEntry)">
+            <summary>
+            Adds an EventLogEntry to the storage.
+            </summary>
+            <param name="eventSubscriberId"></param>
+            <param name="eventLogEntry"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.ISubscriptionStorage.Remove(System.String,Wayne.Lib.Log.EventLogEntry)">
+            <summary>
+            Removes an EventLogEntry from the storage.
+            </summary>
+            <param name="eventSubscriberId"></param>
+            <param name="eventLogEntry"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.ISubscriptionStorage.GetStoredEvents(System.String)">
+            <summary>
+            Returns an array of EventLogEntries containing the entries for the given eventSubscriberId
+            that is in the storage.
+            </summary>
+            <param name="eventSubscriberId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.Log.NoStorage">
+            <summary>
+            The NoStorage event storage class does not store any event entries -- only the
+            currently registered subscribers will get the events.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.Log.LogConfigBuilder">
+            <summary>
+            Log config builder, constructs Wayne.Lib.Log configuration files in code.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigBuilder.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigBuilder.#ctor(System.Xml.XmlNode,System.String)">
+            <summary>
+            Deserialization constructor
+            </summary>
+            <param name="logConfigNode"></param>
+            <param name="ns"></param>
+        </member>
+        <member name="F:Wayne.Lib.Log.LogConfigBuilder.Filters">
+            <summary>
+            Filters
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.LogConfigBuilder.Outputs">
+            <summary>
+            Outputs
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.LogConfigBuilder.Name">
+            <summary>
+            Name of the log builder
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigBuilder.ToString">
+            <summary>
+            ToString
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigBuilder.GetLogConfigFileLines(Wayne.Lib.Log.LogConfigBuilder[])">
+            <summary>
+            Constructs an XML logconfig file from a range of log config builders.
+            </summary>
+            <param name="logConfigBuilders"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.Log.LogConfigEventLogStorageType">
+            <summary>
+            The different types of event log storages that can be chosen in the configuration of the event logging.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.LogConfigEventLogStorageType.NoStorage">
+            <summary>
+            Don't store the event - only the currently registered subscribers will get it.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.LogConfigEventLogStorageType.Volatile">
+            <summary>
+            Store the event in memory; it will vanish upon restart of the application.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.LogConfigEventLogStorageType.RestartSafe">
+            <summary>
+            Store the event "permanently"; the event will survive an application restart.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.Log.VolatileStorage">
+            <summary>
+            The VolatileStorage event storage class keeps events only in memory which means that
+            the unhandled events will vanish when the application is restarted.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.Log.EventLogSubscriptionLogWriter">
+            <summary>
+            A log writer that writes to the EventLog Publisher/subscriber interface.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.EventLogSubscriptionLogWriter.SubscriberId">
+            <summary>
+            The id of the subscriber that should pick up the events from this log writer.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.EventLogSubscriptionLogWriter.StorageType">
+            <summary>
+            Type of storage that this log writer manages.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.EventLogSubscriptionLogWriter.PerformWrite(Wayne.Lib.Log.LogEntry)">
+            <summary>
+            Publishes the specified entry to the event publisher. If it is not 
+            an event log entry, it is just ignored.
+            </summary>
+            <param name="logEntry"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.EventLogSubscriptionLogWriter.InternalDispose(System.Boolean,System.String)">
+            <summary>
+            Disposes the internal resources.
+            </summary>
+            <param name="disposing"></param>
+            <param name="reason"></param>
+        </member>
+        <member name="T:Wayne.Lib.Log.ExceptionLogEntry">
+            <summary>
+            Log entry for exception errors.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.ExceptionLogEntry.#ctor(Wayne.Lib.IIdentifiableEntity,Wayne.Lib.Log.ErrorLogSeverity,System.Object,System.Exception)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="entity"></param>
+            <param name="severity"></param>
+            <param name="logObject">The object to log.</param>
+            <param name="exception"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.ExceptionLogEntry.#ctor(Wayne.Lib.IIdentifiableEntity,Wayne.Lib.Log.ErrorLogSeverity,System.Object,System.Object,System.Exception)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="entity"></param>
+            <param name="severity"></param>
+            <param name="logObject">The object to log.</param>
+            <param name="category"></param>
+            <param name="exception"></param>
+        </member>
+        <member name="P:Wayne.Lib.Log.ExceptionLogEntry.Exception">
+            <summary>
+            Exception information.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.ExceptionLogEntry.AppendToStringBuilder(Wayne.Lib.Log.LogWriter,System.Text.StringBuilder,System.Int32,System.Boolean@,System.String@)">
+            <summary>
+            Appends the object to log to a StringBuilder-output.
+            </summary>
+            <param name="logWriter">The logwriter to be used for logging.</param>
+            <param name="output">The StringBuilder.</param>
+            <param name="indentLength">The indent to be used if many lines.</param>
+            <param name="isFirstLine">Is this the first line to log?</param>
+            <param name="indent">A string holding a generated indent-text (=a number of spaces). Use AppendIndent() to append the indent.</param>
+        </member>
+        <member name="T:Wayne.Lib.Log.ExternalLogWriterWrapper">
+            <summary>
+            A log writer that writes the log to an external log writer class.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.ExternalLogWriterWrapper.InternalDispose(System.Boolean,System.String)">
+            <summary>
+            Internal dispose method.
+            </summary>
+            <param name="disposing"></param>
+            <param name="reason"></param>
+        </member>
+        <member name="T:Wayne.Lib.Log.ExternalLogWriter">
+            <summary>
+            Interface to an external log writer
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.ExternalLogWriter.ExternalLogType">
+            <summary>
+            Identifies the type of external log writer used in the configuration.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.ExternalLogWriter.ExternalLogName">
+            <summary>
+            Identifies the external log writer used in the configuration.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.ExternalLogWriter.Active">
+            <summary>
+            Tells whether the log writer is currently active.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.ExternalLogWriter.GetExternalLoggerWritingParameters">
+            <summary>
+            Get the LogTextWritingParameters.
+            </summary>
+            <returns>Returns the LogTextWritingParameters.</returns>
+        </member>
+        <member name="M:Wayne.Lib.Log.ExternalLogWriter.InitParameters(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Called once just before the first log entry.
+            </summary>
+            <param name="dictionary">The Param-nodes from the XML-config file</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.ExternalLogWriter.Log(Wayne.Lib.Log.LogEntry,System.String)">
+            <summary>
+            Called when a log entry should be handled by this external log writer.
+            </summary>
+            <param name="logEntry">The LogEntry to log.</param>
+            <param name="formattedText">The LogEntry as a formatted string.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.GlobalLogEntryCounter.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.GlobalLogEntryCounter.Finalize">
+            <summary>
+            Finalizer.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.GlobalLogEntryCounter.Dispose">
+            <summary>
+            Releases all resources used by this object.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.Log.IDebugLogger">
+            <summary>
+            Debug logger
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.IDebugLogger.IsActive">
+            <summary>
+            Tells whether the default category is active in the Normal level.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.IDebugLogger.IsActive(System.Object)">
+            <summary>
+            Tells whether the given category is active in the Normal level.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.IDebugLogger.IsActive(Wayne.Lib.Log.DebugLogLevel)">
+            <summary>
+            Tells whether the default category is active in the given level.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.IDebugLogger.IsActive(System.Object,Wayne.Lib.Log.DebugLogLevel)">
+            <summary>
+            Tells whether the given category is active in the given level.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.IDebugLogger.Add(System.Object)">
+            <summary>
+            Adds a new object to the debug log entry.
+            </summary>
+            <param name="obj">The log object that are added.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.IDebugLogger.Add(System.Object,Wayne.Lib.Log.DebugLogLevel)">
+            <summary>
+            Adds a new object to the debug log entry.
+            </summary>
+            <param name="obj">The log object that are added.</param>
+            <param name="level">TDB</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.IDebugLogger.Add(System.Object,System.Object)">
+            <summary>
+            Adds a new object to the debug log entry.
+            </summary>
+            <param name="obj">The log object that are added.</param>
+            <param name="category">A specific category that this log is about.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.IDebugLogger.Add(System.Object,System.Object,Wayne.Lib.Log.DebugLogLevel)">
+            <summary>
+            Adds a new object to the debug log entry.
+            </summary>
+            <param name="obj">The log object that are added.</param>
+            <param name="category">A specific category that this log is about.</param>
+            <param name="level">TDB</param>
+        </member>
+        <member name="T:Wayne.Lib.Log.IXmlElementMask">
+            <summary>
+            Used within the XmlLogObject class to mask a certain XML element.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.IXmlElementMask.NodeName">
+            <summary>
+            The name of the node to mask.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.IXmlElementMask.MaskKind">
+            <summary>
+            The way to mask.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.Log.LogConfigEventLogSubscriptionOutput">
+            <summary>
+            Event log subscription output
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.LogConfigEventLogSubscriptionOutput.SubscriberId">
+            <summary>
+            Subscriber ID
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.LogConfigEventLogSubscriptionOutput.StorageType">
+            <summary>
+            Storage type
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigEventLogSubscriptionOutput.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigEventLogSubscriptionOutput.#ctor(System.String,Wayne.Lib.Log.LogConfigEventLogStorageType)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="subscriberId"></param>
+            <param name="storageType"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigEventLogSubscriptionOutput.#ctor(System.Xml.XmlNode,System.String)">
+            <summary>
+            Deserialization constructor
+            </summary>
+            <param name="parametersNode"></param>
+            <param name="ns"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigEventLogSubscriptionOutput.WriteXml(System.Xml.XmlWriter)">
+            <summary>
+            Serialization
+            </summary>
+            <param name="xmlWriter"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigEventLogSubscriptionOutput.Clone">
+            <summary>
+            Creates a clone object.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.Log.LogConfigExternalLogWriterOutput">
+            <summary>
+            External logwriter output definition
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.LogConfigExternalLogWriterOutput.Params">
+            <summary>
+            Parameters as key/value pairs.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.LogConfigExternalLogWriterOutput.ExternalLogType">
+            <summary>
+            Log type of the external logger
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.LogConfigExternalLogWriterOutput.ExternalLogName">
+            <summary>
+            Name of the external logger.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.LogConfigExternalLogWriterOutput.DateTimeFormat">
+            <summary>
+            DateTime format to use
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.LogConfigExternalLogWriterOutput.EntityLogKind">
+            <summary>
+            How to log the entity 
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.LogConfigExternalLogWriterOutput.SuppressCategory">
+            <summary>
+            Should the category be suppressed.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigExternalLogWriterOutput.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigExternalLogWriterOutput.#ctor(System.String,System.String,System.String,Wayne.Lib.Log.EntityLogKind,System.Boolean)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="externalLogType"></param>
+            <param name="externalLogName"></param>
+            <param name="dateTimeFormat"></param>
+            <param name="entityLogKind"></param>
+            <param name="suppressCategory"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigExternalLogWriterOutput.#ctor(System.Xml.XmlNode,System.String)">
+            <summary>
+            Deserialization constructor
+            </summary>
+            <param name="parametersNode"></param>
+            <param name="ns"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigExternalLogWriterOutput.WriteXml(System.Xml.XmlWriter)">
+            <summary>
+            Serialization
+            </summary>
+            <param name="xmlWriter"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigExternalLogWriterOutput.Clone">
+            <summary>
+            Clones the object
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.Log.LogConfigFilter">
+            <summary>
+            Filter for a log configuration.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.LogConfigFilter.SubFilters">
+            <summary>
+            List of subfilters 
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.LogConfigFilter.EntityTypeRegexFilter">
+            <summary>
+            Entity type regex
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.LogConfigFilter.EntitySubTypeRegexFilter">
+            <summary>
+            Entity subtype regex
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.LogConfigFilter.IdRegexFilter">
+            <summary>
+            Regex for the ID
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.LogConfigFilter.FilterLevel">
+            <summary>
+            Filter level
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigFilter.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigFilter.#ctor(System.String,System.String,System.String,Wayne.Lib.Log.DebugLogLevel)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="entityTypeRegexFilter"></param>
+            <param name="entitySubTypeRegexFilter"></param>
+            <param name="idRegexFilter"></param>
+            <param name="filterLevel"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigFilter.#ctor(System.Xml.XmlNode)">
+            <summary>
+            Deserialization constructor
+            </summary>
+            <param name="logFilterNode"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigFilter.ToString">
+            <summary>
+            ToString
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigFilter.WriteXml(System.Xml.XmlWriter)">
+            <summary>
+            Serialization
+            </summary>
+            <param name="xmlWriter"></param>
+        </member>
+        <member name="T:Wayne.Lib.Log.LogConfigOutput">
+            <summary>
+            Output
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigOutput.Clone">
+            <summary>
+            Clones the object
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.Log.LogConfigSubFilter">
+            <summary>
+            Subfilter for ancestor and/ or category of the logging
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.LogConfigSubFilter.AncestorEntityTypeRegexFilter">
+            <summary>
+            Entitytype for ancestor
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.LogConfigSubFilter.AncestorEntitySubTypeRegexFilter">
+            <summary>
+            Entitysubtype for the ancestor
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.LogConfigSubFilter.AncestorIdRegexFilter">
+            <summary>
+            Id of the ancestor
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.LogConfigSubFilter.CategoryNameRegexFilter">
+            <summary>
+            Category name of the log entry
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.LogConfigSubFilter.FilterLevel">
+            <summary>
+            Filter level.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigSubFilter.#ctor(System.String,System.String,System.String,System.String,Wayne.Lib.Log.DebugLogLevel)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="ancestorEntityTypeRegexFilter"></param>
+            <param name="ancestorEntitySubTypeRegexFilter"></param>
+            <param name="ancestorIdRegexFilter"></param>
+            <param name="categoryNameRegexFilter"></param>
+            <param name="filterLevel"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigSubFilter.#ctor(System.Xml.XmlNode)">
+            <summary>
+            Deserialization constructor
+            </summary>
+            <param name="logFilterAncestorNode"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigSubFilter.ToString">
+            <summary>
+            ToString
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigSubFilter.WriteXml(System.Xml.XmlWriter)">
+            <summary>
+            Serialization
+            </summary>
+            <param name="xmlWriter"></param>
+        </member>
+        <member name="T:Wayne.Lib.Log.LogConfigTextFileOutput">
+            <summary>
+            Log config textfile output.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.LogConfigTextFileOutput.FilePath">
+            <summary>
+            Output file path
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.LogConfigTextFileOutput.MaxSize">
+            <summary>
+            Max size of the file
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.LogConfigTextFileOutput.DateTimeFormat">
+            <summary>
+            Datetime format within the file
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.LogConfigTextFileOutput.EntityLogKind">
+            <summary>
+            Entity log kind
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.LogConfigTextFileOutput.SuppressCategory">
+            <summary>
+            Should the category be suppressed within the log file
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.LogConfigTextFileOutput.KeepFileOpened">
+            <summary>
+            Keep the file opened after writing the log entry
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigTextFileOutput.#ctor(System.String,Wayne.Lib.Log.LogConfigTextFileMaxSize,System.String,Wayne.Lib.Log.EntityLogKind,System.Boolean)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="filePath">The path (incl xml nodes for dynamic data).</param>
+            <param name="maxSize">The size limitations wanted. Null = no limits.</param>
+            <param name="dateTimeFormat">The datetime format for each line. Null = default.</param>
+            <param name="entityLogKind">The kind of entity line prefix to use.</param>
+            <param name="suppressCategory">Should the log category be suppressed from the log?</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigTextFileOutput.#ctor(System.String,Wayne.Lib.Log.LogConfigTextFileMaxSize,System.String,Wayne.Lib.Log.EntityLogKind,System.Boolean,System.Boolean)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="filePath">The path (incl xml nodes for dynamic data).</param>
+            <param name="maxSize">The size limitations wanted. Null = no limits.</param>
+            <param name="dateTimeFormat">The datetime format for each line. Null = default.</param>
+            <param name="entityLogKind">The kind of entity line prefix to use.</param>
+            <param name="suppressCategory">Should the log category be suppressed from the log?</param>
+            <param name="keepFileOpened">Should the file be kept open or closed after each write.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigTextFileOutput.#ctor(System.Xml.XmlNode,System.String)">
+            <summary>
+            Deserialization constructor
+            </summary>
+            <param name="parametersNode"></param>
+            <param name="ns"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigTextFileOutput.WriteXml(System.Xml.XmlWriter)">
+            <summary>
+            Serialization
+            </summary>
+            <param name="xmlWriter"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigTextFileOutput.Clone">
+            <summary>
+            Creates a clone of the object.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.Log.LogExceptionType">
+            <summary>
+            The different types of log exceptions.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.LogExceptionType.InvalidLogConfigFile">
+            <summary>
+            The log config file has a bad format.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.LogExceptionType.CorruptConfigSchemaFile">
+            <summary>
+            The internal config schema file is corrupt.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.LogExceptionType.LoggerClosed">
+            <summary>
+            This operation is not allowed since the Logger is closed.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.LogExceptionType.NoConfigFile">
+            <summary>
+            There is no configuration file specified.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.LogExceptionType.MissingConfigFile">
+            <summary>
+            The specified configuration file is missing.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.LogExceptionType.GeneralThreadException">
+            <summary>
+            When an exception has occurred within the thread's execution method,
+            the Logger will fire an OnThreadException holding this exception.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.Log.DebugLogger">
+            <summary>
+            Class used to make debug logs.
+            </summary>
+            <example>
+            This is an example of how to write a debug log entry.
+            <code>
+            using (DebugLogger dLog = new DebugLogger(this))
+            {
+                if (dLog.IsActive(DebugLogLevel.Detailed))
+                {
+                    dLog.Add("This is line 1.", DebugLogLevel.Detailed);
+                    dLog.Add("This is line 2.", "MyCategory", DebugLogLevel.Detailed);
+                }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:Wayne.Lib.Log.DebugLogger.#ctor(Wayne.Lib.IIdentifiableEntity)">
+            <summary>
+            Construction of non-persistent DebugLogger.
+            </summary>
+            <param name="entity"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.DebugLogger.#ctor(Wayne.Lib.IIdentifiableEntity,System.Boolean)">
+            <summary>
+            Construction
+            </summary>
+            <param name="entity"></param>
+            <param name="persistent"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.DebugLogger.Finalize">
+            <summary>
+            Finalizer.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.DebugLogger.Dispose">
+            <summary>
+            Dispose.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.DebugLogger.Dispose(System.Boolean)">
+            <summary>
+            Dispose.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.DebugLogger.Entity">
+            <summary>
+            The identifiable entity that has created this debug log.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.DebugLogger.Persistent">
+            <summary>
+            Tells whether the debug log is persistent or not.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.DebugLogger.IsActive">
+            <summary>
+            Tells whether the default category is active in the Normal level.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.DebugLogger.IsActive(System.Object)">
+            <summary>
+            Tells whether the given category is active in the Normal level.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.DebugLogger.IsActive(Wayne.Lib.Log.DebugLogLevel)">
+            <summary>
+            Tells whether the default category is active in the given level.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.DebugLogger.IsActive(System.Object,Wayne.Lib.Log.DebugLogLevel)">
+            <summary>
+            Tells whether the given category is active in the given level.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.DebugLogger.GetDebugLevel">
+            <summary>
+            Get the current debug level for the default category.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.DebugLogger.GetDebugLevel(System.Object)">
+            <summary>
+            Get the current debug level for the given category.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.DebugLogger.Add(System.Object)">
+            <summary>
+            Adds a new object to the debug log entry.
+            </summary>
+            <param name="obj">The log object that are added.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.DebugLogger.AddIfActive(System.String,System.Object[])">
+            <summary>
+            Adds the object if debuglogger is active with the default category and detaillevel.
+            </summary>
+            <param name="args"></param>
+            <param name="formatString"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.DebugLogger.AddIfActiveDetailed(System.String,System.Object[])">
+            <summary>
+            Adds the object if debuglogger is active with the default category and detaillevel Detailed .
+            </summary>
+            <param name="formatString"></param>
+            <param name="args"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.DebugLogger.Add(System.Object,Wayne.Lib.Log.DebugLogLevel)">
+            <summary>
+            Adds a new object to the debug log entry.
+            </summary>
+            <param name="obj">The log object that are added.</param>
+            <param name="level">TDB</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.DebugLogger.Add(System.Object,System.Object)">
+            <summary>
+            Adds a new object to the debug log entry.
+            </summary>
+            <param name="obj">The log object that are added.</param>
+            <param name="category">A specific category that this log is about.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.DebugLogger.Add(System.Object,System.Object,Wayne.Lib.Log.DebugLogLevel)">
+            <summary>
+            Adds a new object to the debug log entry.
+            </summary>
+            <param name="obj">The log object that are added.</param>
+            <param name="category">A specific category that this log is about.</param>
+            <param name="level">TDB</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.DebugLogger.LogPersistentInfo">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.DebugLogger.Invalidate">
+            <summary>
+            Invalidates the internal flags for configuration reading.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.DebugLogger.MaxDebugLogLevel(Wayne.Lib.Log.DebugLogLevel,Wayne.Lib.Log.DebugLogLevel)">
+            <summary>
+            Static method to get the highest of two DebugLogLevel's.
+            </summary>
+            <param name="level1"></param>
+            <param name="level2"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Wayne.Lib.Log.DebugLogger.Id">
+            <summary>
+            The Id of the Entity.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.DebugLogger.EntityType">
+            <summary>
+            The EntityType of the Entity.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.DebugLogger.EntitySubType">
+            <summary>
+            The EntitySubType of the Entity.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.DebugLogger.ParentEntity">
+            <summary>
+            The ParentEntity of the Entity.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.Log.IEventSubscriber">
+            <summary>
+            Interface that event subscribers should implement.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.IEventSubscriber.SubscriberId">
+            <summary>
+            Identifies the subscriber. This name is used in the configuration to identify the receiver of the events.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.IEventSubscriber.HandleEvent(Wayne.Lib.Log.EventLogEntry)">
+            <summary>
+            Called when an event should be handled by this subscriber.
+            </summary>
+            <param name="eventLogEntry"></param>
+        </member>
+        <member name="T:Wayne.Lib.Log.LogConfig">
+            <summary>
+            The Log config handles the application-wide setup for the logging. It is read from a
+            XML file that should be in accordance with the LogConfig.xsd schema.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfig.#ctor">
+            <summary>
+            Initializes a new instance of the LogConfig class.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfig.Finalize">
+            <summary>
+            Finalizer.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfig.Dispose">
+            <summary>
+            Disposes the LogConfig's resources.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfig.Dispose(System.Boolean)">
+            <summary>
+            Internal dispose method.
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfig.Refresh(System.Collections.Generic.List{System.String[]},Wayne.Lib.Log.LogConfigOutput[],Wayne.Lib.Log.LogConfigOutput[])">
+            <summary>
+            Refreshes the log configuration from the configuration xml file.
+            </summary>
+            <param name="configFiles">A list of config files (the file is in the form of a string[]).</param>
+            <param name="leftoverLogLinesConfigOutputList"></param>
+            <param name="leftoverLogEntitiesConfigOutputList"></param>
+            <exception cref="T:System.Exception">If no log configuration file is specified.</exception>
+            <exception cref="T:System.Exception">If the specified log configuration file is missing.</exception>
+            <exception cref="T:System.Exception">If the log configuration file is invalid.</exception>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfig.CloseAllLogWritersLocked(System.String)">
+            <summary>
+            Closes all LogWriters. NOTE! Must be called under the lock of configReadingLock!
+            </summary>
+            <param name="reason"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfig.GetLogWriters(Wayne.Lib.Log.EntityCategory)">
+            <summary>
+            Returns a list of log writers to be used with the specified identifiable entity.
+            </summary>
+            <param name="entityCategory"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfig.GetLogWriters">
+            <summary>
+            Get all active log writers.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfig.GetLogWriter(System.String,Wayne.Lib.Log.LogConfigOutput)">
+            <summary>
+            Get (or creates) the appropriate logwriter depending on the output type and the output parameters.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfig.FilterNodeMatches(Wayne.Lib.IIdentifiableEntity,System.Xml.XmlNode)">
+            <summary>
+            Checks whether a given filterNode matches the entity.
+            </summary>
+            <param name="entity"></param>
+            <param name="filterNode"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.Log.LogEntry">
+            <summary>
+            An generic entry to be logged containing details regarding what to log,
+            the datetime and who was performing the logging etc.
+            
+            This class is inherited by DebugLogEntry, EventLogEntry and ErrorLogEntry
+            which adds on more specific properties.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogEntry.#ctor(Wayne.Lib.IIdentifiableEntity,System.Object)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="entity">The entity that performed the logging.</param>
+            <param name="logObject">The object to log.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogEntry.#ctor(Wayne.Lib.IIdentifiableEntity,System.Object,System.Object)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="entity">The entity that performed the logging.</param>
+            <param name="logObject">The object to log.</param>
+            <param name="category">The category of the log object.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogEntry.#ctor(System.Xml.XmlElement)">
+            <summary>
+            Deserialization constructor.
+            </summary>
+            <param name="logEntryNode"></param>
+        </member>
+        <member name="P:Wayne.Lib.Log.LogEntry.EntityCategory">
+            <summary>
+            The EntityCategory that performed the logging.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.LogEntry.LogObject">
+            <summary>
+            The object to log.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.LogEntry.DateTime">
+            <summary>
+            The date time of the logging.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogEntry.AppendToStringBuilder(Wayne.Lib.Log.LogWriter,System.Text.StringBuilder,System.Int32,System.Boolean@,System.String@)">
+            <summary>
+            Appends the object to log to a StringBuilder-output.
+            </summary>
+            <param name="logWriter">The logwriter to be used for logging.</param>
+            <param name="output">The StringBuilder.</param>
+            <param name="indentLength">The indent to be used if many lines.</param>
+            <param name="isFirstLine">Is this the first line to log?</param>
+            <param name="indent">A string holding a generated indent-text (=a number of spaces). Use AppendIndent() to append the indent.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogEntry.GetDateTimeString(System.String)">
+            <summary>
+            Returns the datetime as a string, using the given date time format.
+            </summary>
+            <param name="dateTimeFormat">The requested date time format.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogEntry.ToString(System.String,System.IFormatProvider)">
+            <summary>
+            Presents the class as a string.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogEntry.ToString(System.IFormatProvider)">
+            <summary>
+            Presents the class as a string using the specified culture-specific format information.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogEntry.ToString(System.String)">
+            <summary>
+            Presents the class as a string using a format string.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogEntry.ToString">
+            <summary>
+            Presents the class as a string using a format string and the specified culture-specific format information.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogEntry.WriteXml(System.Xml.XmlWriter,System.String)">
+            <summary>
+            Serializes this object into the specified xmlWriter.
+            </summary>
+            <param name="xmlWriter"></param>
+            <param name="prefix"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogEntry.WriteLogObjectData(System.Xml.XmlWriter)">
+            <summary>
+            
+            </summary>
+            <param name="xmlWriter"></param>
+        </member>
+        <member name="T:Wayne.Lib.Log.LogException">
+            <summary>
+            General log exception.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogException.#ctor(Wayne.Lib.Log.LogExceptionType)">
+            <summary>
+            Construction.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogException.#ctor(Wayne.Lib.Log.LogExceptionType,System.String)">
+            <summary>
+            Construction.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogException.#ctor(Wayne.Lib.Log.LogExceptionType,System.String,System.Exception)">
+            <summary>
+            Construction.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.LogException.LogExceptionType">
+            <summary>
+            The type of exception.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.LogException.Message">
+            <summary>
+            The Message
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogException.ToString">
+            <summary>
+            ToString.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.Log.LogConfigTextFileMaxSize">
+            <summary>
+            Definition of a max size of a log file.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.LogConfigTextFileMaxSize.MaxSizePerFile">
+            <summary>
+            Max bytes per file
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.LogConfigTextFileMaxSize.MaxFileCircleCount">
+            <summary>
+            Max number of files that are opened before it starts over with the first one.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigTextFileMaxSize.#ctor(System.Nullable{System.Int64})">
+            <summary>
+            Constructor
+            </summary>
+            <param name="maxSizePerFileMb"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigTextFileMaxSize.#ctor(System.Nullable{System.Int64},System.Int32)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="maxSizePerFileMb"></param>
+            <param name="maxFileCircleCount"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigTextFileMaxSize.#ctor(System.Xml.XmlNode)">
+            <summary>
+            Deserialization constructor
+            </summary>
+            <param name="maxSizeElement"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigTextFileMaxSize.WriteXml(System.Xml.XmlWriter)">
+            <summary>
+            Serialization.
+            </summary>
+            <param name="xmlWriter"></param>
+        </member>
+        <member name="T:Wayne.Lib.Log.Logger">
+            <summary>
+            Logger is a static class used to create log objects.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.Logger.DefaultDateTimeFormat">
+            <summary>
+            Default date and time format to use in log files.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.Logger.IsClosed">
+            <summary>
+            Tells whether someone has called the Close() method. 
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.Logger.DebugConfig">
+            <summary>
+            Internal access to the DebugConfig.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.Logger.GlobalLogEntryCounter">
+            <summary>
+            Internal access to the GlobalLogEntryCounter.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.Logger.FireOnThreadException(Wayne.Lib.Log.LogException)">
+            <summary>
+            This method is used to fire an event instead of throwing an exception if something
+            "crashes" in a thread (in order to keep the thread alive but still "report" exceptions).
+            </summary>
+            <param name="exception"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.Logger.PublishEventLog(System.String,Wayne.Lib.Log.EventLogEntry,Wayne.Lib.Log.LogConfigEventLogStorageType)">
+            <summary>
+            Internal method that is used by the EventLogSubscriptionLogWriter to publish an
+            event entry to a specific subscriber.
+            </summary>
+            <param name="eventSubscriberId"></param>
+            <param name="eventLogEntry"></param>
+            <param name="storageType"></param>
+        </member>
+        <member name="E:Wayne.Lib.Log.Logger.OnThreadException">
+            <summary>
+            An event that is fired when the logging thread is catching an exception.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.Logger.DebugConfigFileName">
+            <summary>
+            The current debug log configuration file.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.Logger.EventConfigFileName">
+            <summary>
+            The current event log configuration file.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.Logger.DebugLoggingConfigured">
+            <summary>
+            Is any debug logging configured?
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.Logger.EventLoggingConfigured">
+            <summary>
+            Is any event logging configured?
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.Logger.Synchronized">
+            <summary>
+            Should the logger be synchronized or not?
+            Default is false (the log writing is performed in another thread).
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.Logger.ClearConfigFiles">
+            <summary>
+            Clear all loaded log configuration .
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.Logger.SetConfigFile(System.String,System.String)">
+            <summary>
+            Reloads the configuration from the specified configuration file.
+            </summary>
+            <param name="debugConfigFileName">Log configuration for the debug logging.</param>
+            <param name="eventConfigFileName">Log configuration for the event logging.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.Logger.SetConfigFile(System.String)">
+            <summary>
+            Reloads the configuration from the specified configuration file for the debug logging. To activate the event logging
+            SetConfigFile(string,string) should be called.
+            </summary>
+            <param name="debugConfigFileName">Log configuration for the debug logging.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.Logger.AddDebugConfigFile(System.String)">
+            <summary>
+            Reloads the configuration, adding the given debug log config file.
+            </summary>
+            <param name="debugConfigFileName">Log configuration for the debug logging.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.Logger.AddDebugConfigFile(Wayne.Lib.Log.LogConfigBuilder[])">
+            <summary>
+            Reloads the configuration, adding the given debug log config file.
+            </summary>
+            <param name="logConfigBuilders">Log configurations for the debug logging.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.Logger.AddDebugConfigFile(System.IO.Stream)">
+            <summary>
+            Reloads the configuration, adding the given debug log config file.
+            </summary>
+            <param name="debugConfigFileStream">Log configuration for the debug logging.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.Logger.AddDebugConfigFile(System.IO.Stream,System.Text.Encoding)">
+            <summary>
+            Reloads the configuration, adding the given debug log config file.
+            </summary>
+            <param name="debugConfigFileStream">Log configuration for the debug logging.</param>
+            <param name="encoding">The encoding of the stream.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.Logger.AddEventConfigFile(System.String)">
+            <summary>
+            Reloads the configuration, adding the given event log config file.
+            </summary>
+            <param name="eventConfigFileName">Log configuration for the event logging.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.Logger.AddEventConfigFile(Wayne.Lib.Log.LogConfigBuilder[])">
+            <summary>
+            Reloads the configuration, adding the given event log config file.
+            </summary>
+            <param name="logConfigBuilders">Log configurations for the event logging.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.Logger.AddEventConfigFile(System.IO.Stream)">
+            <summary>
+            Reloads the configuration, adding the given event log config file.
+            </summary>
+            <param name="eventConfigFileStream">Log configuration for the event logging.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.Logger.AddEventConfigFile(System.IO.Stream,System.Text.Encoding)">
+            <summary>
+            Reloads the configuration, adding the given event log config file.
+            </summary>
+            <param name="eventConfigFileStream">Log configuration for the event logging.</param>
+            <param name="encoding">The encoding of the stream.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.Logger.AddLeftoverLinesOutput(Wayne.Lib.Log.LogConfigOutput)">
+            <summary>
+            Reloads the configuration, adding the given leftover log line output.
+            </summary>
+            <param name="output">An output to receive leftover log lines.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.Logger.AddLeftoverEntitiesOutput(Wayne.Lib.Log.LogConfigOutput)">
+            <summary>
+            Reloads the configuration, adding the given leftover log entity output.
+            </summary>
+            <param name="output">An output to receive leftover log entities.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.Logger.RefreshConfig">
+            <summary>
+            Re-loads the configuration for the logging.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.Logger.Reset">
+            <summary>
+            Resets the logger completely.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.Logger.Close">
+            <summary>
+            Closes the logger. This should be done as the last things before the application terminates.        
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.Logger.AddEntry(Wayne.Lib.Log.LogEntry)">
+            <summary>
+            Logs the given LogEntry.
+            </summary>
+            <param name="logEntry">The LogEntry to log.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.Logger.AddExceptionLogEntry(Wayne.Lib.Log.ExceptionLogEntry)">
+            <summary>
+            Logs the given ExceptionLogEntry.
+            </summary>
+            <param name="logEntry">The LogEntry to log.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.Logger.AddErrorLogEntry(Wayne.Lib.Log.ErrorLogEntry)">
+            <summary>
+            Logs the given ErrorLogEntry.
+            </summary>
+            <param name="logEntry">The LogEntry to log.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.Logger.AddEventLogEntry(Wayne.Lib.Log.EventLogEntry)">
+            <summary>
+            Logs the given EventLogEntry.
+            </summary>
+            <param name="logEntry">The LogEntry to log.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.Logger.UnregisterEntity(Wayne.Lib.IIdentifiableEntity)">
+            <summary>
+            Removes the specified entity from the internal filter buffers.
+            </summary>
+            <param name="entity"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.Logger.EventLogHandled(Wayne.Lib.Log.IEventSubscriber,Wayne.Lib.Log.EventLogEntry)">
+            <summary>
+            Remove an event log from the storage. This method should be called from a registered IEventSubscriber when 
+            it has handled an event.
+            </summary>
+            <param name="eventSubscriber"></param>
+            <param name="eventLogEntry"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.Logger.RegisterEventSubscriber(Wayne.Lib.Log.IEventSubscriber)">
+            <summary>
+            Register an IEventSubscriber, so it can start receiving events. The event subscriber will be sent the pending events that 
+            has been stored since the subscriber was registered the last time.
+            </summary>
+            <param name="eventSubscriber"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.Logger.UnregisterEventSubscriber(Wayne.Lib.Log.IEventSubscriber)">
+            <summary>
+            Unregister a registered IEventSubscriber.
+            </summary>
+            <param name="eventSubscriber"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.Logger.RegisterExternalLogger(Wayne.Lib.Log.ExternalLogWriter)">
+            <summary>
+            Register an ExternalLogWriter.
+            </summary>
+            <param name="externalLogWriter">The external log writer to register.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.Logger.UnregisterExternalLogger(Wayne.Lib.Log.ExternalLogWriter)">
+            <summary>
+            Unregister an ExternalLogWriter.
+            </summary>
+            <param name="externalLogWriter">The external log writer to unregister.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.Logger.GetExternalLoggerWritingParameters(Wayne.Lib.Log.ExternalLogWriter)">
+            <summary>
+            Get the LogTextWritingParameters for the requested ExternalLogWriter.
+            </summary>
+            <param name="externalLogWriter">The ExternalLogWriter to get the parameters of.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.Logger.InjectDebugMarker(System.String)">
+            <summary>
+            Broadcasts a debug marker to be inserted into all active logfiles.
+            </summary>
+            <param name="debugMarker">The text to insert into all the log files.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.LoggerThread.#ctor(Wayne.Lib.Log.LogType,Wayne.Lib.Log.LogConfig)">
+            <summary>
+            Initializes a new instance of the Logger thread and starts it.
+            </summary>
+            <param name="logType"></param>
+            <param name="logConfig"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.LoggerThread.Finalize">
+            <summary>
+            Finalizer
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.LoggerThread.Dispose">
+            <summary>
+            Disposes the resources owned by the logger thread.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.LoggerThread.Dispose(System.Boolean)">
+            <summary>
+            Internal dispose method.
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.LoggerThread.Execute">
+            <summary>
+            The main function for the logger thread.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.LoggerThread.PerformLog(Wayne.Lib.Log.LogEntry)">
+            <summary>
+            Performs the actual logging.
+            </summary>
+            <param name="logEntry"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.LoggerThread.AddEntry(Wayne.Lib.Log.LogEntry)">
+            <summary>
+            Adds an entry that should be handled by the logger thread.
+            </summary>
+            <param name="logEntry"></param>
+        </member>
+        <member name="T:Wayne.Lib.Log.DebugLogMaskKind">
+            <summary>
+            Debug log masking kinds.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.DebugLogMaskKind.None">
+            <summary>
+            No masking of the data.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.DebugLogMaskKind.Remove">
+            <summary>
+            Remove the data completely (for instance an XML node).
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.DebugLogMaskKind.Empty">
+            <summary>
+            Clears the value of the data.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.DebugLogMaskKind.Mask">
+            <summary>
+            Mask all data.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.DebugLogMaskKind.MaskDigits">
+            <summary>
+            Mask all digits in the data.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.DebugLogMaskKind.MaskDigitsAppendHash">
+            <summary>
+            Mask all digits in the data but append the hashed value at the end for comparision.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.DebugLogMaskKind.MaskHex">
+            <summary>
+            Mask all hex digits in the data.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.DebugLogMaskKind.MaskHexAppendHash">
+            <summary>
+            Mask all hex digits in the data but append the hashed value at the end for comparision.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.DebugLogMaskKind.MaskPan">
+            <summary>
+            Perform a standard PAN masking of the data (keeping the first and last four characters, masking the middle part).
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.DebugLogMaskKind.MaskPanAppendHash">
+            <summary>
+            Same as MaskPan but appending a hashed value at the end for comparision.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.DebugLogMaskKind.MaskEmbeddedPan">
+            <summary>
+            Locates any PAN number(s) (nine consecutive digits or more) and masks them as the MaskPan-option.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.DebugLogMaskKind.MaskEmbeddedPanAppendHash">
+            <summary>
+            Same as MaskEmbeddedPan but appending a hashed value at the end for comparision.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.Log.LogTextWritingParameters">
+            <summary>
+            A set of parameters to control how to log an LogEntry as a string line.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.LogTextWritingParameters.DateTimeFormat">
+            <summary>
+            The format of the DateTime.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.LogTextWritingParameters.EntityLogKind">
+            <summary>
+            The details of the identifiable entity.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.LogTextWritingParameters.SuppressCategory">
+            <summary>
+            Should the category be suppressed or not.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.LogTextWritingParameters.KeepFileOpened">
+            <summary>
+            Should the file be kept open or closed after each write.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.Log.StringLogObject">
+            <summary>
+            The StringLogObject-class serves as a helpclass to convert one or more
+            objects into one or more strings to log. Also provides format abilities.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.StringLogObject.#ctor(System.Object[])">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="logObjects">A number of objects to log.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.StringLogObject.#ctor(System.String,System.IFormatProvider,System.Array)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="format">A format-string to format the items of an array.</param>
+            <param name="provider">An IFormatProvider to format the items of an array.</param>
+            <param name="array">An array of objects to log.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.StringLogObject.#ctor(System.String,System.IFormatProvider,System.Object[])">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="format">A format-string to format the items of an array.</param>
+            <param name="provider">An IFormatProvider to format the items of an array.</param>
+            <param name="logObjects">A number of objects to log.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.StringLogObject.Wayne#Lib#Log#ILogObject#AppendToStringBuilder(Wayne.Lib.Log.LogWriter,System.Text.StringBuilder,System.Int32,System.Boolean@,System.String@)">
+            <summary>
+            Appends this object's logObjects to a StringBuilder-output.
+            </summary>
+            <param name="output">The StringBuilder.</param>
+            <param name="logWriter">The LogWriter to write the logObject.</param>
+            <param name="indentLength">The indent to be used if many lines.</param>
+            <param name="isFirstLine">Is this the first line to log?</param>
+            <param name="indent">A string holding a generated indent-text (=a number of spaces). Use AppendIndent() to append the indent.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.StringLogObject.AppendObjectToStringBuilder(System.Object,System.Text.StringBuilder,Wayne.Lib.Log.LogWriter,System.Int32,System.Boolean@,System.String@)">
+            <summary>
+            Appends an object to a StringBuilder-output.
+            </summary>
+            <param name="logObject">The object to log.</param>
+            <param name="output">The StringBuilder.</param>
+            <param name="logWriter">The LogWriter to write the logObject.</param>
+            <param name="indentLength">The indent to be used if many lines.</param>
+            <param name="isFirstLine">Is this the first line to log?</param>
+            <param name="indent">A string holding a generated indent-text (=a number of spaces). Use AppendIndent() to append the indent.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.StringLogObject.AppendObjectToStringBuilder(System.Object,System.Text.StringBuilder,Wayne.Lib.Log.LogWriter,System.Int32,System.Boolean@,System.String@,System.String,System.IFormatProvider)">
+            <summary>
+            Appends an object to a StringBuilder-output.
+            </summary>
+            <param name="logObject">The object to log.</param>
+            <param name="output">The StringBuilder.</param>
+            <param name="logWriter">The LogWriter to write the logObject.</param>
+            <param name="indentLength">The indent to be used if many lines.</param>
+            <param name="isFirstLine">Is this the first line to log?</param>
+            <param name="indent">A string holding a generated indent-text (=a number of spaces). Use AppendIndent() to append the indent.</param>
+            <param name="format">A format-string to format the objects.</param>
+            <param name="provider">An IFormatProvider to format the objects.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.StringLogObject.AppendStringToStringBuilder(System.String,System.Text.StringBuilder,Wayne.Lib.Log.LogWriter,System.Int32,System.Boolean@,System.String@)">
+            <summary>
+            Appends a string to a StringBuilder-output.
+            </summary>
+            <param name="logString">The string to log.</param>
+            <param name="output">The StringBuilder.</param>
+            <param name="logWriter">The LogWriter to write the logObject.</param>
+            <param name="indentLength">The indent to be used if many lines.</param>
+            <param name="isFirstLine">Is this the first line to log?</param>
+            <param name="indent">A string holding a generated indent-text (=a number of spaces). Use AppendIndent() to append the indent.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.StringLogObject.AppendStringsToStringBuilder(System.String[],System.Text.StringBuilder,Wayne.Lib.Log.LogWriter,System.Int32,System.Boolean@,System.String@)">
+            <summary>
+            Appends a string-array to a StringBuilder-output.
+            </summary>
+            <param name="logLines">The array of strings.</param>
+            <param name="output">The StringBuilder.</param>
+            <param name="logWriter">The logwriter to be used for logging.</param>
+            <param name="indentLength">The indent to be used if many lines.</param>
+            <param name="isFirstLine">Is this the first line to log?</param>
+            <param name="indent">A string holding a generated indent-text (=a number of spaces). Use AppendIndent() to append the indent.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.StringLogObject.EnsureIndent(System.Int32,System.String@)">
+            <summary>
+            Appends the indent to a StringBuilder-output.
+            (After this call the 'indent' is defined.)
+            </summary>
+            <param name="indentLength">The indent to be used if many lines.</param>
+            <param name="indent">A string holding a generated indent-text (=a number of spaces). Use AppendIndent() to append the indent.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.StringLogObject.AppendIndent(System.Text.StringBuilder,System.Int32,System.String@)">
+            <summary>
+            Appends the indent to a StringBuilder-output.
+            (After this call the 'indent' is defined.)
+            </summary>
+            <param name="output">The StringBuilder.</param>
+            <param name="indentLength">The indent to be used if many lines.</param>
+            <param name="indent">A string holding a generated indent-text (=a number of spaces). Use AppendIndent() to append the indent.</param>
+        </member>
+        <member name="T:Wayne.Lib.Log.LogConfigTextFilePath">
+            <summary>
+            This class manages the path and file name to a log file,
+            composing the correct name depending on datetime, id-entity properties etc.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.Log.LogConfigTextFilePath.FileNameInvalidTimeResolution">
+            <summary>
+            The resolution of the time when the log file gets a new name.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigTextFilePath.#ctor(System.Xml.XmlElement)">
+            <summary>
+            Construct a LogPath object from an configuration XML element.
+            </summary>
+            <param name="logPathElement"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigTextFilePath.IsTimeForNewFileName">
+            <summary>
+            Checks whether it's time for a new file name.
+            If it is, the datetime for the next name change is calculated and all cached file names
+            are deleted.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigTextFilePath.Equals(System.Object)">
+            <summary>
+            Equality operator
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigTextFilePath.GetHashCode">
+            <summary>
+            Hash code generator. Not correctly implemented I think....
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigTextFilePath.ToString(Wayne.Lib.Log.EntityCategory)">
+            <summary>
+            Returns the log path using the specified identifiable entity.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigTextFilePath.ToString">
+            <summary>
+            ToString method.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogConfigTextFilePath.PerformListCleaning(System.DateTime)">
+            <summary>
+            Clean the internal lists.
+            </summary>
+            <param name="oldestAllowedTouch"></param>
+        </member>
+        <member name="T:Wayne.Lib.Log.LogType">
+            <summary>
+            The different types of log [threads].
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.LogType.Debug">
+            <summary>
+            The debug log.
+            </summary>
+        </member>
+        <member name="F:Wayne.Lib.Log.LogType.Event">
+            <summary>
+            The Event log.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.Log.LogWriter">
+            <summary>
+            The abstract base class for a LogWriter.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogWriter.#ctor(System.String)">
+            <summary>
+            Protected constructor.
+            </summary>
+            <param name="logName"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogWriter.Finalize">
+            <summary>
+            Finalizer.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogWriter.Dispose">
+            <summary>
+            Disposes the instance of LogWriter.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogWriter.Dispose(System.String)">
+            <summary>
+            Disposes the instance of LogWriter.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogWriter.InternalDispose(System.Boolean,System.String)">
+            <summary>
+            Internal dispose method that is called either by the public Dispose method or the finalizer.
+            </summary>
+            <param name="disposing"></param>
+            <param name="reason"></param>
+        </member>
+        <member name="P:Wayne.Lib.Log.LogWriter.LogName">
+            <summary>
+            Log name that identifies this log writer.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogWriter.Write(Wayne.Lib.Log.LogEntry)">
+            <summary>
+            Writes the LogEntry to the log.
+            </summary>
+            <param name="logEntry"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogWriter.CacheFilterData(Wayne.Lib.Log.EntityCategory,Wayne.Lib.Log.DebugLogLevel)">
+            <summary>
+            Cache the filter data for the given EntityCategory.
+            </summary>
+            <param name="entityCategory"></param>
+            <param name="logLevel"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.LogWriter.GetDebugLogLevel(Wayne.Lib.Log.EntityCategory)">
+            <summary>
+            Get the debug level for the given EntityCategory.
+            </summary>
+            <param name="entityCategory"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Wayne.Lib.Log.TextFileLogWriter">
+            <summary>
+            The textfile log writer is a log writer that has its output in a text log file.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.TextFileLogWriter.InternalDispose(System.Boolean,System.String)">
+            <summary>
+            Internal dispose method.
+            </summary>
+            <param name="disposing"></param>
+            <param name="reason"></param>
+        </member>
+        <member name="P:Wayne.Lib.Log.TextFileLogWriter.LogConfigTextFilePath">
+            <summary>
+            File path of the log.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.TextFileLogWriter.PerformWrite(Wayne.Lib.Log.LogEntry)">
+            <summary>
+            Checks so the file stream is open and writes the specified log entry to the log.
+            </summary>
+            <param name="logEntry"></param>
+        </member>
+        <member name="M:Wayne.Lib.Log.TextFileLogWriter.CheckStream(Wayne.Lib.Log.EntityCategory)">
+            <summary>
+            Checks if so the file stream is open and that it has the correct date suffix in the filename.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.TextFileLogWriter.CloseAllFiles(System.String)">
+            <summary>
+            Closes all the log files.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.TextFileLogWriter.OpenNextCircularFile(System.String)">
+            <summary>
+            Opens a circular file for the specified file name. ( Adds an appropriate sequence number before the last extension )
+            </summary>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.Log.TextFileLogWriter.GetNextCircularFileName(System.String)">
+            <summary>
+            Creates the file name for the next circular file.
+            </summary>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.Log.TextFileLogWriter.TryGetSequenceNumberFromFileName(System.String,System.Int32@)">
+            <summary>
+            Parses a file name and tries to find the circular file sequence number from that.
+            </summary>
+            <param name="lastWrittenFileInfo"></param>
+            <param name="sequenceNumber"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.Log.TextFileLogWriter.CompareFileInfos(System.String,System.String)">
+            <summary>
+            Compare the file infos, in reverse last write time order.
+            </summary>
+            <param name="f1"></param>
+            <param name="f2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Wayne.Lib.Log.TextFileLogWriter.WriteFileStart(System.String)">
+            <summary>
+            Writes a message to the log that the file has been appended
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.TextFileLogWriter.WriteFileEnd(System.String,System.String)">
+            <summary>
+            Writes a message to the log that the file has been closed.
+            </summary>        
+        </member>
+        <member name="M:Wayne.Lib.Log.TextFileLogWriter.WriteTextLine(System.String,System.String,System.Boolean)">
+            <summary>
+            Writes the specified text line to the log.
+            </summary>
+            <param name="fileName"></param>
+            <param name="text"></param>
+            <param name="checkFileSize">Dont check file size for internal loggings, like close file etc.</param>
+        </member>
+        <member name="T:Wayne.Lib.Log.XmlAttributeMask">
+            <summary>
+            Used within the XmlLogObject class to mask a certain XML element.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.XmlAttributeMask.#ctor(System.String,System.String,Wayne.Lib.Log.DebugLogMaskKind)">
+            <summary>
+            Construction.
+            </summary>
+            <param name="nodeName">The name of the node to mask.</param>
+            <param name="attributeName">The name of the attribute to mask.</param>
+            <param name="maskKind">The way to mask.</param>
+        </member>
+        <member name="P:Wayne.Lib.Log.XmlAttributeMask.AttributeName">
+            <summary>
+            The name of the attribute to mask.
+            </summary>
+        </member>
+        <member name="T:Wayne.Lib.Log.XmlLogObject">
+            <summary>
+            Class that is used when logging XML data and wants to utilize the Debuglog mask facilitities.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.XmlLogObject.#ctor(System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="xml">The XML document.</param>
+        </member>
+        <member name="M:Wayne.Lib.Log.XmlLogObject.#ctor(System.String,Wayne.Lib.Log.IXmlElementMask[])">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="xml">The XML document.</param>
+            <param name="elementMasks">Element masking.</param>
+        </member>
+        <member name="P:Wayne.Lib.Log.XmlLogObject.Xml">
+            <summary>
+            The XML document.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.XmlLogObject.Wayne#Lib#Log#ILogObject#AppendToStringBuilder(Wayne.Lib.Log.LogWriter,System.Text.StringBuilder,System.Int32,System.Boolean@,System.String@)">
+            <summary>
+            Appends this object's logObjects to a StringBuilder-output.
+            </summary>
+            <param name="output">The StringBuilder.</param>
+            <param name="logWriter">The LogWriter to write the logObject.</param>
+            <param name="indentLength">The indent to be used if many lines.</param>
+            <param name="isFirstLine">Is this the first line to log?</param>
+            <param name="indent">A string holding a generated indent-text (=a number of spaces). Use AppendIndent() to append the indent.</param>
+        </member>
+        <member name="T:Wayne.Lib.Log.XmlNodeMask">
+            <summary>
+            Used within the XmlLogObject class to mask a certain XML element.
+            </summary>
+        </member>
+        <member name="M:Wayne.Lib.Log.XmlNodeMask.#ctor(System.String,Wayne.Lib.Log.DebugLogMaskKind)">
+            <summary>
+            Construction.
+            </summary>
+            <param name="nodeName">The name of the node to mask.</param>
+            <param name="maskKind">The way to mask.</param>
+        </member>
+        <member name="P:Wayne.Lib.Log.XmlNodeMask.NodeName">
+            <summary>
+            The name of the node to mask.
+            </summary>
+        </member>
+        <member name="P:Wayne.Lib.Log.XmlNodeMask.MaskKind">
+            <summary>
+            The way to mask.
+            </summary>
+        </member>
+    </members>
+</doc>
